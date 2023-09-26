@@ -8,13 +8,14 @@ import Login from './pages/Login/Login'
 import About from './pages/About/About'
 import Legal from './pages/MentionsLegales/Legal'
 import SideBar from './components/SideBar/SideBar'
+import Home from './pages/Homepage/Home'
 
 function App() {
 	return (
 		<>
 			<SideBar />
 			<Routes>
-				<Route path="/" element={<Login />} />
+				<Route path="/" element={<Home />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/profile" element={<Profile />} />
 				<Route path="/groups" element={<Groups />} />
