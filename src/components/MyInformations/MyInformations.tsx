@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import InformationCard from './MI-InformationCard/InformationCard';
-import MyInformationData from '../Forms/MyInformationData/MyInformationData';
+import BtnCreateInfo from './MI-Boutons/BtnCreateInfo/BtnCreateInfo';
 
 const MyInformations = () => {
     const datas = [
@@ -36,9 +36,8 @@ const MyInformations = () => {
                     <InformationCard id={data.id} name={data.name} />
                 )
             })}
-            <p>Bouton create</p>
-        </div>
-        <MyInformationData/>
+            <BtnCreateInfo/>
+        </div>    
     </div>
   )
 }
