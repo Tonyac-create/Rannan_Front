@@ -1,10 +1,13 @@
-
+import React from 'react'
+import ContactsList from '../../components/ContactsList/ContactsList'
 
 const Contacts = () => {
   return (
-    <>
-      <h1>Mes Contacts</h1>
-    </>
+    <div>
+      <h2>Mes contacts</h2>
+      <ContactsList />
+    </div>
   )
 }
+
 export default Contacts

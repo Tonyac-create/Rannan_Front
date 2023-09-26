@@ -10,6 +10,7 @@ import Legal from './pages/MentionsLegales/Legal'
 import SideBar from './components/SideBar/SideBar'
 import Home from './pages/Homepage/Home'
 
+
 function App() {
 	return (
 		<>
