@@ -8,7 +8,6 @@ import Login from './pages/Login/Login'
 import About from './pages/About/About'
 import Legal from './pages/MentionsLegales/Legal'
 import SideBar from './components/SideBar/SideBar'
-import FooterDefault from './components/Footer/Footer'
 
 function App() {
 	return (
@@ -24,7 +23,6 @@ function App() {
         <Route path='/about' element={<About/>} />
         <Route path='/legal' element={<Legal/>} />
 			</Routes>
-			<FooterDefault/>
 		</>
 	)
 }
