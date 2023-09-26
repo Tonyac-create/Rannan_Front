@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ContactCard from './ContactCard/ContactCard';
+import BtnAddContact from './CL-BtnAddContact/BtnAddContact';
 
 const ContactsList = () => {
     const datas = [
@@ -36,6 +37,7 @@ const ContactsList = () => {
                     <ContactCard id={data.id} user2Id={data.user2Id} nickname={data.nickname} />
                 )
             })}
+            <BtnAddContact/>
             </div>
         </div>
     )
