@@ -4,10 +4,9 @@ import { useEffect, useState } from 'react';
 export default function MyGroupsList (props: any) {
 
 // Liste des contacts entre Users
-  const userId = 2
+  const { role, userId } = props
   const [ userName, setUserName ] = useState("")
-  const { role } = props
-  const [groups, setGroups] = useState([]);
+  const [ groups, setGroups ] = useState([]);
 
   const apiUserInGroups = [
     {
@@ -27,7 +26,7 @@ export default function MyGroupsList (props: any) {
     },
     {
       id: 4,
-      userId: 2,
+      userId: 3,
       groupId: 2
     },
     {
@@ -86,11 +85,17 @@ useEffect(() => {
     const getGroups = () => {
       try {
         if (role === "member") {
-          const memberGroups = apiUserInGroups.filter((el) => el.userId === userId)
-          let filterGroups
-          memberGroups.map((group) => {
-            filterGroups = apiGroups.filter((el) => el.id === group.groupId)
+          const filterGroups = []
+          apiUserInGroups.map((group) => {
+            if (group.userId === userId) {
+              apiGroups.map((el) => {
+                if (el.id === group.groupId) {
+                  filterGroups.push(el)
+                }
+              })
+            }
           })
+          filterGroups.filter((el) => el.creatorId != userId)
           return setGroups(filterGroups)
         }
         if (role === "admin") {
@@ -106,22 +111,24 @@ useEffect(() => {
 
 
   return (
-    <ListGroup>
-      <ListGroup.Item
-        active
-        href="#"
-      >
-        <p>
-          Group List how {userName} as {role}
-        </p>
-      </ListGroup.Item>
-      {groups.map((group) => {
+    <>
+      <ListGroup>
+        <ListGroup.Item
+          active
+          href="#"
+          >
+          <p>
+            Group List how {userName} as {role}
+          </p>
+        </ListGroup.Item>
+        {groups.map((group) => {
           return (
             <ListGroup.Item key={group.id}>
-              <p>{group.name}</p>
-            </ListGroup.Item>
-          )
-        })}
-    </ListGroup>
+                <p>{group.name}</p>
+              </ListGroup.Item>
+            )
+          })}
+      </ListGroup>
+    </>
   )
 }
