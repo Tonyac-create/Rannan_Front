@@ -86,6 +86,7 @@ const apiGroups = [
   }
 ]
 
+
 // Récupére le Nickname du User qui utilise l'app
 useEffect(() => {
   apiUsers.map((el) => {
@@ -113,7 +114,7 @@ useEffect(() => {
           filterGroups.filter((el) => el.creatorId != userId)
           return setGroups(filterGroups)
         }
-        if (role === "admin") {
+        if (role === "creator") {
           const filterGroups = apiGroups.filter((el) => el.creatorId === userId)
           return setGroups(filterGroups)
         }
@@ -137,7 +138,7 @@ useEffect(() => {
         </ListGroup.Item>
         {groups.map((group) => {
           return (
-            <ListGroup.Item key={group.id} href={`/group/detail/${role}/${group.id}`}>
+            <ListGroup.Item key={group.id} href={`user/${userId}/group/detail/${role}/${group.id}`}>
                 <p>{group.name}</p>
               </ListGroup.Item>
             )

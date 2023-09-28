@@ -1,14 +1,17 @@
 import { useParams } from "react-router-dom"
-
+import UserList from "../UserList/UserList"
 
 
 const GroupDetail = () => {
-  const { role, id } = useParams()
+  const { userId, role, groupId } = useParams()
   return (
     <>
-      <h2>GroupDetail</h2>
-      <p>Role : {role}</p>
-      <p>Id du groupe : {id}</p>
+      <div className="text-center p-4">
+        <p>Role : {role}</p>
+        <p>Id du groupe : {groupId}</p>
+        <p>Id du user : {userId}</p>
+        <UserList listFor="Members" userId={userId} groupId={groupId} />
+      </div>
     </>
   )
 }
