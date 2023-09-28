@@ -1,0 +1,115 @@
+{
+  "apiUserInGroups": [
+    {
+      "userId": 1,
+      "groupId": 1
+    },
+    {
+      "userId": 1,
+      "groupId": 2
+    },
+    {
+      "userId": 3,
+      "groupId": 1
+    },
+    {
+      "userId": 5,
+      "groupId": 2
+    },
+    {
+      "userId": 2,
+      "groupId": 3
+    },
+    {
+      "userId": 4,
+      "groupId": 3
+    },
+    {
+      "userId": 4,
+      "groupId": 1
+    },
+    {
+      "userId": 5,
+      "groupId": 1
+    }
+  ],
+
+  "apiUsers": [
+    {
+      "id": 1,
+      "nickname": "Thomas"
+    },
+    {
+      "id": 2,
+      "nickname": "Caye"
+    },
+    {
+      "id": 3,
+      "nickname": "Angélique"
+    },
+    {
+      "id": 4,
+      "nickname": "Amine"
+    },
+    {
+      "id": 5,
+      "nickname": "Florian"
+    }
+  ],
+
+  "apiGroups": [
+    {
+      "id": 1,
+      "name": "Group1",
+      "creatorId": 2
+    },
+    {
+      "id": 2,
+      "name": "Group2",
+      "creatorId": 3
+    },
+    {
+      "id": 3,
+      "name": "Group3",
+      "creatorId": 5
+    }
+  ],
+
+  "apiUsersContacts": [
+    {
+      "id": 1,
+      "userId_1": 1,
+      "userId_2": 2
+    },
+    {
+      "id": 2,
+      "userId_1": 2,
+      "userId_2": 3
+    },
+    {
+      "id": 3,
+      "userId_1": 1,
+      "userId_2": 3
+    },
+    {
+      "id": 4,
+      "userId_1": 4,
+      "userId_2": 5
+    },
+    {
+      "id": 5,
+      "userId_1": 1,
+      "userId_2": 5
+    },
+    {
+      "id": 6,
+      "userId_1": 1,
+      "userId_2": 4
+    },
+    {
+      "id": 7,
+      "userId_1": 3,
+      "userId_2": 4
+    }
+  ]
+}
