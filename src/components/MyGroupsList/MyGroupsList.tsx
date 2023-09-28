@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react';
 
 export default function MyGroupsList (props: any) {
 
-// Liste des contacts entre Users
   const { role, userId } = props
   const [ userName, setUserName ] = useState("")
   const [ groups, setGroups ] = useState([]);
-
+  
+// Liste des contacts entre Users
   const apiUserInGroups = [
     {
       id: 1,
