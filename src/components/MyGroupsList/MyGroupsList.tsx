@@ -130,7 +130,6 @@ useEffect(() => {
       <ListGroup>
         <ListGroup.Item
           active
-          href="#"
           >
           <p>
             Group List how {userName} as {role}
@@ -138,7 +137,7 @@ useEffect(() => {
         </ListGroup.Item>
         {groups.map((group) => {
           return (
-            <ListGroup.Item key={group.id}>
+            <ListGroup.Item key={group.id} href={`/group/detail/${role}/${group.id}`}>
                 <p>{group.name}</p>
               </ListGroup.Item>
             )
