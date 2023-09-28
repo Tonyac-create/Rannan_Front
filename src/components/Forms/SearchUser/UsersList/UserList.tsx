@@ -27,7 +27,7 @@ export const UserList = (props) => {
 
     const filteredData = users.filter((el) => {
         if (props.input === '') {
-            return el;
+            return null;
         }
         else{
             return el.nickname.toLowerCase().includes(props.input)
