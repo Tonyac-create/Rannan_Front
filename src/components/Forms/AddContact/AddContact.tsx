@@ -28,7 +28,8 @@ const AddContact = () => {
   
   return (
     <div className='formAddContact'>
-      <AddUserCard id={userTest.id} nickname={userTest.nickname}  /> 
+      <AddUserCard id={userTest.id} nickname={userTest.nickname}  />  {/* si vide afficher une alerte, aucun user trouvé */}
+    
     </div>
   )
 }
