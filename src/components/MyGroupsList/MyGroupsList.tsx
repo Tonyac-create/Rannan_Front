@@ -7,34 +7,41 @@ export default function MyGroupsList (props: any) {
   const [ userName, setUserName ] = useState("")
   const [ groups, setGroups ] = useState([]);
   
-// Liste des contacts entre Users
-  const apiUserInGroups = [
-    {
-      id: 1,
-      userId: 1,
-      groupId: 1
-    },
-    {
-      id: 2,
-      userId: 1,
-      groupId: 2
-    },
-    {
-      id: 3,
-      userId: 3,
-      groupId: 1
-    },
-    {
-      id: 4,
-      userId: 3,
-      groupId: 2
-    },
-    {
-      id: 5,
-      userId: 2,
-      groupId: 3
-    }
-  ]
+// Liste des liens entre Users et Groups
+const apiUserInGroups = [
+  {
+    userId: 1,
+    groupId: 1
+  },
+  {
+    userId: 1,
+    groupId: 2
+  },
+  {
+    userId: 3,
+    groupId: 1
+  },
+  {
+    userId: 5,
+    groupId: 2
+  },
+  {
+    userId: 2,
+    groupId: 3
+  },
+  {
+    userId: 4,
+    groupId: 3
+  },
+  {
+    userId: 4,
+    groupId: 1
+  },
+  {
+    userId: 5,
+    groupId: 1
+  }
+]
 
 // Liste des Users
 const apiUsers = [
@@ -49,6 +56,14 @@ const apiUsers = [
   {
     id: 3,
     nickname: "Angélique"
+  },
+  {
+    id: 4,
+    nickname: "Amine"
+  },
+  {
+    id: 5,
+    nickname: "Florian"
   }
 ]
 
@@ -62,12 +77,12 @@ const apiGroups = [
   {
     id: 2,
     name: "Group2",
-    creatorId: 2
+    creatorId: 3
   },
   {
     id: 3,
     name: "Group3",
-    creatorId: 1
+    creatorId: 5
   }
 ]
 
