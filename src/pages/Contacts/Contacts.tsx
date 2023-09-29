@@ -4,8 +4,7 @@ import ContactsInvitation from '../../components/ContactsInvitation/ContactsInvi
 
 const Contacts = () => {
   return (
-    <div>
-      <h2>Mes contacts</h2>
+    <div className='flex flex-row'>
       <ContactsList />
       <ContactsInvitation />
     </div>
