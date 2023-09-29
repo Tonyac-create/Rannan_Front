@@ -1,10 +1,15 @@
+import MyGroupsList from "../../components/MyGroupsList/MyGroupsList"
 
 
 const Groups = () => {
-    return (
-      <>
-        <h1>Mes Groupes</h1>
-      </>
-    )
-  }
-  export default Groups
+  const userId = 5
+  return (
+    <>
+      <div  className="flex justify-around p-4">
+        <MyGroupsList role="member" userId={userId} />
+        <MyGroupsList role="creator" userId={userId} />
+      </div>
+    </>
+  )
+}
+export default Groups
