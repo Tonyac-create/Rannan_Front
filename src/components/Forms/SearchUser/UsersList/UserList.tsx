@@ -6,22 +6,22 @@ export const UserList = (props) => {
         {
             id: 1,
             nickname: "José",
-            iscontact: false,
+            status: 1 //Non contact
         },
         {
             id: 2,
             nickname: "Paco",
-            iscontact: false,
+            status: 2 // Est Contact
         },
         {
             id: 3,
             nickname: "Juan",
-            iscontact: true,
+            status: 3 // A envoyé demande
         },
         {
             id: 4,
             nickname: "Miguel",
-            iscontact: false,
+            status: 4 // Vous avez envoyé demande
         },
     ];
 
@@ -35,10 +35,16 @@ export const UserList = (props) => {
     })
 
     //RequÊte API GET ALL USERS
+
+    const addContactAction = () => {
+        //API POST create authorisation(demande ajout contact) récupère le id du token et le id de la key pour l'autre user
+        console.log("Demande envoyée")
+      }
+
   return (
     <div className='userList'>
         {filteredData.map((item) => (
-            <AddUserCard id={item.id} nickname={item.nickname} />   
+            <AddUserCard id={item.id} nickname={item.nickname} status={item.status} addContactAction={addContactAction} />   
         ))}
     </div>
   )
