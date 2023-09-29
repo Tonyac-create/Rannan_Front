@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import Profile from './pages/Profile/Profile'
 import Groups from './pages/Groups/Groups'
 import Contacts from './pages/Contacts/Contacts'
 import Shares from './pages/Shares/Shares'
@@ -9,6 +8,7 @@ import About from './pages/About/About'
 import Legal from './pages/MentionsLegales/Legal'
 import SideBar from './components/SideBar/SideBar'
 import GroupDetail from './components/GroupDetail/GroupDetail'
+import MyProfile from './pages/MyProfile/MyProfile'
 
 function App() {
 	return (
@@ -18,7 +18,7 @@ function App() {
 				<Routes>
 					<Route path="/" element={<Login />} />
 					<Route path="/login" element={<Login />} />
-					<Route path="/profile" element={<Profile />} />
+					<Route path="/home" element={<MyProfile />} />
 					<Route path="/groups" element={<Groups />} />
 					<Route path="user/:userId/group/detail/:role/:groupId" element={<GroupDetail />} />
 					<Route path="/contacts" element={<Contacts />} />
