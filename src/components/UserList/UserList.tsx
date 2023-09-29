@@ -1,131 +1,34 @@
 import { ListGroup } from "flowbite-react"
 import { useEffect, useState } from "react"
 
-
 const UserList = (props: any) => {
-// Liste des liens entre Users et Groups
-const apiUserInGroups = [
-  {
-    userId: 1,
-    groupId: 1
-  },
-  {
-    userId: 1,
-    groupId: 2
-  },
-  {
-    userId: 3,
-    groupId: 1
-  },
-  {
-    userId: 5,
-    groupId: 2
-  },
-  {
-    userId: 2,
-    groupId: 3
-  },
-  {
-    userId: 4,
-    groupId: 3
-  },
-  {
-    userId: 4,
-    groupId: 1
-  },
-  {
-    userId: 5,
-    groupId: 1
-  }
-]
-
-// Liste des Users
-const apiUsers = [
-  {
-    id: 1,
-    nickname: "Thomas"
-  },
-  {
-    id: 2,
-    nickname: "Caye"
-  },
-  {
-    id: 3,
-    nickname: "Angélique"
-  },
-  {
-    id: 4,
-    nickname: "Amine"
-  },
-  {
-    id: 5,
-    nickname: "Florian"
-  }
-]
-
-// Liste des groupes
-const apiGroups = [
-  {
-    id: 1,
-    name: "Group1",
-    creatorId: 2
-  },
-  {
-    id: 2,
-    name: "Group2",
-    creatorId: 3
-  },
-  {
-    id: 3,
-    name: "Group3",
-    creatorId: 5
-  }
-]
-
-// Liste des contacts entre Users
-  const apiUsersContacts = [
-    {
-      id: 1,
-      userId_1: 1,
-      userId_2: 2
-    },
-    {
-      id: 2,
-      userId_1: 2,
-      userId_2: 3
-    },
-    {
-      id: 3,
-      userId_1: 1,
-      userId_2: 3
-    },
-    {
-      id: 4,
-      userId_1: 4,
-      userId_2: 5
-    },
-    {
-      id: 5,
-      userId_1: 1,
-      userId_2: 5
-    },
-    {
-      id: 6,
-      userId_1: 1,
-      userId_2: 4
-    },
-    {
-      id: 7,
-      userId_1: 3,
-      userId_2: 4
-    }
-  ]
-
 
   const { groupId, userId, listFor } = props
   const [ userName, setUserName ] = useState("")
-  const [ memberList, setMemberList ] = useState([]);
+  const [ userList, setUserList ] = useState([]);
+  const [ apiUsers, setApiUsers ] = useState([]);
+  const [ apiUserInGroups, setApiUserInGroups ] = useState([]);
+  const [ apiGroups, setApiGroups ] = useState([]);
+  const [ apiUsersContacts, setApiUsersContacts ] = useState([]);
 
+// Récupére les données de db.json (a changer pour l'appel API du BACK)
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/db.json');
+        const data = await response.json();
+
+        setApiUserInGroups(data.apiUserInGroups);
+        setApiUsers(data.apiUsers);
+        setApiGroups(data.apiGroups);
+        setApiUsersContacts(data.apiUsersContacts);
+
+      } catch (error) {
+        console.log("Error :", error)
+      }
+    }
+    fetchData()
+  }, [])
 
 
 // Récupére le Nickname du User qui utilise l'app
@@ -135,8 +38,7 @@ const apiGroups = [
         setUserName(el.nickname)
       }
     })
-    
-  })
+  }, [])
 
 // Récupérer la liste de contacts du User qui visite la page
   useEffect(() => {
@@ -181,29 +83,29 @@ const apiGroups = [
           }
         })
       }
-      setMemberList(newList)
+      setUserList(newList)
     }
     getMemberList()
-  }, [])
+  }, [apiUsers])
 
 // Afficher le nickname ou le nom du groupe dans l'en tete du tableau
-const getHeader = () => {
-  let groupName = ""
-  if (listFor === "Contacts") {
-    return (
-      <>Contacts of {userName}</>
-    )
-  } else if (listFor === "Members") {
-    apiGroups.map((group) => {
-      if (group.id === +groupId) {
-        groupName = group.name
-      }
-    })
-    return (
-      <>{groupName} members</>
-    )
+  const getHeader = () => {
+    let groupName = ""
+    if (listFor === "Contacts") {
+      return (
+        <>Contacts of {userName}</>
+      )
+    } else if (listFor === "Members") {
+      apiGroups.map((group) => {
+        if (group.id === +groupId) {
+          groupName = group.name
+        }
+      })
+      return (
+        <>{groupName} members</>
+      )
+    }
   }
-}
 
   return (
   <>
@@ -216,10 +118,10 @@ const getHeader = () => {
           {getHeader()}
         </p>
       </ListGroup.Item>
-      {memberList.map((member) => {
+      {userList.map((user) => {
         return (
-          <ListGroup.Item key={member.id}>
-              <p>{member.nickname}</p>
+          <ListGroup.Item key={user.id}>
+              <p>{user.nickname}</p>
             </ListGroup.Item>
           )
         })}

@@ -6,85 +6,27 @@ export default function MyGroupsList (props: any) {
   const { role, userId } = props
   const [ userName, setUserName ] = useState("")
   const [ groups, setGroups ] = useState([]);
-  
-// Liste des liens entre Users et Groups
-const apiUserInGroups = [
-  {
-    userId: 1,
-    groupId: 1
-  },
-  {
-    userId: 1,
-    groupId: 2
-  },
-  {
-    userId: 3,
-    groupId: 1
-  },
-  {
-    userId: 5,
-    groupId: 2
-  },
-  {
-    userId: 2,
-    groupId: 3
-  },
-  {
-    userId: 4,
-    groupId: 3
-  },
-  {
-    userId: 4,
-    groupId: 1
-  },
-  {
-    userId: 5,
-    groupId: 1
-  }
-]
+  const [ apiUsers, setApiUsers ] = useState([]);
+  const [ apiUserInGroups, setApiUserInGroups ] = useState([]);
+  const [ apiGroups, setApiGroups ] = useState([]);
 
-// Liste des Users
-const apiUsers = [
-  {
-    id: 1,
-    nickname: "Thomas"
-  },
-  {
-    id: 2,
-    nickname: "Caye"
-  },
-  {
-    id: 3,
-    nickname: "Angélique"
-  },
-  {
-    id: 4,
-    nickname: "Amine"
-  },
-  {
-    id: 5,
-    nickname: "Florian"
-  }
-]
+// Récupére les données de db.json (a changer pour l'appel API du BACK)
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/db.json');
+        const data = await response.json();
 
-// Liste des groupes
-const apiGroups = [
-  {
-    id: 1,
-    name: "Group1",
-    creatorId: 2
-  },
-  {
-    id: 2,
-    name: "Group2",
-    creatorId: 3
-  },
-  {
-    id: 3,
-    name: "Group3",
-    creatorId: 5
-  }
-]
+        setApiUserInGroups(data.apiUserInGroups);
+        setApiUsers(data.apiUsers);
+        setApiGroups(data.apiGroups);
+
+      } catch (error) {
+        console.log("Error :", error)
+      }
+    }
+    fetchData()
+  }, [])
 
 
 // Récupére le Nickname du User qui utilise l'app
@@ -95,6 +37,7 @@ useEffect(() => {
     }
   })
 })
+
 
 // Récupérer la liste des groupes suivant le role
   useEffect(() => {
@@ -123,7 +66,7 @@ useEffect(() => {
       }
     }
     getGroups()
-  }, [])
+  }, [apiGroups])
 
 
   return (
@@ -139,8 +82,9 @@ useEffect(() => {
         {groups.map((group) => {
           return (
             <ListGroup.Item key={group.id} href={`user/${userId}/group/detail/${role}/${group.id}`}>
-                <p>{group.name}</p>
-              </ListGroup.Item>
+              <p>{group.name} &ensp;</p>
+              <span>{role === "member" && (apiUsers.map((user) => user.id === group.creatorId && (<div key={user.id}>( admin : {user.nickname} )</div>)))}</span>
+            </ListGroup.Item>
             )
           })}
       </ListGroup>
