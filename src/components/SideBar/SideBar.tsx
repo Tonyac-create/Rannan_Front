@@ -12,7 +12,7 @@ export default function LogoBranding() {
       </Sidebar.Logo>
 
       <Sidebar.ItemGroup>
-        <Sidebar.Item href="/profile" icon={HiChartPie} >
+        <Sidebar.Item href="/home" icon={HiChartPie} >
           <p>Mon Profil</p>
         </Sidebar.Item>
         <Sidebar.Item href="/groups" icon={HiViewBoards} >

@@ -1,5 +1,6 @@
 import { ListGroup } from "flowbite-react"
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 
 const UserList = (props: any) => {
 
@@ -121,7 +122,7 @@ const UserList = (props: any) => {
       {userList.map((user) => {
         return (
           <ListGroup.Item key={user.id}>
-              <p>{user.nickname}</p>
+              <Link to={`/profile/${user.id}`}>{user.nickname}</Link>
             </ListGroup.Item>
           )
         })}

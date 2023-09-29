@@ -8,7 +8,8 @@ import About from './pages/About/About'
 import Legal from './pages/MentionsLegales/Legal'
 import SideBar from './components/SideBar/SideBar'
 import GroupDetail from './components/GroupDetail/GroupDetail'
-import MyProfile from './pages/MyProfile/MyProfile'
+import Home from './pages/Homepage/Home'
+import Profile from './pages/Profile/Profile'
 
 function App() {
 	return (
@@ -18,10 +19,11 @@ function App() {
 				<Routes>
 					<Route path="/" element={<Login />} />
 					<Route path="/login" element={<Login />} />
-					<Route path="/home" element={<MyProfile />} />
+					<Route path="/home" element={<Home />} />
 					<Route path="/groups" element={<Groups />} />
 					<Route path="user/:userId/group/detail/:role/:groupId" element={<GroupDetail />} />
 					<Route path="/contacts" element={<Contacts />} />
+					<Route path="/profile/:id" element={<Profile />} />
 					<Route path="/shares" element={<Shares />} />
 					<Route path='/about' element={<About/>} />
 					<Route path='/legal' element={<Legal/>} />
