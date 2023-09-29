@@ -1,5 +1,5 @@
 'use client';
-import { Alert, Table } from 'flowbite-react';
+import { Alert } from 'flowbite-react';
 import React from 'react';
 
 const RequestInfo = () => {

@@ -1,5 +1,5 @@
 import React from 'react'
-import RequestInfo from './Request/Request'
+import RequestInfo from '../Requests/RequestInfo/Request'
 
 const SentRequests = () => {
   return (
