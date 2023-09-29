@@ -1,7 +1,7 @@
 import React from 'react'
 import AddUserCard from '../../../AddUserCard/AddUserCard';
 
-export const UserList = (props) => {
+export const SearchUserList = (props) => {
     const users = [
         {
             id: 1,

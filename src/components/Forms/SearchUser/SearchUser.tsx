@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button, TextInput } from 'flowbite-react';
 import { HiOutlineSearch } from 'react-icons/hi';
-import { UserList } from './UsersList/UserList';
+import { SearchUserList } from './SearchUserList/SearchUserList';
 
 const SearchUser = () => {
     const [ inputText, setInputText ] = useState("");
@@ -21,7 +21,7 @@ const SearchUser = () => {
                 rightIcon={HiOutlineSearch}
                 onChange={inputHandler}
             />
-            <UserList input={inputText} />
+            <SearchUserList input={inputText} />
         </div>
   )
 }
