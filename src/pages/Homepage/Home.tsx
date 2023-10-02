@@ -6,7 +6,7 @@ import Layout2 from '../../components/Layouts/Layout2'
 const Home = () => {
   return (
     <Layout2>
-      <div className='homepage flex flex-row'>
+      <div className='homepage flex flex-row  gap-4 p-5'>
         <MyInformations />
         <ContactsList />
       </div>
