@@ -4,9 +4,9 @@ import Header from './Header/Header'
 function Layout(props: any) {
   return (
     <>
-         <Header />
-            {props.children}
-         <Footer />
+      <Header />
+        {props.children}
+      <Footer />
     </>
   )
 }

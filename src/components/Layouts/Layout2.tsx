@@ -5,7 +5,9 @@ function Layout2(props: any) {
     return (
         <>
             <SideBar />
-            {props.children}
+            <section className='w-1/2 sm:w-8/12 md:w-9/12 lg:w-10/12 ms-auto'>
+                {props.children}
+            </section>
         </>
     )
 }
