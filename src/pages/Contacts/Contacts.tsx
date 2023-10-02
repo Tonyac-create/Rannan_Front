@@ -1,13 +1,16 @@
 import React from 'react'
 import ContactsList from '../../components/ContactsList/ContactsList'
 import ContactsInvitation from '../../components/ContactsInvitation/ContactsInvitation'
+import Layout2 from '../../components/Layouts/Layout2'
 
 const Contacts = () => {
   return (
-    <div className='flex flex-row'>
-      <ContactsList />
-      <ContactsInvitation />
-    </div>
+    <Layout2>
+      <div className='flex flex-row'>
+        <ContactsList />
+        <ContactsInvitation />
+      </div>
+    </Layout2>
   )
 }
 

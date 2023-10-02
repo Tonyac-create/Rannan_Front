@@ -63,7 +63,7 @@ const Login = () => {
                 </Label>
               </div>
               <Button className="w-6/12">
-                <a href="/profile">Submit</a>
+                <a href="/home">Submit</a>
               </Button>
             </form>
             <p className="ml-3">Première fois? Inscrivez-vous <span><a onClick={switchComponentTest} href="#" className="text-gray-400">ici</a></span></p>

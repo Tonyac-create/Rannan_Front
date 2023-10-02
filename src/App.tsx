@@ -6,7 +6,6 @@ import Shares from './pages/Shares/Shares'
 import Login from './pages/Login/Login'
 import About from './pages/About/About'
 import Legal from './pages/MentionsLegales/Legal'
-import SideBar from './components/SideBar/SideBar'
 import GroupDetail from './components/GroupDetail/GroupDetail'
 import Home from './pages/Homepage/Home'
 import Profile from './pages/Profile/Profile'
@@ -16,7 +15,6 @@ function App() {
 
 	return (
 		<>
-			<SideBar />
 			<main className='w-1/2 sm:w-8/12 md:w-9/12 lg:w-10/12 ms-auto'>
 				<Routes>
 					<Route path="/" element={<Login />} />
