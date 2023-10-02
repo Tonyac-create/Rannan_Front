@@ -12,6 +12,8 @@ import Home from './pages/Homepage/Home'
 import Profile from './pages/Profile/Profile'
 
 function App() {
+
+
 	return (
 		<>
 			<SideBar />
@@ -33,3 +35,4 @@ function App() {
 	)
 }
 export default App
+

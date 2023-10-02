@@ -1,3 +1,4 @@
+import Layout2 from "../../components/Layouts/Layout2"
 
 
 const Legal = () => {
