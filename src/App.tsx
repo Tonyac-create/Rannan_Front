@@ -6,10 +6,11 @@ import Shares from './pages/Shares/Shares'
 import Login from './pages/Login/Login'
 import About from './pages/About/About'
 import Legal from './pages/MentionsLegales/Legal'
-import GroupDetail from './components/GroupDetail/GroupDetail'
+import GroupDetail from './pages/GroupDetail/GroupDetail'
 import Home from './pages/Homepage/Home'
 import Profile from './pages/Profile/Profile'
 import Account from './pages/Account/Account'
+import GroupSetting from './pages/GroupSetting/GroupSetting'
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
 				<Route path="/home" element={<Home />} />
 				<Route path="/groups" element={<Groups />} />
 				<Route path="user/:userId/group/detail/:role/:groupId" element={<GroupDetail />} />
+				<Route path="group/:groupId/modify" element={<GroupSetting />} />
 				<Route path="/contacts" element={<Contacts />} />
 				<Route path="/profile/:id" element={<Profile />} />
 				<Route path="/shares" element={<Shares />} />

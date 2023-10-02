@@ -1,4 +1,5 @@
-import { ListGroup } from "flowbite-react"
+import { Checkbox, ListGroup } from "flowbite-react"
+import { list } from "postcss"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
@@ -46,7 +47,7 @@ const UserList = (props: any) => {
     const getMemberList = () => {
       const newList = []
       // Récupére la liste des contacts du user qui visite la page
-      if (listFor === "Contacts") {
+      if (listFor === "Contacts" || listFor === "ModifyContacts") {
         apiUsersContacts.map((user) => {
           if (user.userId_1 === +userId) {
             apiUsers.map((el) => {
@@ -63,7 +64,7 @@ const UserList = (props: any) => {
           }
         })
       // Récupére la liste des membres d'un groupe
-      } else if (listFor === "Members") {
+      } else if (listFor === "Members" || listFor === "ModifyMembers") {
         apiUserInGroups.map((el) => {
           if (el.groupId === +groupId) {
             apiUsers.map((user) => {
@@ -92,11 +93,11 @@ const UserList = (props: any) => {
 // Afficher le nickname ou le nom du groupe dans l'en tete du tableau
   const getHeader = () => {
     let groupName = ""
-    if (listFor === "Contacts") {
+    if (listFor === "Contacts" || listFor === "ModifyContacts") {
       return (
         <>Contacts de {userName}</>
       )
-    } else if (listFor === "Members") {
+    } else if (listFor === "Members" || listFor === "ModifyMembers") {
       apiGroups.map((group) => {
         if (group.id === +groupId) {
           groupName = group.name
@@ -122,7 +123,10 @@ const UserList = (props: any) => {
       {userList.map((user) => {
         return (
           <ListGroup.Item key={user.id}>
-              <Link to={`/profile/${user.id}`}>{user.nickname}</Link>
+              {listFor === "ModifyMembers" && (<span className="w-full h-full text-start"><Checkbox defaultChecked></Checkbox> &ensp; {user.nickname}</span>)}
+              {listFor === "ModifyContacts" && (<span className="w-full h-full text-start"><Checkbox></Checkbox> &ensp; {user.nickname}</span>)}
+              {listFor === "Members" && (<Link to={`/profile/${user.id}`} className="w-full h-full text-start">{user.nickname}</Link>)}
+              {listFor === "Contacts" && (<Link to={`/profile/${user.id}`} className="w-full h-full text-start">{user.nickname}</Link>)}
             </ListGroup.Item>
           )
         })}

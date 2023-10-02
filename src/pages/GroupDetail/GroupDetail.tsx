@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom"
-import UserList from "../UserList/UserList"
+import UserList from "../../components/UserList/UserList"
 import { Button, ListGroup } from "flowbite-react"
-import Layout2 from "../Layouts/Layout2"
+import Layout2 from "../../components/Layouts/Layout2"
 import { useEffect, useState } from "react"
 
 
@@ -34,7 +34,7 @@ const GroupDetail = () => {
           {role === "creator" && (
             <div className="flex flex-col sm:flex-row justify-around gap-1 space-x-1 my-2">
               <Button>Supprimer le groupe</Button>
-              <Button>Modifier le groupe</Button>
+              <Button href={`/group/${groupId}/modify`}>Modifier le groupe</Button>
               <Button>Modifier les partages</Button>
             </div>
           )}
@@ -50,13 +50,13 @@ const GroupDetail = () => {
                   Informations Partagés
                 </p>
               </ListGroup.Item>
-              <ListGroup.Item href="/list-group">
+              <ListGroup.Item>
                 Téléphone : 07.45.68.95.43
               </ListGroup.Item>
-              <ListGroup.Item href="/list-group">
+              <ListGroup.Item>
                 Mail : moi@toi.net
               </ListGroup.Item>
-              <ListGroup.Item href="/list-group">
+              <ListGroup.Item>
                 Social : www.instagram.com/mmouwaaa
               </ListGroup.Item>
             </ListGroup>
