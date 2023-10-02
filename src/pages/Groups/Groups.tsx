@@ -1,10 +1,13 @@
+import Layout2 from "../../components/Layouts/Layout2"
 
 
 const Groups = () => {
-    return (
-      <>
-        <h1>Mes Groupes</h1>
-      </>
-    )
-  }
-  export default Groups
+  return (
+    <>
+      <Layout2>
+        <h1 className="ml-80">Mes Groupes</h1>
+      </Layout2>
+    </>
+  )
+}
+export default Groups

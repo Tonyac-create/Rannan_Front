@@ -1,8 +1,11 @@
+import Layout2 from "../../components/Layouts/Layout2"
 
 
 const Legal = () => {
   return (
-    <div>Legal</div>
+    <Layout2>
+      <div className="ml-80">Legal</div>
+    </Layout2>
   )
 }
 

@@ -6,8 +6,8 @@ function ModifyAccount() {
     return (
         <>
 
-            <form className="flex max-w-md flex-col gap-4 ml-3">
-                <h1 className='text-xl my-2'>Modify information account</h1>
+            <form className="flex max-w-md flex-col gap-4 ml-64">
+                <h1 className='text-xl my-2'>Modifier mes informations</h1>
                 <div>
                     <div className="mb-2 block">
                         <Label
