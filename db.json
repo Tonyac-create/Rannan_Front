@@ -54,6 +54,14 @@
     {
       "id": 5,
       "nickname": "Florian"
+    },
+    {
+      "id": 6,
+      "nickname": "Paco"
+    },
+    {
+      "id": 7,
+      "nickname": "Jesús"
     }
   ],
 
@@ -103,13 +111,59 @@
     },
     {
       "id": 6,
-      "userId_1": 1,
-      "userId_2": 4
-    },
-    {
-      "id": 7,
       "userId_1": 3,
       "userId_2": 4
     }
+  ],
+
+  "apiUsersValidations" : [
+    {
+      "id": 1,
+      "userId": 1,
+      "contactId": 4,
+      "validation": 0
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "contactId": 2,
+      "validation": 1
+    },
+    {
+      "id": 3,
+      "userId": 3,
+      "contactId": 2,
+      "validation": 1
+    },
+    {
+      "id": 4,
+      "userId": 3,
+      "contactId": 1,
+      "validation": 1
+    },
+    {
+      "id": 5,
+      "userId": 4,
+      "contactId": 5,
+      "validation": 1
+    },
+    {
+      "id": 6,
+      "userId": 1,
+      "contactId": 5,
+      "validation": 1
+    },
+    {
+      "id": 7,
+      "userId": 4,
+      "contactId": 3,
+      "validation": 1
+    },
+    {
+      "id": 7,
+      "userId": 7,
+      "contactId": 1,
+      "validation": 1
+   }
   ]
 }
