@@ -111,5 +111,130 @@
       "userId_1": 3,
       "userId_2": 4
     }
+  ],
+
+  "apiData": [
+    {
+      "id": 1,
+      "type": "mail",
+      "name": "Mon email",
+      "value": "thomas@alt.net",
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "type": "url",
+      "name": "Mon LinkedIn",
+      "value": "https://www.linkedin.com/in/pijat-thomas/",
+      "userId": 1
+    },
+    {
+      "id": 3,
+      "type": "mail",
+      "name": "Email",
+      "value": "cayetano@alt.net",
+      "userId": 2
+    },
+    {
+      "id": 4,
+      "type": "mail",
+      "name": "Mon mail ALT",
+      "value": "florian@alt.net",
+      "userId": 5
+    },
+    {
+      "id": 5,
+      "type": "mail",
+      "name": "Mon email",
+      "value": "angélique@alt.net",
+      "userId": 3
+    },
+    {
+      "id": 6,
+      "type": "text",
+      "name": "Mon Adresse",
+      "value": "chez moi$rue du code$29100$ICI",
+      "userId": 1
+    },
+    {
+      "id": 7,
+      "type": "mail",
+      "name": "Mon mail Formateur",
+      "value": "amine@alt.net",
+      "userId": 4
+    }
+  ],
+
+  "apiAuthorization": [
+    {
+      "id": 1,
+      "target": "group",
+      "target_id": 1
+    },
+    {
+      "id": 2,
+      "target": "group",
+      "target_id": 2
+    },
+    {
+      "id": 3,
+      "target": "group",
+      "target_id": 3
+    },
+    {
+      "id": 4,
+      "target": "user",
+      "target_id": 1
+    },
+    {
+      "id": 5,
+      "target": "user",
+      "target_id": 2
+    },
+    {
+      "id": 6,
+      "target": "user",
+      "target_id": 5
+    },
+    {
+      "id": 7,
+      "target": "user",
+      "target_id": 3
+    },
+    {
+      "id": 8,
+      "target": "user",
+      "target_id": 4
+    }
+  ],
+
+  "apiDataAuthorization": [
+    {
+      "dataId": 7,
+      "authorisationId": 1
+    },
+    {
+      "dataId": 7,
+      "authorisationId": 2
+    },
+    {
+      "dataId": 7,
+      "authorisationId": 3
+    },
+    {
+      "dataId": 4,
+      "authorisationId": 1
+    },
+    {
+      "dataId": 4,
+      "authorisationId": 2
+    },
+    {
+      "dataId": 4,
+      "authorisationId": 3
+    }
   ]
+
+
+
 }
