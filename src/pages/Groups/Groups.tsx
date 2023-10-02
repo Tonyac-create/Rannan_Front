@@ -7,10 +7,13 @@ const Groups = () => {
   return (
     <>
       <Layout2>
-        <div className="flex justify-around p-4">
+        <section className="flex justify-center p-8">
+          <h3 className="text-2xl">Mes Groupes</h3>
+        </section>
+        <section className="flex flex-col sm:flex-row justify-around gap-1 p-4">
           <MyGroupsList role="member" userId={userId} />
           <MyGroupsList role="creator" userId={userId} />
-        </div>
+        </section>
       </Layout2>
     </>
   )

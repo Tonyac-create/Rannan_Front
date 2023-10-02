@@ -94,7 +94,7 @@ const UserList = (props: any) => {
     let groupName = ""
     if (listFor === "Contacts") {
       return (
-        <>Contacts of {userName}</>
+        <>Contacts de {userName}</>
       )
     } else if (listFor === "Members") {
       apiGroups.map((group) => {
@@ -103,7 +103,7 @@ const UserList = (props: any) => {
         }
       })
       return (
-        <>{groupName} members</>
+        <>Membres de {groupName}</>
       )
     }
   }

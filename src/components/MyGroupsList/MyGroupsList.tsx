@@ -5,6 +5,7 @@ export default function MyGroupsList (props: any) {
 
   const { role, userId } = props
   const [ userName, setUserName ] = useState("")
+  const [ roleFr, setRoleFr ] = useState("")
   const [ groups, setGroups ] = useState([]);
   const [ apiUsers, setApiUsers ] = useState([]);
   const [ apiUserInGroups, setApiUserInGroups ] = useState([]);
@@ -36,6 +37,15 @@ useEffect(() => {
       setUserName(el.nickname)
     }
   })
+})
+
+// Récupére le Role et le transcrit en français pour l'affichage
+useEffect(() => {
+    if (role === "member") {
+      setRoleFr("membre")
+    } else if (role === "creator") {
+      setRoleFr("créateur")
+    }
 })
 
 
@@ -76,14 +86,14 @@ useEffect(() => {
           active
           >
           <p>
-            Group List how {userName} as {role}
+            Mon role : {roleFr}
           </p>
         </ListGroup.Item>
         {groups.map((group) => {
           return (
             <ListGroup.Item key={group.id} href={`user/${userId}/group/detail/${role}/${group.id}`}>
               <p>{group.name} &ensp;</p>
-              <span>{role === "member" && (apiUsers.map((user) => user.id === group.creatorId && (<div key={user.id}>( admin : {user.nickname} )</div>)))}</span>
+              <span>{role === "member" && apiUsers.filter((user) => user.id === group.creatorId).map((user) => (<div>( admin : {user.nickname} )</div>))}</span>
             </ListGroup.Item>
             )
           })}
