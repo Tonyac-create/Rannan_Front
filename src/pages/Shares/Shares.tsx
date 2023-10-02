@@ -39,7 +39,7 @@ const Shares = () => {
     <>
 
       <Layout2>
-        <div className="ml-80 flex flex-row">
+        <div className="flex flex-row">
 
           {/* Partie droite */}
 

@@ -9,6 +9,7 @@ import Legal from './pages/MentionsLegales/Legal'
 import GroupDetail from './components/GroupDetail/GroupDetail'
 import Home from './pages/Homepage/Home'
 import Profile from './pages/Profile/Profile'
+import Account from './pages/Account/Account'
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
 				<Route path="/contacts" element={<Contacts />} />
 				<Route path="/profile/:id" element={<Profile />} />
 				<Route path="/shares" element={<Shares />} />
+				<Route path="/account" element={<Account />} />
 			</Routes>
 		</>
 	)
