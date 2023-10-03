@@ -3,8 +3,7 @@ import { useEffect, useState } from 'react';
 
 export default function MyGroupsList (props: any) {
 
-  const { role, userId } = props
-  const [ userName, setUserName ] = useState("")
+  const { role, userId, onSelectGroup, returnedRole } = props
   const [ roleFr, setRoleFr ] = useState("")
   const [ groups, setGroups ] = useState([]);
   const [ apiUsers, setApiUsers ] = useState([]);
@@ -30,15 +29,6 @@ export default function MyGroupsList (props: any) {
   }, [])
 
 
-// Récupére le Nickname du User qui utilise l'app
-useEffect(() => {
-  apiUsers.map((el) => {
-    if (el.id === userId) {
-      setUserName(el.nickname)
-    }
-  })
-})
-
 // Récupére le Role et le transcrit en français pour l'affichage
 useEffect(() => {
     if (role === "member") {
@@ -47,6 +37,12 @@ useEffect(() => {
       setRoleFr("créateur")
     }
 })
+
+// Fonction de click sur un élément de la liste "MyGroupList" pour ouvrir les détails
+  const handleClickGroup = (groupId: any) => {
+    onSelectGroup(groupId)
+    returnedRole(role)
+  }
 
 
 // Récupérer la liste des groupes suivant le role
@@ -91,7 +87,7 @@ useEffect(() => {
         </ListGroup.Item>
         {groups.map((group) => {
           return (
-            <ListGroup.Item key={group.id} href={`user/${userId}/group/detail/${role}/${group.id}`}>
+            <ListGroup.Item key={group.id} onClick={() => handleClickGroup(group.id)}>
               <p>{group.name} &ensp;</p>
               <span>{role === "member" && apiUsers.filter((user) => user.id === group.creatorId).map((user) => (<div>( admin : {user.nickname} )</div>))}</span>
             </ListGroup.Item>

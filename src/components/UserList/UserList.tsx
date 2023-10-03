@@ -1,5 +1,4 @@
 import { Checkbox, ListGroup } from "flowbite-react"
-import { list } from "postcss"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
@@ -40,7 +39,7 @@ const UserList = (props: any) => {
         setUserName(el.nickname)
       }
     })
-  }, [])
+  }, [userId])
 
 // Récupérer la liste de contacts du User qui visite la page
   useEffect(() => {
@@ -88,7 +87,7 @@ const UserList = (props: any) => {
       setUserList(newList)
     }
     getMemberList()
-  }, [apiUsers])
+  }, [apiGroups, groupId])
 
 // Afficher le nickname ou le nom du groupe dans l'en tete du tableau
   const getHeader = () => {
