@@ -93,23 +93,19 @@
   "apiUsers": [
     {
       "id": 1,
-      "nickname": "Thomas",
-      "information": "adresse maison"
+      "nickname": "Thomas"
     },
     {
       "id": 2,
-      "nickname": "Caye",
-      "information": "Digicode: A1B2C3D4"
+      "nickname": "Caye"
     },
     {
       "id": 3,
-      "nickname": "Angélique",
-      "information": "Digicode: A1B2C3D4"
+      "nickname": "Angélique"
     },
     {
       "id": 4,
-      "nickname": "Amine",
-      "information": "0606060606"
+      "nickname": "Amine"
     },
     {
       "id": 5,
@@ -122,6 +118,37 @@
     {
       "id": 7,
       "nickname": "Jesús"
+    }
+  ],
+
+  "apiDatas": [
+    {
+      "id": 1,
+      "user_id": 3,
+      "type": "text",
+      "name": "adresse",
+      "value": "12 rue de la rue 01010 Rennes"
+    },
+    {
+      "id": 2,
+      "user_id": 2,
+      "type": "number",
+      "name": "telephone",
+      "value": "0102030405"
+    },
+    {
+      "id": 3,
+      "user_id": 1,
+      "type": "url",
+      "name": "lien réseau social",
+      "value": "http://moninsta.fr"
+    },
+    {
+      "id": 4,
+      "user_id": 4,
+      "type": "text",
+      "name": "digicode",
+      "value": "A1B2C3D4"
     }
   ],
 
