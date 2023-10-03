@@ -27,7 +27,7 @@ const Login = () => {
         login ? (
 
           <Layout>
-            <form className="flex max-w-md flex-col gap-4 mb-5 ml-3">
+            <form className="flex max-w-md flex-col gap-4 mb-5 mx-auto">
               <div>
                 <div className="mb-2 block">
                   <Label
@@ -65,8 +65,9 @@ const Login = () => {
               <Button className="w-6/12">
                 <a href="/home">Login</a>
               </Button>
+              <p className="ml-3">Première fois? Inscrivez-vous <span><a onClick={switchComponentTest} href="#" className="text-gray-400">ici</a></span></p>
             </form>
-            <p className="ml-3">Première fois? Inscrivez-vous <span><a onClick={switchComponentTest} href="#" className="text-gray-400">ici</a></span></p>
+            
           </Layout>
         ) : (
           components ? (
