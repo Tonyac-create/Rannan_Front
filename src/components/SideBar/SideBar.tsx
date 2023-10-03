@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function LogoBranding() {
+  const userId = 5
   const [ seeMenu, setSeeMenu ] = useState(false)
   const toggleSeeMenu = () => {
     setSeeMenu(!seeMenu)
@@ -49,7 +50,7 @@ export default function LogoBranding() {
 
       <Sidebar aria-label="Sidebar Navigation Menu" className='hidden sm:block sm:fixed w-2/5 sm:w-4/12 md:w-3/12 lg:w-2/12 h-auto sm:h-full z-50'>
         <Sidebar.Logo href="/" img="/src/asset/Rannan_Dev.png" imgAlt="R Logo">
-          <p>Rannan.io</p>
+          <h1 className='text-4xl'>Rannan.io</h1>
         </Sidebar.Logo>
 
         <Sidebar.ItemGroup>

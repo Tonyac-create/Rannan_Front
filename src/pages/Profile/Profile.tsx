@@ -7,10 +7,13 @@ import SharedInformation from "../../components/SharedInformation/SharedInformat
 
 const Profile = () => {
   const { id } = useParams()
+
   return (
     <>
       <Layout2>
-        <h2>Profile du user {id}</h2>
+        <section className="flex justify-center p-8">
+          <h3 className="text-2xl">Profil de l'Utilisateur {id}</h3>
+        </section>
         <div className="profile flex flex-col sm:flex-row p-4 sm:align-baseline gap-2">
           <div className="sm:w-1/3 flex flex-col items-center gap-3 rounded-md p-4 shadow-xl">
             <AvatarCard />

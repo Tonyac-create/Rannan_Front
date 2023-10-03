@@ -33,7 +33,7 @@ const GroupSetting = () => {
     <>
       <Layout2>
         <section className="flex justify-center p-8">
-          <h3 className="text-2xl text-center">Paramétres de "{group.name}"</h3>
+          <h2 className="text-3xl font-medium">Paramétres de "{group.name}"</h2>
         </section>
 
 
