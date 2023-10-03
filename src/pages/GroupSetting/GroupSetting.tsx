@@ -67,7 +67,7 @@ const GroupSetting = () => {
         </section>
 
 
-        <section className="flex flex-col sm:flex-row justify-around gap-4 my-4">
+        <section className="flex flex-col sm:flex-row justify-around gap-4 my-4 pr-2 sm:p-0">
           <div className="w-full sm:w-2/5 p-1">
             <UserList groupId={groupId} userId={userId} listFor="ModifyMembers" />
           </div>
