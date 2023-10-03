@@ -1,59 +1,111 @@
 {
   "apiUserInGroups": [
     {
-      "userId": 1,
+      "userId": 2,
       "groupId": 1
-    },
-    {
-      "userId": 1,
-      "groupId": 2
     },
     {
       "userId": 3,
       "groupId": 1
     },
     {
+      "userId": 4,
+      "groupId": 1
+    },
+    {
       "userId": 5,
       "groupId": 2
     },
     {
-      "userId": 2,
-      "groupId": 3
+      "userId": 4,
+      "groupId": 2
     },
     {
       "userId": 4,
       "groupId": 3
-    },
-    {
-      "userId": 4,
-      "groupId": 1
     },
     {
       "userId": 5,
-      "groupId": 1
+      "groupId": 3
+    },
+    {
+      "userId": 1,
+      "groupId": 4
+    },
+    {
+      "userId": 2,
+      "groupId": 4
+    },
+    {
+      "userId": 1,
+      "groupId": 5
+    },
+    {
+      "userId": 2,
+      "groupId": 5
+    },
+    {
+      "userId": 1,
+      "groupId": 6
+    },
+    {
+      "userId": 2,
+      "groupId": 6
+    },
+    {
+      "userId": 1,
+      "groupId": 7
+    },
+    {
+      "userId": 2,
+      "groupId": 7
+    },
+    {
+      "userId": 3,
+      "groupId": 7
+    },
+    {
+      "userId": 4,
+      "groupId": 7
+    },
+    {
+      "userId": 3,
+      "groupId": 8
+    },
+    {
+      "userId": 4,
+      "groupId": 8
+    },
+    {
+      "userId": 1,
+      "groupId": 9
+    },
+    {
+      "userId": 2,
+      "groupId": 9
+    },
+    {
+      "userId": 4,
+      "groupId": 9
     }
   ],
 
   "apiUsers": [
     {
       "id": 1,
-      "nickname": "Thomas",
-      "information": "adresse maison"
+      "nickname": "Thomas"
     },
     {
       "id": 2,
-      "nickname": "Caye",
-      "information": "Digicode: A1B2C3D4"
+      "nickname": "Caye"
     },
     {
       "id": 3,
-      "nickname": "Angélique",
-      "information": "Digicode: A1B2C3D4"
+      "nickname": "Angélique"
     },
     {
       "id": 4,
-      "nickname": "Amine",
-      "information": "0606060606"
+      "nickname": "Amine"
     },
     {
       "id": 5,
@@ -69,21 +121,87 @@
     }
   ],
 
+  "apiDatas": [
+    {
+      "id": 1,
+      "user_id": 3,
+      "type": "text",
+      "name": "adresse",
+      "value": "12 rue de la rue 01010 Rennes"
+    },
+    {
+      "id": 2,
+      "user_id": 2,
+      "type": "number",
+      "name": "telephone",
+      "value": "0102030405"
+    },
+    {
+      "id": 3,
+      "user_id": 1,
+      "type": "url",
+      "name": "lien réseau social",
+      "value": "http://moninsta.fr"
+    },
+    {
+      "id": 4,
+      "user_id": 4,
+      "type": "text",
+      "name": "digicode",
+      "value": "A1B2C3D4"
+    }
+  ],
+
   "apiGroups": [
     {
       "id": 1,
       "name": "Group1",
-      "creatorId": 2
+      "creatorId": 1
     },
     {
       "id": 2,
       "name": "Group2",
-      "creatorId": 3
+      "creatorId": 2
     },
     {
       "id": 3,
       "name": "Group3",
+      "creatorId": 3
+    },
+    {
+      "id": 4,
+      "name": "Group4",
+      "creatorId": 4
+    }
+    ,
+    {
+      "id": 5,
+      "name": "Group5",
       "creatorId": 5
+    }
+    ,
+    {
+      "id": 6,
+      "name": "Group6",
+      "creatorId": 4
+    }
+    ,
+    {
+      "id": 7,
+      "name": "Group7",
+      "creatorId": 5
+    }
+    ,
+    {
+      "id": 8,
+      "name": "Group8",
+      "creatorId": 5
+    }
+    ,
+    {
+      "id": 9,
+      "name": "Group9",
+      "creatorId": 1
     }
   ],
 
@@ -168,7 +286,7 @@
       "userId": 7,
       "contactId": 1,
       "validation": 1
-   }
+    }
   ]
 
 

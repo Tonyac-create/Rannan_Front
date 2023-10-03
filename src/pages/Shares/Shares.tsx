@@ -7,6 +7,7 @@ const Shares = () => {
 
 
   const [arrayUsers, setArrayUsers] = useState([] as any)
+  const [datas, setDatas] = useState([] as any)
 
   useEffect(() => {
 
@@ -14,8 +15,9 @@ const Shares = () => {
       try {
         const response = await fetch("/db.json")
         const data = await response.json()
-     
-        setArrayUsers(data.apiUsers)      
+        
+        setArrayUsers(data.apiUsers)
+        setDatas(data.apiDatas)      
       }
       catch (error) {
         console.log("error", error);
@@ -34,14 +36,22 @@ const Shares = () => {
     // console.log(arrayUsers);
     event.preventDefault();
     const elementListName = event.target.elements.elementListName.value;
+    // console.log(elementListName);
+    
     arrayUsers.forEach((element: any) => {
      
       if (elementListName === element.nickname) {
         const newElementList = { name: elementListName };
         setElementList([...elementList, newElementList]);
-        setInformation(element.information)
+        // setInformation(element.information)
+        datas.forEach((el: any) => {
+          if (el.user_id === element.id) {
+            setInformation(el.value)
+          }
+        });
       }
     });
+
     
   };
   
