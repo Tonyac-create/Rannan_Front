@@ -1,6 +1,6 @@
 
-
 export default function AvatarCard() {
+
   return (
     <>
       <div className="flex flex-col items-center h-40">

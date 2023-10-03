@@ -72,9 +72,11 @@ const Shares = () => {
     <>
 
       <Layout2>
+        <section className="flex justify-center p-8">
+          <h2 className="text-3xl font-medium">Mes Partages</h2>
+        </section>
         <div className="flex flex-row">
           {/* Partie droite */}
-
           {/* Recherche contact, user ou group */}
           <div className="flex max-w-md flex-col gap-4 m-3 w-6/12">
             <form onSubmit={addElementList}>

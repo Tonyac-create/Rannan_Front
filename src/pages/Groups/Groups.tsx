@@ -23,7 +23,7 @@ const Groups = () => {
     <>
       <Layout2>
         <section className="flex justify-center p-8">
-          <h3 className="text-2xl">Mes Groupes</h3>
+          <h2 className="text-3xl font-medium">Mes Groupes</h2>
         </section>
         <section className="flex flex-col md:flex-row items-center md:items-start">
           <div className="flex flex-col items-center min-w-2/5 m-5">

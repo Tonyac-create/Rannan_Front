@@ -33,7 +33,7 @@ const GroupDetail = (props: any) => {
             <div className="flex flex-col md:flex-row justify-around w-full md:w-1/2 gap-1 space-x-1 my-2">
               <Button size="xs" className="whitespace-pre">Supprimer le groupe</Button>
               <Button size="xs" className="whitespace-pre" href={`/group/${groupId}/modify`}>Modifier le groupe</Button>
-              <Button size="xs" className="whitespace-pre">Modifier les partages</Button>
+              <Button size="xs" className="whitespace-pre" href="/shares">Modifier les partages</Button>
             </div>
           )}
           <section className="flex flex-col lg:flex-row justify-around gap-4 mt-8">
