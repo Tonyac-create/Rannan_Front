@@ -6,7 +6,7 @@ const ContactCard = (props) => {
     const { id, user2Id, nickname } = props;
 
     return (
-        <Card className='max-w-sm' href={`/profile/${user2Id}`} key={id} >
+        <Card className='w-2/3' href={`/profile/${user2Id}`} key={id} >
             <h3 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{nickname}</h3>
         </Card>
     )

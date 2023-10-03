@@ -1,37 +1,60 @@
 import { Button, Label, Checkbox, TextInput } from 'flowbite-react';
 import { ListGroup } from 'flowbite-react';
 import Layout2 from '../../components/Layouts/Layout2';
-import {  useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Shares = () => {
 
-  const users = [
-    {
-      id: 1,
-      name: "Cayetano"
-    },
-    {
-      id: 2,
-      name: "Thomas"
-    },
-    {
-      id: 3,
-      name: "Amine"
-    },
-    {
-      id: 4,
-      name: "Vacances Eté"
-    }
-  ]
 
-  let [inputValue, setInputValue] = useState("")
-  
-  const searchUser = () => {
-    users.forEach(element => {
-      if (inputValue == element.name) {
-        console.log("ok");
+  const [arrayUsers, setArrayUsers] = useState([] as any)
+
+  useEffect(() => {
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/db.json")
+        const data = await response.json()
+     
+        setArrayUsers(data.apiUsers)      
+      }
+      catch (error) {
+        console.log("error", error);
+      }
+    }
+    fetchData()
+  }, [])
+
+  // Afficher les informations liés au user
+  const [information, setInformation] = useState("")
+
+  // Incrémenter et Afficher la liste
+  const [elementList, setElementList] = useState([] as any)
+
+  const addElementList = (event: any) => {
+    // console.log(arrayUsers);
+    event.preventDefault();
+    const elementListName = event.target.elements.elementListName.value;
+    arrayUsers.forEach((element: any) => {
+     
+      if (elementListName === element.nickname) {
+        const newElementList = { name: elementListName };
+        setElementList([...elementList, newElementList]);
+        setInformation(element.information)
       }
     });
+    
+  };
+  
+  const displayInformation = (id: any) => {
+    
+    const informationChange = elementList.map((information: any) => {
+      if (elementList.id === id) {
+        return {...information}
+      }
+      return informationChange
+    })
+    
+    setInformation(informationChange)
     
   }
 
@@ -45,7 +68,7 @@ const Shares = () => {
 
           {/* Recherche contact, user ou group */}
           <div className="flex max-w-md flex-col gap-4 m-3 w-6/12">
-            <div>
+            <form onSubmit={addElementList}>
               <div className="mb-2 block">
                 <Label
                   htmlFor="small"
@@ -56,23 +79,23 @@ const Shares = () => {
                 id="small"
                 sizing="sm"
                 type="text"
-                onChange={(event) => setInputValue(event.target.value)}
+                name="elementListName"
               />
-              <Button type="submit" className='mt-3' onClick={searchUser}>
+              <Button type="submit" className='mt-3'>
                 Search
               </Button>
-            </div>
+            </form>
 
             {/* Liste des destinataires */}
             <div>
               <h1 className='text-xl my-2'>Destinataire(s)</h1>
-              {users.map((user, index) => (
-                <ListGroup key={index}>
-                  <ListGroup.Item>
-                    {user.name}
-                  </ListGroup.Item>
-                </ListGroup>
-              ))}
+              {elementList.map((element: any, index: any) => (
+              <ListGroup key={index}>
+                <ListGroup.Item onClick={() => displayInformation(element.id)}>
+                  {element.name}
+                </ListGroup.Item>
+              </ListGroup>
+              ))} 
 
             </div>
           </div>
@@ -86,7 +109,7 @@ const Shares = () => {
             >
               <div className="flex items-center gap-2">
                 <Checkbox
-                  defaultChecked
+                  // defaultChecked
                   id="accept"
                 />
                 <Label
@@ -94,31 +117,9 @@ const Shares = () => {
                   htmlFor="agree"
                 >
                   <p>
-                    Adresse: 12, rue du Yemen / Yemen
+                    {information}
                   </p>
                 </Label>
-              </div>
-              <div className="flex items-center gap-2">
-                <Checkbox id="promotion" />
-                <Label htmlFor="promotion">
-                  Téléphone: 01.02.03.04.05
-                </Label>
-              </div>
-              <div className="flex items-center gap-2">
-                <Checkbox id="age" />
-                <Label htmlFor="age">
-                  Social: <a href="#">www.instagram.com</a>
-                </Label>
-              </div>
-              <div className="flex gap-2">
-                <div className="flex h-5 items-center">
-                  <Checkbox id="shipping" />
-                </div>
-                <div className="flex flex-col">
-                  <Label htmlFor="shipping">
-                    Digicode: A1B2C3
-                  </Label>
-                </div>
               </div>
             </div>
             <Button type="submit" className='mt-3 w-6/12'>
