@@ -4,7 +4,7 @@ import { Button, Label, TextInput } from 'flowbite-react';
 function ModifyAccount() {
     
     return (
-        <div className="flex w-1/2 flex-col gap-4 shadow-xl rounded-md p-4">
+        <div className="flex sm:w-1/2 flex-col gap-4 shadow-xl rounded-md p-4">
             <h2 className='text-xl my-2'>Modifier mes informations</h2>
             <form className="flex max-w-md flex-col gap-4">
                 <div>

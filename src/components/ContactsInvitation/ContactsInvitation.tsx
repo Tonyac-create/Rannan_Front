@@ -4,7 +4,7 @@ import RecievedRequests from './RecievedRequests/RecievedRequests'
 
 const ContactsInvitation = () => {
   return (
-    <div className='contactsInvitation w-1/2 flex flex-col gap-6'>
+    <div className='contactsInvitation sm:w-1/2 flex flex-col gap-6'>
         <SentRequests />
         <RecievedRequests />
     </div>

@@ -5,7 +5,7 @@ import { HiCheck, HiX } from 'react-icons/hi'
 const RequestForm = () => {
   return (
     <Card className="addUserCard w-1/1">
-      <h4 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">Jesús</h4>
+      <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">Jesús</h4>
       <Button.Group className='flex justify-end'>
       <Button color="success">
         <span className='sm:hidden'><HiCheck className="h-6 w-6"/></span>

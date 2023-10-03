@@ -6,7 +6,7 @@ const RecievedInformation = () => {
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
     return (
-        <div className='recievedInfoList contactList__box rounded-md p-2 shadow-xl flex flex-col gap-4 w-1/2'>
+        <div className='recievedInfoList contactList__box rounded-md p-2 shadow-xl flex flex-col gap-4 sm:w-1/2'>
             <h3 className="scroll-m-20 border-b pb-2 text-xl font-semibold tracking-tight transition-colors first:mt-0">Informations reçues</h3>
             <ListGroup>
                 <ListGroup.Item >

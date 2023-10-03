@@ -7,9 +7,9 @@ const InformationCard = (props) => {
     const { id, name, value } = props;
   return (
     <Card key={id} className='informationCard'>
-        <h3 className="scroll-m-20 text-xl font-semibold tracking-tight ">{name}</h3>
+        <h4 className="scroll-m-20 text-xl font-semibold tracking-tight ">{name}</h4>
         <div className='informationCard__actions flex flex-row justify-end gap-5'>
-            <Button.Group className='informationCard__actions flex flex-row gap-2 w-1/3'>
+            <Button.Group className='informationCard__actions flex flex-row gap-2 sm:w-1/3'>
                 <BtnModifyInfo id={id} name={name} value={value}/>
                 <BtnDeleteInfo />
             </Button.Group>
