@@ -7,7 +7,7 @@ const ContactCard = (props) => {
 
     return (
         <Card className='w-2/3' href={`/profile/${user2Id}`} key={id} >
-            <h3 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{nickname}</h3>
+            <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">{nickname}</h4>
         </Card>
     )
 }
