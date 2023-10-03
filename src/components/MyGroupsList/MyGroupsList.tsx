@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 
 export default function MyGroupsList (props: any) {
 
-  const { role, userId } = props
-  const [ userName, setUserName ] = useState("")
+  const { role, userId, onSelectGroup, returnedRole } = props
+  const [ roleFr, setRoleFr ] = useState("")
   const [ groups, setGroups ] = useState([]);
   const [ apiUsers, setApiUsers ] = useState([]);
   const [ apiUserInGroups, setApiUserInGroups ] = useState([]);
@@ -29,14 +29,20 @@ export default function MyGroupsList (props: any) {
   }, [])
 
 
-// Récupére le Nickname du User qui utilise l'app
+// Récupére le Role et le transcrit en français pour l'affichage
 useEffect(() => {
-  apiUsers.map((el) => {
-    if (el.id === userId) {
-      setUserName(el.nickname)
+    if (role === "member") {
+      setRoleFr("membre")
+    } else if (role === "creator") {
+      setRoleFr("créateur")
     }
-  })
 })
+
+// Fonction de click sur un élément de la liste "MyGroupList" pour ouvrir les détails
+  const handleClickGroup = (groupId: any) => {
+    onSelectGroup(groupId)
+    returnedRole(role)
+  }
 
 
 // Récupérer la liste des groupes suivant le role
@@ -76,14 +82,14 @@ useEffect(() => {
           active
           >
           <p>
-            Group List how {userName} as {role}
+            Mon role : {roleFr}
           </p>
         </ListGroup.Item>
         {groups.map((group) => {
           return (
-            <ListGroup.Item key={group.id} href={`user/${userId}/group/detail/${role}/${group.id}`}>
+            <ListGroup.Item key={group.id} onClick={() => handleClickGroup(group.id)}>
               <p>{group.name} &ensp;</p>
-              <span>{role === "member" && (apiUsers.map((user) => user.id === group.creatorId && (<div key={user.id}>( admin : {user.nickname} )</div>)))}</span>
+              <span>{role === "member" && apiUsers.filter((user) => user.id === group.creatorId).map((user) => (<div>( admin : {user.nickname} )</div>))}</span>
             </ListGroup.Item>
             )
           })}
