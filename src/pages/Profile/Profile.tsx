@@ -11,15 +11,15 @@ const Profile = () => {
     <>
       <Layout2>
         <h2>Profile du user {id}</h2>
-        <div className="profile flex flex-row p-4 align-baseline gap-2">
-          <div className="w-1/3 flex flex-col items-center gap-3 rounded-md p-4 shadow-xl">
+        <div className="profile flex flex-col sm:flex-row p-4 sm:align-baseline gap-2">
+          <div className="sm:w-1/3 flex flex-col items-center gap-3 rounded-md p-4 shadow-xl">
             <AvatarCard />
-            <Button  color='failure' className='w-2/5'>
+            <Button  color='failure' className='sm:w-2/5'>
               Supprimer ce contact
             </Button>
           </div>
 
-          <div className="profile informationSection flex flex-row w-2/3">
+          <div className="profile informationSection flex flex-col sm:flex-row sm:w-2/3">
             <SharedInformation />
             <RecievedInformation />
           </div>

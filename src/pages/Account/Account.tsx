@@ -6,8 +6,8 @@ import ModifyAccount from '../../components/ModifyAccount/ModifyAccount'
 const Account = () => {
   return (
     <Layout2>
-      <div className='flex flex-row p-4 gap-7'>
-        <div className='flex flex-row items-center gap-7 justify-between w-1/2'>
+      <div className='flex flex-col sm:flex-row p-4 gap-7 mb-20 sm:mb-0'>
+        <div className='flex flex-col sm:flex-row items-center gap-7 justify-between sm:w-1/2'>
           <ModifyAccount />
           <InAppPasswordModif />
         </div>

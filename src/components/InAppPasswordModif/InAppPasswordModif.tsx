@@ -3,7 +3,7 @@ import React from 'react'
 
 const InAppPasswordModif = () => {
   return (
-    <div className="flex flex-col gap-4 w-1/2 shadow-xl rounded-md p-4">
+    <div className="flex flex-col gap-4 sm:w-1/2 shadow-xl rounded-md p-4">
         <h2 className='text-xl my-2'>Modifier mon mot de passe</h2>
         <form className="flex max-w-md flex-col gap-4">
             <div>
