@@ -15,9 +15,9 @@ const Shares = () => {
       try {
         const response = await fetch("/db.json")
         const data = await response.json()
-        
+
         setArrayUsers(data.apiUsers)
-        setDatas(data.apiDatas)      
+        setDatas(data.apiDatas)
       }
       catch (error) {
         console.log("error", error);
@@ -37,9 +37,9 @@ const Shares = () => {
     event.preventDefault();
     const elementListName = event.target.elements.elementListName.value;
     // console.log(elementListName);
-    
+
     arrayUsers.forEach((element: any) => {
-     
+
       if (elementListName === element.nickname) {
         const newElementList = { name: elementListName };
         setElementList([...elementList, newElementList]);
@@ -52,20 +52,20 @@ const Shares = () => {
       }
     });
 
-    
+
   };
-  
+
   const displayInformation = (id: any) => {
-    
+
     const informationChange = elementList.map((information: any) => {
       if (elementList.id === id) {
-        return {...information}
+        return { ...information }
       }
       return informationChange
     })
-    
+
     setInformation(informationChange)
-    
+
   }
 
   return (
@@ -73,7 +73,6 @@ const Shares = () => {
 
       <Layout2>
         <div className="flex flex-row">
-
           {/* Partie droite */}
 
           {/* Recherche contact, user ou group */}
@@ -82,7 +81,7 @@ const Shares = () => {
               <div className="mb-2 block">
                 <Label
                   htmlFor="small"
-                  value="Search a contact, an user or a group"
+                  value="Rechercher un contact, un utilisateur ou un groupe"
                 />
               </div>
               <TextInput
@@ -92,27 +91,33 @@ const Shares = () => {
                 name="elementListName"
               />
               <Button type="submit" className='mt-3'>
-                Search
+                Rechercher
               </Button>
             </form>
 
             {/* Liste des destinataires */}
             <div>
-              <h1 className='text-xl my-2'>Destinataire(s)</h1>
-              {elementList.map((element: any, index: any) => (
-              <ListGroup key={index}>
+              <h3 className='text-2xl font-bold my-2'>Contact(s)/Groupe(s)</h3>
+              {/* {elementList.map((element: any, index: any) => ( */}
+              <ListGroup >
                 <ListGroup.Item onClick={() => displayInformation(element.id)}>
-                  {element.name}
+                  {/* {element.name} */}Amine
+                </ListGroup.Item>
+                <ListGroup.Item onClick={() => displayInformation(element.id)}>
+                  {/* {element.name} */}Cayetano
+                </ListGroup.Item>
+                <ListGroup.Item onClick={() => displayInformation(element.id)}>
+                  {/* {element.name} */}Vacances été
                 </ListGroup.Item>
               </ListGroup>
-              ))} 
+              {/* ))}  */}
 
             </div>
           </div>
 
           {/* Partie gauche */}
           <div className="flex max-w-md flex-col gap-4 ml-3 w-6/12">
-            <h1 className='text-xl my-2'>Mes informations partagées</h1>
+            <h3 className='text-2xl font-bold my-2'>Mes informations partagées</h3>
             <div
               className="flex max-w-md flex-col gap-4"
               id="checkbox"
@@ -127,7 +132,35 @@ const Shares = () => {
                   htmlFor="agree"
                 >
                   <p>
-                    {information}
+                    {/* {information} */}0102030405
+                  </p>
+                </Label>
+              </div>
+              <div className="flex items-center gap-2">
+                <Checkbox
+                  // defaultChecked
+                  id="accept"
+                />
+                <Label
+                  className="flex"
+                  htmlFor="agree"
+                >
+                  <p>
+                    {/* {information} */}12, rue de la rue
+                  </p>
+                </Label>
+              </div>
+              <div className="flex items-center gap-2">
+                <Checkbox
+                  // defaultChecked
+                  id="accept"
+                />
+                <Label
+                  className="flex"
+                  htmlFor="agree"
+                >
+                  <p>
+                    {/* {information} */}http://moninsta.fr
                   </p>
                 </Label>
               </div>
