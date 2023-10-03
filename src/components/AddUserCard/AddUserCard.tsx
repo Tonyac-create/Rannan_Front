@@ -5,10 +5,23 @@ import AddContactBtn from '../ContactsList/CL-ModalAddContact/CL-MADC-Boutons/Ad
 import IsContactAlert from '../ContactsList/CL-ModalAddContact/CL-MADC-Alerts/isContactAlert/isContactAlert';
 import RequestReccievedAlert from '../ContactsList/CL-ModalAddContact/CL-MADC-Alerts/requestRecievedAlert/RequestRecievedAlert';
 import RequestSentAlert from '../ContactsList/CL-ModalAddContact/CL-MADC-Alerts/requestSentAlert/RequestSentAlert';
+import BtnAddToGroup from './AUC-BtnAddToGroup/BtnAddToGroup';
+import { useLocation } from 'react-router-dom';
 
 const AddUserCard = (props) => {
     const { nickname, id, addContactAction, status } = props;
+    //Config en fonction de la page
+    const [contactComp, setContactComp] = useState(false);
+    const location = useLocation();
 
+    useEffect(() => {
+      if(location.pathname ==='/home' || location.pathname ==='/contacts'){
+        setContactComp(true);
+      }
+    })
+
+
+    //Config pour liste ajout contacts
     const [isBouton, setIsBouton] = useState();
     useEffect(() => {
       if (status === 1){
@@ -37,21 +50,25 @@ const AddUserCard = (props) => {
       }
     });
 
-
   return (
     <Card className="addUserCard max-w-sm" key={id}>
-      <h4 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">{nickname}</h4>
-      <div className={`${isBouton ? "actionbtn" : "hidden"}`}>
-        <AddContactBtn actionFunction={addContactAction} />
+      <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">{nickname}</h4>
+      <div className={`${contactComp ? "contactComp" : "hidden"}`}>
+        <div className={`${isBouton ? "actionbtn" : "hidden"}`}>
+          <AddContactBtn actionFunction={addContactAction} />
+        </div>
+        <div className={`${isAlert1 ? "alert" : "hidden"}`}>
+          <IsContactAlert/>
+        </div>
+        <div className={`${isAlert2 ? "alert" : "hidden"}`}>
+          <RequestReccievedAlert/>
+        </div>
+        <div className={`${isAlert3 ? "alert" : "hidden"}`}>
+          <RequestSentAlert />
+        </div>
       </div>
-      <div className={`${isAlert1 ? "alert" : "hidden"}`}>
-        <IsContactAlert/>
-      </div>
-      <div className={`${isAlert2 ? "alert" : "hidden"}`}>
-        <RequestReccievedAlert/>
-      </div>
-      <div className={`${isAlert3 ? "alert" : "hidden"}`}>
-        <RequestSentAlert />
+      <div className={`${contactComp ? "hidden" : "addtogroup"}`}>
+        <BtnAddToGroup />
       </div>
     </Card>
   )

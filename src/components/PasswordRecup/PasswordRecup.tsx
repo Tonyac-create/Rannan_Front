@@ -13,16 +13,16 @@ function PasswordRecup() {
                 <div className="mb-2 block">
                     <Label
                         htmlFor="email1"
-                        value="Your email"
+                        value="Votre email"
                     />
                 </div>
                 <TextInput
                     id="email1"
-                    placeholder="name@flowbite.com"
+                    placeholder="name@gmail.com"
                     required
                     type="email"
                 />
-                <Button type="submit" onClick={() => props.setOpenModal('default')}>
+                <Button type="submit" onClick={() => props.setOpenModal('default')} className='w-6/12'>
                     Envoyer
                 </Button>
                 <Modal show={props.openModal === 'default'} onClose={() => props.setOpenModal(undefined)}>

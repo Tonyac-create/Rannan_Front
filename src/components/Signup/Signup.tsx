@@ -9,7 +9,7 @@ function Signup() {
                 <div>
                     <div className="mb-2 block">
                         <Label
-                            value="Your nickname"
+                            value="Votre pseudonyme"
                         />
                     </div>
                     <TextInput
@@ -22,7 +22,7 @@ function Signup() {
                     <div className="mb-2 block">
                         <Label
                             htmlFor="email2"
-                            value="Your email"
+                            value="Votre email"
                         />
                     </div>
                     <TextInput
@@ -37,7 +37,7 @@ function Signup() {
                     <div className="mb-2 block">
                         <Label
                             htmlFor="password2"
-                            value="Your password"
+                            value="Votre mot de passe"
                         />
                     </div>
                     <TextInput
@@ -51,7 +51,7 @@ function Signup() {
                     <div className="mb-2 block">
                         <Label
                             htmlFor="repeat-password"
-                            value="Repeat password"
+                            value="Répétez le mot de passe"
                         />
                     </div>
                     <TextInput
@@ -63,7 +63,7 @@ function Signup() {
                 </div>
                 
                 <Button type="submit">
-                    Register new account
+                    Enregistrer
                 </Button>
             </form>
         </>

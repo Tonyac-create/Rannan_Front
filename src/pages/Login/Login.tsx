@@ -32,12 +32,12 @@ const Login = () => {
                 <div className="mb-2 block">
                   <Label
                     htmlFor="email1"
-                    value="Your email"
+                    value="Votre email"
                   />
                 </div>
                 <TextInput
                   id="email1"
-                  placeholder="name@flowbite.com"
+                  placeholder="name@gmail.com"
                   required
                   type="email"
                 />
@@ -46,7 +46,7 @@ const Login = () => {
                 <div className="mb-2 block">
                   <Label
                     htmlFor="password1"
-                    value="Your password"
+                    value="Votre mot de passe"
                   />
                 </div>
                 <TextInput
@@ -56,14 +56,14 @@ const Login = () => {
                 />
                 <a onClick={switchComponent} href="#" className="text-gray-400">Mot de passe oublié</a>
               </div>
-              <div className="flex items-center gap-2">
+              {/* <div className="flex items-center gap-2">
                 <Checkbox id="remember" />
                 <Label htmlFor="remember">
                   Remember me
                 </Label>
-              </div>
+              </div> */}
               <Button className="w-6/12">
-                <a href="/home">Submit</a>
+                <a href="/home">Login</a>
               </Button>
             </form>
             <p className="ml-3">Première fois? Inscrivez-vous <span><a onClick={switchComponentTest} href="#" className="text-gray-400">ici</a></span></p>
