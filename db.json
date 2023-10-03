@@ -37,19 +37,23 @@
   "apiUsers": [
     {
       "id": 1,
-      "nickname": "Thomas"
+      "nickname": "Thomas",
+      "information": "adresse maison"
     },
     {
       "id": 2,
-      "nickname": "Caye"
+      "nickname": "Caye",
+      "information": "Digicode: A1B2C3D4"
     },
     {
       "id": 3,
-      "nickname": "Angélique"
+      "nickname": "Angélique",
+      "information": "Digicode: A1B2C3D4"
     },
     {
       "id": 4,
-      "nickname": "Amine"
+      "nickname": "Amine",
+      "information": "0606060606"
     },
     {
       "id": 5,
