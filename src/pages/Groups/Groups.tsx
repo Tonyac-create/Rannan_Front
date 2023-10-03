@@ -26,12 +26,12 @@ const Groups = () => {
           <h3 className="text-2xl">Mes Groupes</h3>
         </section>
         <section className="flex flex-col md:flex-row items-center md:items-start">
-          <div className="flex flex-col items-center min-w-1/5 m-5">
-            <Button.Group>
-              <Button color="info" onClick={() => handleSeeList("member")}>
+          <div className="flex flex-col items-center min-w-2/5 m-5">
+            <Button.Group className="w-full">
+              <Button color="white" onClick={() => handleSeeList("member")} className={`w-full border border-cyan-700 ${seeList === "member" && ('bg-cyan-700 text-white')}`}>
                 Membre
               </Button>
-              <Button color="info" onClick={() => handleSeeList("creator")}>
+              <Button color="white" onClick={() => handleSeeList("creator")} className={`w-full border border-cyan-700 ${seeList === "creator" && ('bg-cyan-700 text-white')}`}>
                 Créateur
               </Button>
             </Button.Group>
