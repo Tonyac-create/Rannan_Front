@@ -4,13 +4,13 @@ import { Footer } from 'flowbite-react';
 
 export default function DefaultFooter() {
   return (
-    <Footer container className='fixed bottom-0'>
+    <Footer container className='flex justify-evenly fixed bottom-0'>
       <Footer.Copyright
         by="Rannan.io"
         href="#"
         year={2023}
       />
-      <Footer.LinkGroup>
+      <Footer.LinkGroup className='flex gap-2'>
         <Footer.Link href="/about">
           About
         </Footer.Link>
