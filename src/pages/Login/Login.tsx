@@ -27,7 +27,7 @@ const Login = () => {
         login ? (
 
           <Layout>
-            <form className="flex max-w-md flex-col gap-4 mb-5 mx-auto">
+            <form className="flex mx-2 max-w-md flex-col gap-4 mb-5 md:mx-auto">
               <div>
                 <div className="mb-2 block">
                   <Label
