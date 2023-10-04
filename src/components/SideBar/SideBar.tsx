@@ -1,12 +1,10 @@
 import { Button, Sidebar} from 'flowbite-react';
-import { SidebarItemGroup } from 'flowbite-react/lib/esm/components/Sidebar/SidebarItemGroup';
 import { HiFingerPrint, HiViewList, HiChartPie, HiInbox, HiUser, HiViewBoards, HiPlusSm } from 'react-icons/hi';
 import ProfileCard from '../ProfileCard/ProfileCard';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function LogoBranding() {
-  const userId = 5
+export default function SideBar() {
   const [ seeMenu, setSeeMenu ] = useState(false)
   const toggleSeeMenu = () => {
     setSeeMenu(!seeMenu)
@@ -50,7 +48,9 @@ export default function LogoBranding() {
 
       <Sidebar aria-label="Sidebar Navigation Menu" className='sm:fixed left-0 hidden sm:flex flex-col w-2/5 sm:w-4/12 md:w-3/12 lg:w-2/12 h-full'>
 
-        <h1 className='text-center text-4xl font-bold'>Rannan</h1>
+        <a href="/home">
+          <h1 className='text-center text-4xl font-bold'>Rannan</h1>
+        </a>
 
         <Sidebar.ItemGroup className="my-6">
           <Sidebar.Item as={Link} to="/home" icon={HiChartPie} >
