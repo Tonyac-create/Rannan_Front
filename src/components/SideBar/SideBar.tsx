@@ -15,7 +15,7 @@ export default function LogoBranding() {
 
   return (
     <>
-      <section className='sm:hidden fixed bottom-5 flex justify-center items-center w-full h-12'>
+      <section className='sm:hidden fixed bottom-5 flex justify-center items-center w-full h-12 z-50'>
         <Button.Group>
           <Button color="gray" as={Link} to="/home">
             <HiChartPie className="h-8 w-8" />
@@ -48,12 +48,11 @@ export default function LogoBranding() {
         )}
       </section>
 
-      <Sidebar aria-label="Sidebar Navigation Menu" className='hidden sm:block sm:fixed w-2/5 sm:w-4/12 md:w-3/12 lg:w-2/12 h-auto sm:h-full z-50'>
-        <Sidebar.Logo href="/" img="/src/asset/Rannan_Dev.png" imgAlt="R Logo">
-          <h1 className='text-4xl'>Rannan.io</h1>
-        </Sidebar.Logo>
+      <Sidebar aria-label="Sidebar Navigation Menu" className='sm:fixed left-0 hidden sm:flex flex-col w-2/5 sm:w-4/12 md:w-3/12 lg:w-2/12 h-full'>
 
-        <Sidebar.ItemGroup>
+        <h1 className='text-center text-4xl font-bold'>Rannan</h1>
+
+        <Sidebar.ItemGroup className="my-6">
           <Sidebar.Item as={Link} to="/home" icon={HiChartPie} >
             <p>Mon Profil</p>
           </Sidebar.Item>
@@ -70,24 +69,24 @@ export default function LogoBranding() {
 
         <ProfileCard />
 
-      <SidebarItemGroup>
-        <Sidebar.Item
-              href="/about"
-              icon={HiFingerPrint}
-              >
-              <p>
-                A propos
-              </p>
-            </Sidebar.Item>
-            <Sidebar.Item
-              href="/legal"
-              icon={HiViewList}
-              >
-              <p>
-                Mentions Légales
-              </p>
-            </Sidebar.Item>
-        </SidebarItemGroup>
+        <Sidebar.ItemGroup className="my-6">
+          <Sidebar.Item
+            href="/about"
+            icon={HiFingerPrint}
+            >
+            <p>
+              A propos
+            </p>
+          </Sidebar.Item>
+          <Sidebar.Item
+            href="/legal"
+            icon={HiViewList}
+            >
+            <p>
+              Mentions Légales
+            </p>
+          </Sidebar.Item>
+        </Sidebar.ItemGroup>
       </Sidebar>
     </>
   )
