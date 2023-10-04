@@ -7,7 +7,7 @@ export default function DefaultFooter() {
     <Footer container className='flex justify-evenly fixed bottom-0'>
       <Footer.Copyright
         by="Rannan.io"
-        href="#"
+        href="/login"
         year={2023}
       />
       <Footer.LinkGroup className='flex gap-2'>

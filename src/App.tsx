@@ -11,6 +11,7 @@ import Home from './pages/Homepage/Home'
 import Profile from './pages/Profile/Profile'
 import Account from './pages/Account/Account'
 import GroupSetting from './pages/GroupSetting/GroupSetting'
+import Signup from './components/Signup/Signup'
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
 			<Routes >
 				<Route path="/" element={<Login />} />
 				<Route path="/login" element={<Login />} />
+				<Route path="/signup" element={<Signup />} />
 				<Route path='/about' element={<About/>} />
 				<Route path='/legal' element={<Legal/>} />
 				<Route path="/home" element={<Home />} />

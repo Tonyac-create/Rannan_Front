@@ -1,12 +1,13 @@
-'use client';
-import React from 'react';
 import { Accordion } from 'flowbite-react';
 import Layout from '../../components/Layouts/Layout';
 
 const About = () => {
   return (
     <Layout>
-      <Accordion collapseAll>
+      <section className="flex justify-center p-8">
+        <h2 className="text-3xl font-medium">A Propos</h2>
+      </section>
+      <Accordion collapseAll className="w-10/12 ms-auto me-auto">
         <Accordion.Panel>
           <Accordion.Title>
             Qui somme nous

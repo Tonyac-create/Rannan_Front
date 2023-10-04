@@ -37,10 +37,10 @@ export default function LogoBranding() {
           <div className='fixed right-4 bottom-16 mb-4 z-50'>
             <ProfileCard />
             <div className='flex flex-col justify-around h-20 mt-2 text-end'>
-              <Button size="xs" href="/about">
+              <Button size="xs" as={Link} to="/about">
                 <p>A propos</p>
               </Button>
-              <Button size="xs" href="/legal">
+              <Button size="xs" as={Link} to="/legal">
                 <p>Mentions Légales</p>
               </Button>
             </div>

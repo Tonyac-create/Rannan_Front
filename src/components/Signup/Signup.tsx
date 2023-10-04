@@ -1,11 +1,10 @@
-import React from 'react'
 import { Button, Label, TextInput } from 'flowbite-react';
 
 function Signup() {
     
     return (
         <>
-            <form className="flex max-w-md flex-col gap-4 ml-3">
+            <form className="flex flex-col gap-4 w-full mb-5">
                 <div>
                     <div className="mb-2 block">
                         <Label
