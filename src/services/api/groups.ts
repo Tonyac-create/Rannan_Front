@@ -31,9 +31,9 @@ export async function getCreatorGroupList(){
     }
 }
 
-export async function getGroupDetail(){
+export async function getGroupDetail(id: string){
     try{
-        const response = await api.get('/api/group/:id');
+        const response = await api.get(`/api/group/${id}`);
         return response
     }
     catch(error){
@@ -41,9 +41,9 @@ export async function getGroupDetail(){
     }
 }
 
-export async function removeGroup(){
+export async function removeGroup(id: string){
     try{
-        const response = await api.delete('/api/group/:id');
+        const response = await api.delete(`/api/group/${id}`);
         return response
     }
     catch(error){
@@ -51,9 +51,9 @@ export async function removeGroup(){
     }
 }
 
-export async function getGroupDetailForSetting(){
+export async function getGroupDetailForSetting(id: string){
     try{
-        const response = await api.get('/api/group/:id/setting');
+        const response = await api.get(`/api/group/${id}/setting`);
         return response
     }
     catch(error){
@@ -61,9 +61,9 @@ export async function getGroupDetailForSetting(){
     }
 }
 
-export async function updateGroup(){
+export async function updateGroup(id: string){
     try{
-        const response = await api.put('/api/group/:id');
+        const response = await api.put(`/api/group/${id}`);
         return response
     }
     catch(error){
@@ -71,9 +71,9 @@ export async function updateGroup(){
     }
 }
 
-export async function addMemberGroup(){
+export async function addMemberGroup(id: string){
     try{
-        const response = await api.put('/api/group/:id/add');
+        const response = await api.put(`/api/group/${id}/add`);
         return response
     }
     catch(error){
@@ -81,9 +81,9 @@ export async function addMemberGroup(){
     }
 }
 
-export async function removeMember(){
+export async function removeMember(id: string){
     try{
-        const response = await api.delete('/api/group/:id/remove');
+        const response = await api.delete(`/api/group/${id}/remove`);
         return response
     }
     catch(error){
