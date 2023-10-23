@@ -2,12 +2,16 @@ import { Card, Dropdown } from 'flowbite-react';
 import AvatarCard from '../AvatarCard/AvatarCard';
 import { Link } from 'react-router-dom';
 import { logOut } from '../../services/API/auth';
+import { useNavigate } from 'react-router-dom';
 
 export default function ProfileCard() {
-
-  const handleLogout = (event: any) => {
+  const navigate = useNavigate()
+  const handleLogout = async (event: any) => {
     event.preventDefault()
-    logOut()
+    const response = await logOut()
+    if (response.status === true) {
+      navigate("/login")
+    }
   }
 
   return (

@@ -49,7 +49,7 @@ export async function logIn(body: any){
 
 export async function refreshToken(){
     try{
-        const response = await api.get('/auth/refreshToken');
+        const response = await api.get('/api/auth/refreshToken');
         return ({
             message: "refreshToken OK",
             status: true,
@@ -67,10 +67,9 @@ export async function refreshToken(){
 
 export async function logOut(){
     try{
-        const response = await api.put('/auth/disconnect');
+        const response = await api.put('/api/auth/disconnect');
         localStorage.removeItem("authToken")
         localStorage.removeItem("authRefreshToken")
-        window.location.href = "/login"
         return ({
             message: "logOut OK",
             status: true,
