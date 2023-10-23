@@ -41,9 +41,9 @@ export async function updatePassword(){
     }
 }
 
-export async function getProfile(){
+export async function getProfile(id: string | undefined){
     try{
-        const response = await api.get('/api/user/profile/:id');
+        const response = await api.get(`/api/user/profile/${id}`);
         return response
     }
     catch(error){

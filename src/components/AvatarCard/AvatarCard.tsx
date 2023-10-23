@@ -1,5 +1,8 @@
 
-export default function AvatarCard() {
+
+export default function AvatarCard(props: any) {
+
+  const { userProfile } = props
 
   return (
     <>
@@ -7,12 +10,12 @@ export default function AvatarCard() {
         <img
           alt="User Avatar"
           className="rounded-full h-full"
-          src="/src/asset/user_Test.svg"
+          src={`/src/asset/avatars/${userProfile.avatar_id}.svg`}
           />
         <h5 className="mt-4 text-lg font-base text-gray-900 dark:text-white whitespace-pre">
-          User Nickname
+          {userProfile.nickname}
         </h5>
       </div>
     </>
   )
-  }
+}

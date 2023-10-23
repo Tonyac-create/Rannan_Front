@@ -3,12 +3,26 @@ import Layout from "../../components/Layouts/Layout"
 import { useState } from "react"
 import PasswordRecup from "../../components/PasswordRecup/PasswordRecup"
 import Signup from "../../components/Signup/Signup"
-import { Link } from "react-router-dom"
+import { logIn } from "../../services/API/auth"
+import { useNavigate } from "react-router-dom"
 
 
 const Login = () => {
 
   const [login, setLogin] = useState(true)
+  const navigate = useNavigate()
+
+  const [ email, setEmail ] = useState("")
+  const [ password, setPassword ] = useState("")
+
+  const handleSubmit = async (event: any) => {
+      event.preventDefault()
+      const response: any = await logIn({email, password})
+      if (response.status === true) {
+        navigate("/home")
+      }
+  }
+
 
   const [components, setComponents] = useState(true)
 
@@ -42,6 +56,7 @@ const Login = () => {
                     placeholder="name@gmail.com"
                     required
                     type="email"
+                    onChange={(event) => setEmail(event.target.value)}
                   />
                 </div>
                 <div>
@@ -55,6 +70,7 @@ const Login = () => {
                     id="password1"
                     required
                     type="password"
+                    onChange={(event) => setPassword(event.target.value)}
                   />
                   <a onClick={switchComponent} href="#" className="text-gray-400 hover:text-cyan-600">Mot de passe oublié</a>
                 </div>
@@ -64,7 +80,11 @@ const Login = () => {
                   </Label>
                   <Checkbox id="remember" />
                 </div>
-                <Button as={Link} to={"/home"} className="w-6/12">Connexion</Button>
+                  <Button
+                  onClick={(event) => handleSubmit(event)}
+                  className="w-6/12">
+                    Connexion
+                  </Button>
               </form>
               <section>
                 <span className="ml-3">Première fois?&ensp;Inscrivez-vous</span>

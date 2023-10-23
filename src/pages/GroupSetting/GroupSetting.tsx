@@ -1,5 +1,4 @@
 import { Button, Label, TextInput } from "flowbite-react"
-import { HiOutlineCalendar, HiSparkles } from 'react-icons/hi';
 import { useEffect, useState } from "react"
 import Layout2 from "../../components/Layouts/Layout2";
 import { useParams } from "react-router-dom";
