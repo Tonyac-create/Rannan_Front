@@ -31,7 +31,6 @@ const UserList = (props: any) => {
     fetchData()
   }, [])
 
-
 // Récupére le Nickname du User qui utilise l'app
   useEffect(() => {
     apiUsers.map((el) => {
