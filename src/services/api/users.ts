@@ -21,9 +21,9 @@ export async function resetPassword(){
     }
 }
 
-export async function updateUser(){
+export async function updateUser(body: any){
     try{
-        const response = await api.put('/api/user/account');
+        const response = await api.put('/api/user/account', body);
         return response
     }
     catch(error){

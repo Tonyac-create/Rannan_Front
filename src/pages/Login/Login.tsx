@@ -3,7 +3,7 @@ import Layout from "../../components/Layouts/Layout"
 import { useState } from "react"
 import PasswordRecup from "../../components/PasswordRecup/PasswordRecup"
 import Signup from "../../components/Signup/Signup"
-import { logIn } from "../../services/API/auth"
+import { logIn } from "../../services/api/auth"
 import { useNavigate } from "react-router-dom"
 
 
@@ -74,12 +74,12 @@ const Login = () => {
                   />
                   <a onClick={switchComponent} href="#" className="text-gray-400 hover:text-cyan-600">Mot de passe oublié</a>
                 </div>
-                <div className="flex items-center gap-2">
+                {/* <div className="flex items-center gap-2">
                   <Label htmlFor="remember">
                     Se souvenir de moi
                   </Label>
                   <Checkbox id="remember" />
-                </div>
+                </div> */}
                   <Button
                   onClick={(event) => handleSubmit(event)}
                   className="w-6/12">
