@@ -3,6 +3,7 @@ import ContactsList from '../../components/ContactsList/ContactsList'
 import Layout2 from '../../components/Layouts/Layout2'
 
 const Home = () => {
+
   return (
     <Layout2>
       <section className="flex justify-center p-8">

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import MyInformationData from '../../../Forms/MyInformationData/MyInformationData'
 import {HiPencil} from 'react-icons/hi'
 
-const BtnModifyInfo = (props) => {
+const BtnModifyInfo = (props: any) => {
     const [openModal, setOpenModal] = useState<string | undefined>();
     const pro = { openModal, setOpenModal };
 
@@ -19,7 +19,7 @@ const BtnModifyInfo = (props) => {
 
     return (
         <div className='modifyModal' key={id}>
-            <Button  color="purple" pill  onClick={() => pro.setOpenModal('form-elements')}>
+            <Button onClick={() => pro.setOpenModal('form-elements')}>
             <span className='sm:hidden'><HiPencil className="h-6 w-6"/></span>
             <span className='hidden sm:block'>{action}</span>
             </Button>

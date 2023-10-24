@@ -11,7 +11,7 @@ const BtnDeleteInfo = () => {
 
     return (
         <>
-        <Button pill color='failure' onClick={() => props.setOpenModal('default')}>
+        <Button color='failure' onClick={() => props.setOpenModal('default')}>
             <span className='sm:hidden'><HiTrash className="h-6 w-6"/></span>
             <span className='hidden sm:block'>Supprimer</span>
         </Button>
