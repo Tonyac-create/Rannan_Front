@@ -25,7 +25,7 @@ function ChoiceAvatar() {
 
     return (
         <>
-            <div className='flex flex-col items-center h-min p-5 border-4 border-teal-600 rounded-xl'>
+            <div className='flex flex-col items-center h-min p-5 w-full lg:w-1/2 2xl:w-auto border-4 border-teal-600 rounded-xl'>
                 <h1 className='text-center text-2xl font-medium'>Choisissez votre avatar</h1>
 
                 <div className="flex flex-wrap justify-evenly gap-2 w-full my-4">
