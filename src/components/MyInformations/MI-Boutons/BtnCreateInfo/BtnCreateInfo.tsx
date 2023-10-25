@@ -1,16 +1,14 @@
 'use client';
 import { Button, Modal } from 'flowbite-react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import MyInformationData from '../../../Forms/MyInformationData/MyInformationData';
 import { createData } from '../../../../services/api/data';
-import { useNavigate } from 'react-router-dom';
 
 const BtnCreateInfo = () => {
   
     const [openModal, setOpenModal] = useState<string | undefined>()
     const props = { openModal, setOpenModal }
     const action = "Créer"
-    const navigate = useNavigate()
     
     //Fonction API POST data
     
