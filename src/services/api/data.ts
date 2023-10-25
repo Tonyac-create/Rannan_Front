@@ -21,9 +21,9 @@ export async function getUserDatas(){  // Récupère des datas avec son user_id 
     }
 }
 
-export async function updateData(id: string){  //MaJ d'une data id= data_id
+export async function updateData(id: string, body: any){  //MaJ d'une data id= data_id
     try{
-        const response = await api.put(`/api/data/${id}`);
+        const response = await api.put(`/api/data/${id}`, body);
         return response
     }
     catch(error){

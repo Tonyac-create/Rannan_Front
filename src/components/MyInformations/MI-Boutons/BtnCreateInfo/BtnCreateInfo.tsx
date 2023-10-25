@@ -15,7 +15,11 @@ const BtnCreateInfo = () => {
     const createNewData = async(newData: any) => {        
         //requête POST
         const dataCreated = await createData(newData)
+        if (dataCreated) {
+            alert('Génial, une information créée ! :)')
+        }
         props.setOpenModal('hidden')
+        window.location.reload()
     }
 
 

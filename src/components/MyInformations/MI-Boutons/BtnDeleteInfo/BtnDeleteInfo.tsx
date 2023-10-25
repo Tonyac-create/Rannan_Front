@@ -2,20 +2,35 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'flowbite-react';
 import { HiTrash } from 'react-icons/hi'
+import { removeData } from '../../../../services/api/data';
 
-const BtnDeleteInfo = () => {
-    const [openModal, setOpenModal] = useState<string | undefined>();
-    const props = { openModal, setOpenModal };
+const BtnDeleteInfo = (props: any) => {
+    const [openModal, setOpenModal] = useState<string | undefined>()
+    const prop = { openModal, setOpenModal }
+
+    const { id } = props
 
     //API DELETE data
+    const deleteData = async() => {   
+        console.log("coucou")
+             
+        //requête POST
+        const dataDelete = await removeData(id.id)
+        if (dataDelete) {
+            alert('Information supprimée avec succès, :)')
+        }
+        prop.setOpenModal('hidden')
+        window.location.reload()
+    }
+    
 
     return (
         <>
-        <Button color='failure' onClick={() => props.setOpenModal('default')}>
+        <Button color='failure' onClick={() => prop.setOpenModal('default')}>
             <span className='sm:hidden'><HiTrash className="h-6 w-6"/></span>
             <span className='hidden sm:block'>Supprimer</span>
         </Button>
-        <Modal show={props.openModal === 'default'} onClose={() => props.setOpenModal(undefined)}>
+        <Modal show={prop.openModal === 'default'} onClose={() => prop.setOpenModal(undefined)}>
             <Modal.Header>Êtes vous sur de vouloir supprimer cette donnée?</Modal.Header>
             <Modal.Body>
             <div className="space-y-6">
@@ -25,8 +40,8 @@ const BtnDeleteInfo = () => {
             </div>
             </Modal.Body>
             <Modal.Footer>
-            <Button color="success" onClick={() => props.setOpenModal(undefined)}>Supprimer</Button>
-            <Button color="failure" onClick={() => props.setOpenModal(undefined)}>Annuler</Button>
+            <Button color="success" onClick={deleteData}>Supprimer</Button>
+            <Button color="failure" onClick={() => prop.setOpenModal(undefined)}>Annuler</Button>
             </Modal.Footer>
         </Modal>
         </>

@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { Button, Textarea, Label, Select, TextInput } from 'flowbite-react';
-import { createData } from '../../../services/api/data';
+import { createData, updateData } from '../../../services/api/data';
 import { useParams } from 'react-router-dom';
 
 const MyInformationData = (props: any) => {
@@ -34,8 +34,8 @@ const MyInformationData = (props: any) => {
                 <div className="mb-2 block">
                     <Label htmlFor="name" value="Nom" />
                 </div>
-                <TextInput id="name" placeholder="Nom de l'information" required onChange={(event) => handleChange(event)} name="name" value={name} />
-                
+                <TextInput id="name" placeholder="Nom de l'information" required onChange={(event) => handleChange(event)} name="name" defaultValue={name} />
+
             </div>
             <div>
                 <div className='mb-2 block'>
@@ -52,8 +52,8 @@ const MyInformationData = (props: any) => {
                 <div className="mb-2 block">
                     <Label htmlFor="value" value="Contenu" />
                 </div>
-                <Textarea id="value" placeholder="Description de l'information" required onChange={(event) => handleChange(event)} name="value" value={value} />
-                
+                <Textarea id="value" placeholder="Description de l'information" required onChange={(event) => handleChange(event)} name="value" defaultValue={value} />
+
             </div>
 
             <div className="w-full">
