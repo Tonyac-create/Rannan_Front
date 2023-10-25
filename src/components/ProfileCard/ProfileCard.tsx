@@ -1,11 +1,13 @@
 import { Card, Dropdown } from 'flowbite-react';
 import AvatarCard from '../AvatarCard/AvatarCard';
 import { Link } from 'react-router-dom';
-import { logOut } from '../../services/API/auth';
+import { logOut } from '../../services/api/auth';
 import { useNavigate } from 'react-router-dom';
 
 export default function ProfileCard() {
   const navigate = useNavigate()
+  const userProfile = {nickname: localStorage.getItem("user.nickname"), avatar_id: localStorage.getItem("user.avatar")}
+
   const handleLogout = async (event: any) => {
     event.preventDefault()
     const response = await logOut()
@@ -29,7 +31,7 @@ export default function ProfileCard() {
         </Dropdown.Item>
       </Dropdown>
 
-      <AvatarCard userProfile={{avatar_id: 0, nickname: "EN DUR"}} />
+      <AvatarCard userProfile={userProfile} />
 
     </Card>
   )

@@ -4,15 +4,17 @@ const api = useApi();
 export async function signIn(body: any){
     try{
         const response = await api.post('/auth/register', body);
-        const { token, refreshToken } = response.data
+        const { token, refreshToken, user } = response.data
         if (token !== undefined && refreshToken !== undefined) {
             localStorage.setItem("authToken", token)
             localStorage.setItem("authRefreshToken", refreshToken)
+            localStorage.setItem("user.avatar", user.avatar_id)
+            localStorage.setItem("user.nickname", user.nickname)
         }
         return ({
             message: "signIn OK",
             status: true,
-            data: response.data.updatedUser
+            data: response.data
         })
     }
     catch(error){
@@ -27,15 +29,18 @@ export async function signIn(body: any){
 export async function logIn(body: any){
     try{
         const response = await api.post('/auth/login', body);
-        const { token, refreshToken } = response.data
+        console.log(response.data)
+        const { token, refreshToken, user } = response.data
         if (token !== undefined && refreshToken !== undefined) {
             localStorage.setItem("authToken", token)
             localStorage.setItem("authRefreshToken", refreshToken)
+            localStorage.setItem("user.avatar", user.avatar_id)
+            localStorage.setItem("user.nickname", user.nickname)
         }
         return ({
             message: "logIn OK",
             status: true,
-            data: response.data.updatedUser
+            data: response.data
         })
     }
     catch(error){
@@ -70,6 +75,8 @@ export async function logOut(){
         const response = await api.put('/api/auth/disconnect');
         localStorage.removeItem("authToken")
         localStorage.removeItem("authRefreshToken")
+        localStorage.removeItem("user.nickname")
+        localStorage.removeItem("user.avatar")
         return ({
             message: "logOut OK",
             status: true,

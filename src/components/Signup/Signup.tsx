@@ -1,6 +1,6 @@
 import { Button, Label, Modal, TextInput } from 'flowbite-react';
 import { useState } from 'react';
-import { signIn } from '../../services/API/auth';
+import { signIn } from '../../services/api/auth';
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
 
 function Signup() {

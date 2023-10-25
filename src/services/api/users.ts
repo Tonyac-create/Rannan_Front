@@ -11,6 +11,16 @@ export async function userConnected(){
     }
 }
 
+export async function getEmail(){
+    try{
+        const response = await api.get('/api/user/account');
+        return response
+    }
+    catch(error){
+        return error
+    }
+}
+
 export async function resetPassword(){
     try{
         const response = await api.get('/user/reset');
@@ -21,9 +31,9 @@ export async function resetPassword(){
     }
 }
 
-export async function updateUser(){
+export async function updateUser(body: any){
     try{
-        const response = await api.put('/api/user/account');
+        const response = await api.put('/api/user/account', body);
         return response
     }
     catch(error){
@@ -31,9 +41,10 @@ export async function updateUser(){
     }
 }
 
-export async function updatePassword(){
+export async function updatePassword(body: any){
     try{
-        const response = await api.put('/api/user/password');
+        const response = await api.put('/api/user/password', body);
+        console.log(response)
         return response
     }
     catch(error){
