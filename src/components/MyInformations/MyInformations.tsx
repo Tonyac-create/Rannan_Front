@@ -28,31 +28,18 @@ const MyInformations = () => {
     <div className='myInformations sm:w-1/2 p-2 '>
         <div className='myInformations__box rounded-md p-2 shadow-xl flex flex-col gap-4'>
             <h3 className="scroll-m-20 border-b pb-2 text-xl font-semibold tracking-tight transition-colors first:mt-0 sm:text-2xl">Vos données:</h3>
-            {informations.map((data: any) => {
-                console.log("🚀 ~ file: MyInformations.tsx:36 ~ MyInformations ~ data:", data)
-                return(
-                    <InformationCard id={data} name={data.value} value={data.name}/>
-                )
-            })}
-            <BtnCreateInfo/>
+            {
+                informations.length > 0 ? informations.map((data: any) => {
+                    return(
+                        <InformationCard id={data} name={data.value} value={data.name}/>
+                    )
+                }) : <p>Pas d'informations</p>
+            }
+            
+            <BtnCreateInfo />
         </div>    
     </div>
   )
 }
 
 export default MyInformations
-
-
-
-// const datas = [
-//     {id: "1",
-//     name: "adresse maison",
-//     type: "adresse",
-//     value: "3 rue papu, xx000 Papuville"
-//     },
-//     {id: "2",
-//     name: "telephone perso",
-//     type: "telephone",
-//     value: "0123456789"
-//     }
-// ]

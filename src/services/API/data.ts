@@ -31,7 +31,7 @@ export async function updateData(id: string){  //MaJ d'une data id= data_id
     }
 }
 
-export async function removeData(id: string){  //supression d'une data id= data_id
+export async function removeData(id: string | undefined){  //supression d'une data id= data_id
     try{
         const response = await api.delete(`/api/data/${id}`);
         return response
@@ -41,9 +41,9 @@ export async function removeData(id: string){  //supression d'une data id= data_
     }
 }
 
-export async function createData(){  //créer une data
+export async function createData(body: any){  //créer une data
     try{
-        const response = await api.post('/api/data');
+        const response = await api.post('/api/data', body);
         return response
     }
     catch(error){
