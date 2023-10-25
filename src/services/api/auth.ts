@@ -12,14 +12,12 @@ export async function signIn(body: any){
             localStorage.setItem("user.nickname", user.nickname)
         }
         return ({
-            message: "signIn OK",
             status: true,
             data: response.data
         })
     }
     catch(error){
         return ({
-            message: "signIn KO",
             status: false,
             data: error
         })
@@ -38,14 +36,12 @@ export async function logIn(body: any){
             localStorage.setItem("user.nickname", user.nickname)
         }
         return ({
-            message: "logIn OK",
             status: true,
             data: response.data
         })
     }
     catch(error){
         return ({
-            message: "logIn KO",
             status: false,
             data: error
         })
@@ -56,14 +52,12 @@ export async function refreshToken(){
     try{
         const response = await api.get('/api/auth/refreshToken');
         return ({
-            message: "refreshToken OK",
             status: true,
             data: response
         })
     }
     catch(error){
         return ({
-            message: "refreshToken KO",
             status: false,
             data: error
         })
@@ -78,14 +72,12 @@ export async function logOut(){
         localStorage.removeItem("user.nickname")
         localStorage.removeItem("user.avatar")
         return ({
-            message: "logOut OK",
             status: true,
             data: response
         })
     }
     catch(error){
         return ({
-            message: "logOut OK",
             status: false,
             data: error
         })

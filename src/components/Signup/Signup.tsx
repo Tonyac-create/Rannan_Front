@@ -9,22 +9,22 @@ function Signup() {
     const [ password, setPassword ] = useState<string>("")
     const [ checkPassword, setCheckPassword ] = useState<string>("")
 
-    const [ openModal, setOpenModal ] = useState<string | undefined>();
+    const [ openModal, setOpenModal ] = useState<string | undefined>()
     const [ modalText, setModalText ] = useState<string>("")
     const [ modalBtn, setModalBtn ] = useState<string>("")
-    const props = { openModal, setOpenModal };
+    const props = { openModal, setOpenModal }
 
     const handleSubmit = async (e: any) => {
             e.preventDefault()
 
         // Vérification des mots de passes renseignés
             if ( password !== checkPassword ) {
-                setModalText("Password are differents !")
+                setModalText("Les mots de passes renseignés ne sont pas identiques !")
                 setModalBtn("login")
                 return props.setOpenModal('pop-up')
             }
 
-        // Récupération des datas de l'api
+        // Enoiv des datas à l'api
             const response: any = await signIn({nickname, email, password})
             if (response.status === false) {
                 setModalText(response.data.response.data.error)
@@ -32,7 +32,7 @@ function Signup() {
                 return props.setOpenModal('pop-up')
             }
             if (response.status === true) {
-                setModalText("Account Created !")
+                setModalText(response.data.message)
                 setModalBtn("home")
                 return props.setOpenModal('pop-up')
             }
@@ -50,58 +50,60 @@ function Signup() {
                     </h3>
                     <div className="flex justify-center gap-4">
                     <Button color="failure" onClick={() => props.setOpenModal(undefined)}>
-                        I understand
+                        J'ai compris
                     </Button>
                     <Button color="gray" onClick={(event) => {event.preventDefault(); props.setOpenModal(undefined); window.location.href = `/${modalBtn}`}}>
-                        {modalBtn === "login" ? "Return to login" : "Go to App"}
+                        {modalBtn === "login" ? "Retour a l'accueil" : "Me connecter"}
                     </Button>
                     </div>
                 </div>
                 </Modal.Body>
             </Modal>
 
-            <form className="flex flex-col gap-4 w-full mb-5">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full mb-5">
                 <div>
                     <div className="mb-2 block">
                         <Label
-                            value="Votre pseudonyme"
+                            htmlFor="nickname"
+                            value="Votre pseudonyme :"
                         />
                     </div>
                     <TextInput
                         required
-                        shadow
+                        id="nickname"
                         type="text"
+                        maxLength={45}
                         onChange={(event) => setNickname(event.target.value)}
                     />
                 </div>
                 <div>
                     <div className="mb-2 block">
                         <Label
-                            htmlFor="email2"
-                            value="Votre email"
+                            htmlFor="email"
+                            value="Votre adresse mail :"
                         />
                     </div>
                     <TextInput
-                        id="email2"
-                        placeholder="name@gmail.com"
                         required
-                        shadow
+                        id="email"
                         type="email"
+                        maxLength={45}
+                        placeholder="name@mail.com"
                         onChange={(event) => setEmail(event.target.value)}
                     />
                 </div>
                 <div>
                     <div className="mb-2 block">
                         <Label
-                            htmlFor="password2"
-                            value="Votre mot de passe"
+                            htmlFor="password"
+                            value="Votre mot de passe :"
                         />
                     </div>
                     <TextInput
-                        id="password2"
                         required
-                        shadow
+                        id="password"
                         type="password"
+                        maxLength={70}
                         onChange={(event) => setPassword(event.target.value)}
                     />
                 </div>
@@ -109,20 +111,20 @@ function Signup() {
                     <div className="mb-2 block">
                         <Label
                             htmlFor="repeat-password"
-                            value="Répétez le mot de passe"
+                            value="Confirmez votre mot de passe :"
                         />
                     </div>
                     <TextInput
-                        id="repeat-password"
                         required
-                        shadow
+                        id="repeat-password"
                         type="password"
+                        maxLength={70}
                         onChange={(event) => setCheckPassword(event.target.value)}
                     />
                 </div>
 
-                <Button onClick={handleSubmit} >
-                    Enregistrer
+                <Button type="submit" >
+                    S'inscrire
                 </Button>
             </form>
         </>
