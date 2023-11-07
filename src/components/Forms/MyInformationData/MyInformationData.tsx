@@ -8,13 +8,7 @@ const MyInformationData = (props: any) => {
 
     const { action, title, actionData, type, name, value } = props;
 
-    const [newData, setNewData] = useState(
-        {
-            type: "text",
-            name: "",
-            value: "",
-        }
-    );
+    const [newData, setNewData] = useState({});
 
     const handleChange = (event: any) => {
         // Récupération de la valeur du champ name et value
