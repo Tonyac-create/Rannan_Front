@@ -51,9 +51,9 @@ export async function createData(body: any){  //créer une data
     }
 }
 
-export async function getListUsersGroups(){ // Récupération de liste users ou groups
+export async function getListUsersGroups(target: any){ // Récupération de liste users ou groups
     try{
-        const response = await api.get('/api/datas/shares');
+        const response = await api.post(`/api/datas/shares`, {target});
         return response
     }
     catch(error){
@@ -61,9 +61,9 @@ export async function getListUsersGroups(){ // Récupération de liste users ou 
     }
 }
 
-export async function getShares(){ // Récupérer une liste des datas partagé avec l’utilisateur ou le groupe lié
+export async function getShares(target_id: number, target: string){ // Récupérer une liste des datas partagé avec l’utilisateur ou le groupe lié
     try{
-        const response = await api.get('/api/datas/target');
+        const response = await api.post('/api/datas/target', {target_id, target});
         return response
     }
     catch(error){
@@ -91,7 +91,7 @@ export async function createShare(){ // Création d'un partage
     }
 }
 
-export async function removeShare(id: string){  // Supprimer un partage id= share.id
+export async function removeShare(id: number){  // Supprimer un partage id= share.id
     try{
         const response = await api.delete(`/api/shares/${id}`);
         return response
@@ -107,6 +107,15 @@ export async function getAllShares(){  // Récuperer tous les partages
         return response
     }
     catch(error){
+        return error
+    }
+}
+
+export async function getShareById(id: number) {
+    try {
+        const response = await api.get(`/api/share/${id}`)
+        return response        
+    } catch (error) {
         return error
     }
 }

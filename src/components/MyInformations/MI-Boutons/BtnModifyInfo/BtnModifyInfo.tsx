@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import MyInformationData from '../../../Forms/MyInformationData/MyInformationData'
 import { HiPencil } from 'react-icons/hi'
 import { updateData } from '../../../../services/api/data'
-import { HiOutlineExclamationCircle } from 'react-icons/hi'
 import ModalInfo from '../../ModalInfo'
 
 
