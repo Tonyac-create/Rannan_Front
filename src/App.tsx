@@ -9,7 +9,7 @@ import GroupDetail from './components/GroupDetail/GroupDetail'
 import Home from './pages/Homepage/Home'
 import Profile from './pages/Profile/Profile'
 import Account from './pages/Account/Account'
-import GroupSetting from './pages/GroupSetting/GroupSetting'
+import GroupSetting from './components/GroupSetting/GroupSetting'
 import Signup from './components/Signup/Signup'
 import PrivateRoute from './services/utils/privateRoute'
 import NotFoundPage from './services/utils/NotFoundPage'
@@ -34,7 +34,6 @@ function App() {
 					<Route path="/home" element={<Home />} />
 					<Route path="/groups" element={<Groups />} />
 					<Route path="user/:userId/group/detail/:role/:groupId" element={<GroupDetail />} />
-					<Route path="group/:groupId/modify" element={<GroupSetting />} />
 					<Route path="/contacts" element={<Contacts />} />
 					<Route path="/profile/:id" element={<Profile />} />
 					<Route path="/shares" element={<Shares />} />

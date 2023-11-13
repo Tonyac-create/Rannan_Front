@@ -1,43 +1,63 @@
 import UserList from "../UserList/UserList"
-import { Button, ListGroup } from "flowbite-react"
+import { Button, ListGroup, Modal } from "flowbite-react"
 import { useEffect, useState } from "react"
+import { getGroupDetail, removeMember } from "../../services/api/groups"
 
 
 const GroupDetail = (props: any) => {
-  const { userId, role, groupId } = props
-  const [ groupName, setGroupName ] = useState([]);
-// Récupére les données de db.json (a changer pour l'appel API du BACK)
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/db.json');
-        const data = await response.json();
-        const group = data.apiGroups.filter((group) => group.id === +groupId)
-        setGroupName(group[0].name);
-      } catch (error) {
-        console.log("Error :", error)
-      }
-    }
-    fetchData()
-  }, [groupId])
+  const { role, group, setDel, seeSetting, seeDelete } = props
+  const user_id = localStorage.getItem("user.id")
+  const [ memberList, setMemberList ] = useState<[{id: number, nickname: string}]|null>(null)
+  const [ dataList, setDataList ] = useState<[{id: number, name: string, value: any}]|null>(null)
+  const [openModal, setOpenModal] = useState(false)
 
+useEffect(() => {
+  const fetchData = async () => {
+    const response = await getGroupDetail(group.id)
+    setMemberList(response.data.memberList)
+    setDataList(response.data.dataList)
+  }
+  fetchData()
+}, [group])
+
+const handleLeave = async () => {
+  await removeMember(group.id, {user_id})
+  setOpenModal(false)
+  setDel(null)
+}
+
+const handleSetting = (event: any) => {
+  event.preventDefault()
+  seeSetting(true)
+}
+
+const handleDelete = (event: any) => {
+  event.preventDefault()
+  seeDelete(true)
+}
 
   return (
     <>
-      <section className="m-4 p-2 border-4 border-teal-600 rounded-xl">
-        <section className="flex justify-center p-2">
-          <h3 className="text-2xl">Détails de "{groupName}"</h3>
+      <section className="border-4 border-teal-600 rounded-xl">
+        <section className="flex flex-col justify-center items-center p-2">
+          <h3 className="text-2xl">Détails de "{group.name}"</h3>
+          {role === "member" && (<span>Créateur du groupe : {group.creator}</span>)}
         </section>
-        <div className="flex flex-col items-center text-center p-4">
+        <div className="flex flex-col items-center text-center">
           {role === "creator" && (
-            <div className="flex flex-col md:flex-row justify-around w-full md:w-1/2 gap-1 space-x-1 my-2">
-              <Button size="xs" className="whitespace-pre">Supprimer le groupe</Button>
-              <Button size="xs" className="whitespace-pre" href={`/group/${groupId}/modify`}>Modifier le groupe</Button>
+            <div className="flex flex-col items-center lg:flex-row lg:justify-around w-full md:w-1/2 gap-1 space-x-1">
+              <Button size="xs" className="whitespace-pre" onClick={(event) => handleDelete(event)}>Supprimer le groupe</Button>
+              <Button size="xs" className="whitespace-pre" onClick={(event) => handleSetting(event)}>Modifier le groupe</Button>
               <Button size="xs" className="whitespace-pre" href="/shares">Modifier les partages</Button>
             </div>
           )}
-          <section className="flex flex-col lg:flex-row justify-around gap-4 mt-8">
-            <UserList listFor="Members" userId={userId} groupId={groupId} />
+          {role === "member" && (
+            <div className="flex flex-col md:flex-row justify-around w-full md:w-1/2 gap-1 space-x-1">
+              <Button size="xs" className="whitespace-pre" onClick={() => setOpenModal(true)}>Quitter le groupe</Button>
+            </div>
+          )}
+          <section className="flex flex-col lg:flex-row justify-around gap-4 my-6">
+            {memberList && <UserList listFor="Members" list={memberList} />}
 
             <ListGroup>
               <ListGroup.Item
@@ -48,19 +68,28 @@ const GroupDetail = (props: any) => {
                   Informations Partagés
                 </p>
               </ListGroup.Item>
-              <ListGroup.Item>
-                Téléphone : 07.45.68.95.43
-              </ListGroup.Item>
-              <ListGroup.Item>
-                Mail : moi@toi.net
-              </ListGroup.Item>
-              <ListGroup.Item>
-                Social : www.instagram.com/mmouwaaa
-              </ListGroup.Item>
+              {dataList && dataList.map((data) => {
+                return (
+                  <ListGroup.Item key={data.id}>
+                    <span>{data.name} / {data.value}</span>
+                  </ListGroup.Item>
+                )
+              })}
             </ListGroup>
           </section>
         </div>
       </section>
+
+      <Modal show={openModal} onClose={() => setOpenModal(false)}>
+          <Modal.Header>Quitter le groupe?</Modal.Header>
+          <Modal.Body>
+            <span>Etes vous sur de vouloir quitter le groupe?</span>
+            <div className="flex gap-5  mt-5">
+              <Button color="red" onClick={() => handleLeave()}>Oui</Button>
+              <Button onClick={() => setOpenModal(false)}>Non</Button>
+            </div>
+          </Modal.Body>
+        </Modal>
     </>
   )
 }

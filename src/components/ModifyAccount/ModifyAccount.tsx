@@ -17,8 +17,7 @@ function ModifyAccount(props: any) {
         if (nickname !== localStorage.getItem("user.nickname")) {
             localStorage.setItem("user.nickname", nickname)
         }
-        const res = await updateUser({password, update:{nickname: nickname,email: newEmail ? newEmail : email}})
-        console.log(res)
+        const res: any = await updateUser({password, update:{nickname: nickname,email: newEmail ? newEmail : email}})
         if (res.status === 200) {
             setSeeModal({status: 3, text: "Modifications enregistrés"})
             return navigate("/account")

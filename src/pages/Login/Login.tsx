@@ -1,4 +1,4 @@
-import { Label, TextInput, Checkbox, Button } from "flowbite-react"
+import { Label, TextInput, Button } from "flowbite-react"
 import Layout from "../../components/Layouts/Layout"
 import { useState } from "react"
 import PasswordRecup from "../../components/PasswordRecup/PasswordRecup"
@@ -9,11 +9,12 @@ import { useNavigate } from "react-router-dom"
 
 const Login = () => {
 
-  const [login, setLogin] = useState(true)
   const navigate = useNavigate()
-
+  const [login, setLogin] = useState(true)
+  const [components, setComponents] = useState(true)
   const [ email, setEmail ] = useState("")
   const [ password, setPassword ] = useState("")
+  const [ seeError, setSeeError ] =  useState(false)
 
   const handleSubmit = async (event: any) => {
       event.preventDefault()
@@ -21,10 +22,8 @@ const Login = () => {
       if (response.status === true) {
         navigate("/home")
       }
+      setSeeError(true)
   }
-
-
-  const [components, setComponents] = useState(true)
 
   const switchComponent = () => {
     setLogin(false)
@@ -74,12 +73,11 @@ const Login = () => {
                   />
                   <a onClick={switchComponent} href="#" className="text-gray-400 hover:text-cyan-600">Mot de passe oublié</a>
                 </div>
-                {/* <div className="flex items-center gap-2">
-                  <Label htmlFor="remember">
-                    Se souvenir de moi
-                  </Label>
-                  <Checkbox id="remember" />
-                </div> */}
+                {seeError === true &&
+                  <div className="flex items-center gap-2">
+                    <span className="text-red-700">Informations incorrects</span>
+                  </div>
+                }
                   <Button
                   onClick={(event) => handleSubmit(event)}
                   className="w-6/12">

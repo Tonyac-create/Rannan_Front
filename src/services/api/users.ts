@@ -43,7 +43,8 @@ export async function updateUser(body: any){
 
 export async function updatePassword(body: any){
     try{
-        const response = await api.put('/api/user/password', body);
+        const received = await api.put('/api/user/password', body);
+        const response = received.data
         console.log(response)
         return response
     }

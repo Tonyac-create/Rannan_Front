@@ -10,6 +10,8 @@ export async function signIn(body: any){
             localStorage.setItem("authRefreshToken", refreshToken)
             localStorage.setItem("user.avatar", user.avatar_id)
             localStorage.setItem("user.nickname", user.nickname)
+            localStorage.setItem("user.id", user.id)
+            localStorage.setItem("user.email", user.email)
         }
         return ({
             status: true,
@@ -27,13 +29,14 @@ export async function signIn(body: any){
 export async function logIn(body: any){
     try{
         const response = await api.post('/auth/login', body);
-        console.log(response.data)
         const { token, refreshToken, user } = response.data
         if (token !== undefined && refreshToken !== undefined) {
             localStorage.setItem("authToken", token)
             localStorage.setItem("authRefreshToken", refreshToken)
             localStorage.setItem("user.avatar", user.avatar_id)
             localStorage.setItem("user.nickname", user.nickname)
+            localStorage.setItem("user.id", user.id)
+            localStorage.setItem("user.email", user.email)
         }
         return ({
             status: true,
@@ -71,6 +74,8 @@ export async function logOut(){
         localStorage.removeItem("authRefreshToken")
         localStorage.removeItem("user.nickname")
         localStorage.removeItem("user.avatar")
+        localStorage.removeItem("user.id")
+        localStorage.removeItem("user.email")
         return ({
             status: true,
             data: response
