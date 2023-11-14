@@ -38,8 +38,8 @@ const handleDelete = (event: any) => {
 
   return (
     <>
-      <section className="border-4 border-teal-600 rounded-xl">
-        <section className="flex flex-col justify-center items-center p-2">
+      <section className="border-4 border-teal-600 rounded-xl p-2">
+        <section className="flex flex-col justify-center items-center">
           <h3 className="text-2xl">Détails de "{group.name}"</h3>
           {role === "member" && (<span>Créateur du groupe : {group.creator}</span>)}
         </section>
@@ -56,17 +56,12 @@ const handleDelete = (event: any) => {
               <Button size="xs" className="whitespace-pre" onClick={() => setOpenModal(true)}>Quitter le groupe</Button>
             </div>
           )}
-          <section className="flex flex-col lg:flex-row justify-around gap-4 my-6">
+          <section className="flex flex-col lg:flex-row justify-around gap-4 w-full my-6">
             {memberList && <UserList listFor="Members" list={memberList} />}
 
-            <ListGroup>
-              <ListGroup.Item
-                active
-                href="/list-group"
-              >
-                <p>
-                  Informations Partagés
-                </p>
+            <ListGroup className="w-full">
+              <ListGroup.Item active href="/list-group">
+                <p>Informations Partagés</p>
               </ListGroup.Item>
               {dataList && dataList.map((data) => {
                 return (

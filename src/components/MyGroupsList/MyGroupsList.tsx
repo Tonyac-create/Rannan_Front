@@ -10,8 +10,7 @@ export default function MyGroupsList (props: any) {
   }
 
   return (
-    <>
-      <ListGroup>
+      <ListGroup className='w-full h-full overflow-auto'>
         {groups.map((group: any) => {
           return (
             <ListGroup.Item key={group.id} onClick={() => handleClickGroup(group.id)}>
@@ -20,6 +19,5 @@ export default function MyGroupsList (props: any) {
             )
           })}
       </ListGroup>
-    </>
   )
 }

@@ -59,21 +59,31 @@ useEffect(() => {
           <h2 className="text-3xl font-medium">Mes Groupes</h2>
         </section>
         <section className="flex flex-col justify-center items-center gap-4 md:flex-row md:items-start">
-          <div className="flex flex-row items-center justify-center gap-4 md:flex-col w-1/5 p-1">
-            <div className="flex flex-col w-full xl:flex-row">
-              <Button color="white" onClick={() => handleSeeList("member")} className={`w-full border border-cyan-700 ${seeList === "member" && ('bg-cyan-700 text-white')}`}>
-                Membre
-              </Button>
-              <Button color="white" onClick={() => handleSeeList("creator")} className={`w-full border border-cyan-700 ${seeList === "creator" && ('bg-cyan-700 text-white')}`}>
-                Créateur
-              </Button>
+          <div className="flex flex-row items-start justify-center gap-2 w-10/12 md:flex-col md:items-center md:gap-0 md:w-1/5 p-1">
+            <div className="w-full">
+              <Button size="xs" className="w-full mb-4" onClick={() => setSeeCreate(true)}>Créer un groupe</Button>
+              <div className="flex flex-col w-full lg:flex-row">
+                <Button
+                  size="xs"
+                  color="white"
+                  onClick={() => handleSeeList("member")}
+                  className={`w-full border border-cyan-700 ${seeList === "member" && ('bg-cyan-700 text-white')}`}>
+                    Membre
+                </Button>
+                <Button
+                  size="xs"
+                  color="white"
+                  onClick={() => handleSeeList("creator")}
+                  className={`w-full border border-cyan-700 ${seeList === "creator" && ('bg-cyan-700 text-white')}`}>
+                    Créateur
+                </Button>
+              </div>
             </div>
-            <div className="w-full my-3">
+            <div className="w-full h-3/6">
               {groupList ? <MyGroupsList groups={groupList} onSelectGroup={handleSelectGroup} /> : <span>Aucun groupe à afficher</span>}
             </div>
-            <Button color="lime" className="w-full" onClick={() => setSeeCreate(true)}>Créer un groupe</Button>
           </div>
-          <div className="w-3/5">
+          <div className="w-11/12 md:w-3/5">
             {selectedGroup && <GroupDetail group={selectedGroup} role={seeList} setDel={setSelectedGroup} seeSetting={setSeeSetting} seeDelete={setDelCheck} />}
           </div>
         </section>

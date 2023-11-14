@@ -1,4 +1,4 @@
-import { Button, Label, TextInput } from "flowbite-react"
+import { Button, Label, Modal, TextInput } from "flowbite-react"
 import { useEffect, useState } from "react"
 import UserList from "../UserList/UserList";
 import SearchUser from "../Forms/SearchUser/SearchUser";
@@ -12,6 +12,7 @@ const GroupSetting = (props: any) => {
   const [ groupLimit, setGroupLimit ] = useState<Date|null>(null)
   const [ memberList, setMemberList ] = useState([])
   const [ contactList, setContactList ] = useState([])
+  const [ seeSearch, setSeeSearch ] = useState(false)
   
   // Récupére les données de db.json (a changer pour l'appel API du BACK)
     useEffect(() => {
@@ -42,7 +43,7 @@ const GroupSetting = (props: any) => {
   return (
     <>
         <section className="flex justify-center">
-          <form onSubmit={(event) => handleSubmit(event)} className="flex flex-col sm:flex-row justify-around items-center gap-4">
+          <form onSubmit={(event) => handleSubmit(event)} className="flex flex-col sm:flex-row justify-around items-center gap-4 p-2 w-full border-2 rounded-xl border-cyan-700">
             <div>
               <div className="mb-2 block">
                 <Label
@@ -73,23 +74,24 @@ const GroupSetting = (props: any) => {
               />
             </div>
             <Button type="submit">
-              Valider
+              Valider les informations
             </Button>
           </form>
         </section>
-        <section className="flex flex-col sm:flex-row justify-around gap-4 my-4 pr-2 sm:p-0">
-          <div className="w-full sm:w-2/5 p-1">
-            <UserList listFor="ModifyMembers" list={memberList} />
-          </div>
-          <div className="flex flex-col w-full sm:w-2/5 gap-4 p-1">
-            <section>
-            <UserList listFor="ModifyContacts" list={contactList} />
-            </section>
-            <section>
-              <SearchUser />
-            </section>
-          </div>
+        <section className="flex flex-col justify-evenly gap-2 p-2 sm:flex-row sm:items-center my-2 border-2 rounded-xl border-cyan-700">
+          <UserList listFor="ModifyMembers" list={memberList} />
+          <UserList listFor="ModifyContacts" list={contactList} />
         </section>
+        <div className="flex justify-center w-full">
+          <Button className="w-1/2" onClick={() => setSeeSearch(true)}>Rechercher un utilisateur</Button>
+        </div>
+
+        <Modal show={seeSearch} onClose={() => setSeeSearch(false)}>
+          <Modal.Header>Créer un groupe</Modal.Header>
+          <Modal.Body>
+            <SearchUser />
+          </Modal.Body>
+        </Modal>
     </>
   )
 }
