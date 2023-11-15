@@ -4,15 +4,19 @@ import { createGroup } from "../../services/api/groups"
 
 
 
-const CreateGroup = () => {
+const CreateGroup = (props: any) => {
+  const { setSeeSetting,setSeeCreate, setSelectedGroup } = props
 
   const [ groupName, setGroupName ] = useState("")
   const [ limitedDate, setLimitedDate ] = useState("")
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault()
     const group = {name: groupName, limited_at: limitedDate}
-    return createGroup(group)
+    const response = await createGroup(group)
+    setSelectedGroup({id: response.data.id, name: response.data.name})
+    setSeeCreate(false)
+    return setSeeSetting(true)
   }
 
   return (

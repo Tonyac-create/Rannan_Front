@@ -1,9 +1,10 @@
 import axios, { AxiosInstance } from "axios";
 
 export function useApi() {
+
   const headers = {
     "Content-Type": "application/json",
-    "Access-control-Allow-Origin": "*" //à regarder
+    "Access-control-Allow-Origin": 'http://localhost:5173', //à regarder
   };
 
   const api: AxiosInstance = axios.create({

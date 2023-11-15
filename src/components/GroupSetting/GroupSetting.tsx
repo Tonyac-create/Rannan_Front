@@ -78,7 +78,7 @@ const GroupSetting = (props: any) => {
             </Button>
           </form>
         </section>
-        <section className="flex flex-col justify-evenly gap-2 p-2 sm:flex-row sm:items-center my-2 border-2 rounded-xl border-cyan-700">
+        <section className="flex flex-col justify-evenly gap-2 p-2 sm:flex-row my-2 border-2 rounded-xl border-cyan-700">
           <UserList listFor="ModifyMembers" list={memberList} />
           <UserList listFor="ModifyContacts" list={contactList} />
         </section>

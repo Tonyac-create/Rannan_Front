@@ -1,17 +1,31 @@
 import { useState } from 'react'
 import { Button, Label, TextInput, Modal } from 'flowbite-react';
+import { resetPassword } from '../../services/api/users';
 
 function PasswordRecup() {
 
     const [openModal, setOpenModal] = useState<string | undefined>();
     const props = { openModal, setOpenModal };
+    const [ email, setEmail ] = useState("")
+
+    const handleSubmit = async (event: any) => {
+        event.preventDefault()
+        if ( email === "" ) {
+            return setOpenModal("error")
+        }
+        const response = await resetPassword(email)
+        if (!response.status) {
+            return setOpenModal("notFound")
+        }
+        return setOpenModal("default")
+    }
 
     return (
         <>
             <section className="flex justify-center p-8">
                 <h2 className="text-3xl font-medium">Mot de passe oublié?</h2>
             </section>
-            <form className="flex flex-col gap-4 w-full mb-5">
+            <form onSubmit={(event) => handleSubmit(event)} className="flex flex-col gap-4 w-full mb-5">
                 <div>
                     <Label
                         htmlFor="email1"
@@ -23,20 +37,42 @@ function PasswordRecup() {
                     placeholder="name@gmail.com"
                     required
                     type="email"
+                    onChange={(event) => setEmail(event.target.value)}
                 />
-                <Button type="submit" onClick={() => props.setOpenModal('default')} className='w-6/12'>
+                <Button type="submit" className='w-6/12'>
                     Envoyer ma demande
                 </Button>
-                <Modal show={props.openModal === 'default'} onClose={() => props.setOpenModal(undefined)}>
-                    <Modal.Header>Email envoyé</Modal.Header>
-                    <Modal.Body className="space-y-6">
-                        <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                            Veuillez vérifier votre boite mail.
-                        </p>
-                        <Button href={"/login"}>retour a l'accueil</Button>
-                    </Modal.Body>
-                </Modal>
             </form>
+            <Modal show={props.openModal === 'default'} onClose={() => props.setOpenModal(undefined)}>
+                <Modal.Header>Email envoyé</Modal.Header>
+                <Modal.Body className="space-y-6">
+                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        Veuillez vérifier votre boite mail.
+                    </p>
+                    <Button href={"/login"}>retour a l'accueil</Button>
+                </Modal.Body>
+            </Modal>
+            <Modal show={props.openModal === 'error'} onClose={() => props.setOpenModal(undefined)}>
+                <Modal.Header>Email envoyé</Modal.Header>
+                <Modal.Body className="space-y-6">
+                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        Veuillez entrer un email svp.
+                    </p>
+                    <Button href={"#"} onClick={() => props.setOpenModal(undefined)}>fermer</Button>
+                </Modal.Body>
+            </Modal>
+            <Modal show={props.openModal === 'notFound'} onClose={() => props.setOpenModal(undefined)}>
+                <Modal.Header>Email envoyé</Modal.Header>
+                <Modal.Body className="space-y-6">
+                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        L'email renseigné n'est pas lié a un compte.
+                    </p>
+                    <div className='flex gap-4'>
+                        <Button href={"#"} onClick={() => props.setOpenModal(undefined)}>fermer</Button>
+                        <Button href={"/login"}>retour a l'accueil</Button>
+                    </div>
+                </Modal.Body>
+            </Modal>
         </>
     )
 }

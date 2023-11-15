@@ -3,7 +3,8 @@ const api = useApi();
 
 export async function createGroup(body: any){
     try{
-        const response = await api.post('/api/group', body);
+        const received = await api.post('/api/group', body);
+        const response = received.data
         return response
     }
     catch(error){

@@ -3,7 +3,6 @@ import ChoiceAvatar from '../../components/ChoiceAvatar/ChoiceAvatar'
 import InAppPasswordModif from '../../components/InAppPasswordModif/InAppPasswordModif'
 import Layout2 from '../../components/Layouts/Layout2'
 import ModifyAccount from '../../components/ModifyAccount/ModifyAccount'
-import { getEmail } from '../../services/api/users'
 
 const Account = () => {
 

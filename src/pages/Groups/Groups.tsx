@@ -91,7 +91,7 @@ useEffect(() => {
         <Modal show={seeCreate} onClose={() => setSeeCreate(false)}>
           <Modal.Header>Créer un groupe</Modal.Header>
           <Modal.Body>
-            <CreateGroup/>
+            <CreateGroup setSeeSetting={setSeeSetting} setSeeCreate={setSeeCreate} setSelectedGroup={setSelectedGroup} />
           </Modal.Body>
         </Modal>
 
