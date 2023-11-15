@@ -2,24 +2,26 @@ import { Button, Modal } from 'flowbite-react'
 import React, { useState } from 'react'
 import { getShareById } from '../../services/api/data'
 
-function BtnDeleteShare(props: any) {
+function BtnDeleteShare({ shareId, disabled }: any) {
     const [openModalDeleteShare, setOpenModalDeleteShare] = useState(false)
+    // console.log(shareId);
 
-    const { id } = props
-
-    let idShare: number
     const getIdshare = async () => {
-        const idShareToRemove: any = await getShareById(id)
-        console.log("🚀 ~ file: Shares.tsx:61 ~ deleteShare ~ idShareToRemove:", idShareToRemove.data.data)
-        
+        const idShareToRemove: any = await getShareById(shareId)
+        // console.log("🚀 ~ file: Shares.tsx:61 ~ deleteShare ~ idShareToRemove:", idShareToRemove.data.data)
+
     }
 
     return (
         <>
-            <Button onClick={() => {
-                setOpenModalDeleteShare(true)
-                getIdshare()
-                }}>Retirer</Button>
+            <Button
+                disabled={disabled}
+                onClick={() => {
+                    setOpenModalDeleteShare(true)
+                    getIdshare()
+                }}
+            >Retirer</Button>
+
             {openModalDeleteShare && (
                 <div>
                     <Modal show={openModalDeleteShare} onClose={() => setOpenModalDeleteShare(false)}>
@@ -38,7 +40,7 @@ function BtnDeleteShare(props: any) {
                         </Modal.Footer>
                     </Modal>
                 </div>
-            )} 
+            )}
         </>
     )
 }

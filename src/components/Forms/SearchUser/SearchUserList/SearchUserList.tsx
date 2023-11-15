@@ -1,51 +1,45 @@
-import React from 'react'
-import AddUserCard from '../../../AddUserCard/AddUserCard';
+import React, { useEffect, useState } from 'react'
+import { userSearch } from '../../../../services/api/users';
+import { ListGroup } from 'flowbite-react';
 
-export const SearchUserList = (props) => {
-    const users = [
-        {
-            id: 1,
-            nickname: "José",
-            status: 1 //Non contact
-        },
-        {
-            id: 2,
-            nickname: "Paco",
-            status: 2 // Est Contact
-        },
-        {
-            id: 3,
-            nickname: "Juan",
-            status: 3 // A envoyé demande
-        },
-        {
-            id: 4,
-            nickname: "Miguel",
-            status: 4 // Vous avez envoyé demande
-        },
-    ];
+export const SearchUserList = ({ inputText, arrayUsers }: any) => {
+    // console.log(arrayUsers);
 
-    const filteredData = users.filter((el) => {
-        if (props.input === '') {
-            return null;
-        }
-        else{
-            return el.nickname.toLowerCase().includes(props.input)
-        }
-    })
+    const [ arrayUser, setArrayUser ] = useState([])
 
     //RequÊte API GET ALL USERS
+    useEffect(() => {
+        const user = async () => {
 
-    const addContactAction = () => {
-        //API POST create authorisation(demande ajout contact) récupère le id du token et le id de la key pour l'autre user
-        console.log("Demande envoyée")
-      }
+            const getUser: any = await userSearch({ search: inputText })
+            setArrayUser(getUser.data.data)
+            // console.log("🚀 ~ file: SearchUserList.tsx:14 ~ user ~ arrayUser:", arrayUser)
+        }
 
-  return (
-    <div className='userList'>
-        {filteredData.map((item) => (
-            <AddUserCard id={item.id} nickname={item.nickname} status={item.status} addContactAction={addContactAction} />   
-        ))}
-    </div>
-  )
+        user()
+
+    }, [inputText])
+
+    const [ nickname, setNickname ] = useState("")
+
+    const getUserNickname = (id: number, nickname: string) => {
+        setNickname(nickname)
+        
+        arrayUsers.push({id, nickname})
+        
+        // window.location.reload()
+    }
+
+
+    return (
+        <div className='userList'>
+            {arrayUser && arrayUser.map((user: any) => (
+                <div className="w-full" key={user.id}>
+                    <ListGroup className="w-48">
+                        <ListGroup.Item onClick={() => getUserNickname(user.id, user.nickname)}>{user.nickname}</ListGroup.Item>
+                    </ListGroup>
+                </div>
+            ))}
+        </div>
+    )
 }

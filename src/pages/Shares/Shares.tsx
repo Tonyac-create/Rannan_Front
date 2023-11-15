@@ -3,28 +3,27 @@ import { ListGroup } from 'flowbite-react';
 import Layout2 from '../../components/Layouts/Layout2';
 import { useEffect, useState } from 'react';
 import MyGroupsList from '../../components/MyGroupsList/MyGroupsList';
-import SearchUser from '../../components/Forms/SearchUser/SearchUser';
 import MyInformationToShare from '../../components/MyInformationToshare/MyInformationToShare';
-import { getListUsersGroups, getShares } from '../../services/api/data';
+import { getListUsersGroups, getShareById, getShares } from '../../services/api/data';
 import BtnDeleteShare from '../../components/BtnDeleteShare/BtnDeleteShare';
+import SearchUser from '../../components/Forms/SearchUser/SearchUser';
 
-const Shares = () => {
+const Shares = (props: any) => {
 
   const [openModal, setOpenModal] = useState<string | undefined>();
   const pro = { openModal, setOpenModal }
 
+  const { shareId } = props
+
   // Header de la liste des users et groups boutons cliquables pour avoir soit users soit groups
   // Un appel au chargement de la page pour avoir les users avec qui on partage
 
-  const [seeList, setSeeList] = useState("users")
+  const [seeList, setSeeList] = useState("user")
   // Récupérer et afficher les noms des groups
   const [arrayGroup, setArrayGroup] = useState([] as any)
 
   const handleSeeList = async (role: string) => {
     setSeeList(role)
-
-    // setArrayGroup(arrayGroupName)
-    // console.log("Group", arrayGroup);
   }
 
   const listNameGroup = async () => {
@@ -66,9 +65,12 @@ const Shares = () => {
     displayUserWithShare()
   }, [])
 
-  // Affichage des datas partagées avec un user
+  const [targetId, setTargetId] = useState(null)
+
+
+  // Affichage des datas partagées avec un user ou un group
   const displayInformation = async (id: any) => {
-    const displayUsers: any = await getListUsersGroups("user")
+    const displayUsers: any = await getListUsersGroups(seeList)
     const arrayUsersNickname = displayUsers.data.data
     let userId: any
     arrayUsersNickname.map((user: any) => {
@@ -76,10 +78,28 @@ const Shares = () => {
         userId = user.id
       }
     })
-    
-    const displayDatas: any = await getShares(userId, "user")
+    setTargetId(userId)
+
+    const displayDatas: any = await getShares(userId, seeList)
     const arrayDatas = displayDatas.data.data
     setInformation(arrayDatas)
+  }
+
+  // Sélectionn d'une data
+  const [checkedData, setCheckedData] = useState<any[]>([])
+
+  const handleChecked = async (data: any) => {
+    // setCheckedData(data)
+
+    if (checkedData.includes(data)) {
+      setCheckedData(checkedData.filter(item => item !== data))
+    } else {
+      setCheckedData([...checkedData, data])
+    }
+
+
+    // const getShare = await getShareById(shareId)
+    // console.log("🚀 ~ file: Shares.tsx:106 ~ handleChecked ~ getShare:", getShare)
   }
 
   // Suppression d'un partage au click du bouton
@@ -99,7 +119,7 @@ const Shares = () => {
           <div className="flex max-w-md flex-col gap-4 m-3 w-6/12">
 
             <p>Ajouter un utilisateur</p>
-            <SearchUser />
+            <SearchUser arrayUsers={arrayUsers}/>
 
             {/* Liste des utilsateurs et groupes avec qui il y a des partages */}
 
@@ -107,19 +127,19 @@ const Shares = () => {
               <Button.Group className="w-full">
                 <Button
                   color="white"
-                  onClick={() => handleSeeList("users")}
-                  className={`w-full border border-cyan-700 ${seeList === "users" && ('bg-cyan-700 text-white')}`}>
+                  onClick={() => handleSeeList("user")}
+                  className={`w-full border border-cyan-700 ${seeList === "user" && ('bg-cyan-700 text-white')}`}>
                   Utilisateur(s)
                 </Button>
                 <Button
                   color="white"
                   onClick={
                     () => {
-                      handleSeeList("groups")
+                      handleSeeList("group")
                       listNameGroup()
                     }
                   }
-                  className={`w-full border border-cyan-700 ${seeList === "groups" && ('bg-cyan-700 text-white')}`}>
+                  className={`w-full border border-cyan-700 ${seeList === "group" && ('bg-cyan-700 text-white')}`}>
                   Groupe(s)
                 </Button>
               </Button.Group>
@@ -127,10 +147,10 @@ const Shares = () => {
                 {seeList === "users" && (
                   <MyGroupsList role="users" />
                 )}
-                {seeList === "groups" && (
-                  <MyGroupsList role="groups" />
+                {seeList === "group" && (
+                  <MyGroupsList role="group" />
                 )}
-                {seeList === 'users' ? arrayUsers.map((element: any) => (
+                {seeList === 'user' ? arrayUsers.map((element: any) => (
                   <ListGroup key={element.id}>
                     <ListGroup.Item onClick={() => displayInformation(element.id)}>
                       {element.nickname}
@@ -138,7 +158,7 @@ const Shares = () => {
                   </ListGroup>
                 )) : arrayGroup.map((element: any) => (
                   <ListGroup >
-                    <ListGroup.Item onClick={() => listNameGroup()}>
+                    <ListGroup.Item onClick={() => displayInformation(element.id)}>
                       {element.name}
                     </ListGroup.Item>
                   </ListGroup>
@@ -149,17 +169,18 @@ const Shares = () => {
 
           </div>
 
-          {/* Partie droite */}
+          {/* Partie droite liste des partages avec un user ou un group */}
           <div className="flex max-w-md flex-col gap-4 m-3 w-6/12">
 
             <h3 className='text-2xl font-bold my-2'>Mes informations partagées</h3>
             {
-              information.length > 0 ? information.map((data: any) => {
-                // console.log("🚀 ~ file: Shares.tsx:166 ~ information.length>0?information.map ~ data:", data)
+              information.length > 0 ? information.map((data: any, index: any) => {
+                const isChecked = checkedData.includes(data)
                 return (
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2" key={index}>
                     <Checkbox
-                      id="accept"
+                      checked={checkedData.includes(data)}
+                      onChange={() => handleChecked(data)}
                     />
                     <Label
                       className="flex grow"
@@ -170,21 +191,26 @@ const Shares = () => {
                       </p>
                     </Label>
 
-                    <BtnDeleteShare id={data.id} />
+                    <BtnDeleteShare shareId={shareId} disabled={!isChecked} />
                   </div>
                 )
               }) : <p>Pas d'informations partagées</p>
             }
 
-            {/* Récupère la liste de toutes les datas du user(token) */}
+            {/* Créer un partage */}
             <Button
               className='mt-2 w-6/12'
               onClick={() => pro.setOpenModal('form-elements')}
+              disabled={arrayUsers.length === 0 && arrayGroup.length === 0}
             >Ajouter un partage</Button>
+
             <Modal show={pro.openModal === 'form-elements'} size="md" popup onClose={() => pro.setOpenModal(undefined)}>
               <Modal.Header />
               <Modal.Body>
-                <MyInformationToShare />
+                <MyInformationToShare
+                  targetId={targetId}
+                  seeList={seeList}
+                />
               </Modal.Body>
             </Modal>
           </div>

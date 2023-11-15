@@ -2,11 +2,8 @@ import React, { useEffect, useState } from 'react'
 import InformationCard from './MI-InformationCard/InformationCard';
 import BtnCreateInfo from './MI-Boutons/BtnCreateInfo/BtnCreateInfo';
 import { getUserDatas } from '../../services/api/data';
-import { useParams } from 'react-router-dom';
 
 const MyInformations = () => {
-
-    const { id } = useParams()
 
     //Récupérer et afficher la liste des datas
     const [informations, setInformations] = useState([]);

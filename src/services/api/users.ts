@@ -62,9 +62,9 @@ export async function getProfile(id: string | undefined){
     }
 }
 
-export async function userSearch(){
+export async function userSearch(body: any){
     try{
-        const response = await api.get('/api/user/search');
+        const response = await api.post('/api/user/search', body);
         return response
     }
     catch(error){
