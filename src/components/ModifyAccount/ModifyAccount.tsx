@@ -4,11 +4,10 @@ import { updateUser } from '../../services/api/users';
 import { useNavigate } from 'react-router-dom';
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
 
-function ModifyAccount(props: any) {
+function ModifyAccount() {
     const navigate = useNavigate()
-    const { email } = props
     const [ nickname, setNickname ] = useState(localStorage.getItem("user.nickname") || "")
-    const [ newEmail, setNewEmail ] = useState(email)
+    const [ newEmail, setNewEmail ] = useState(localStorage.getItem("user.email") || "")
     const [ password, setPassword ] = useState("")
     const [ seeModal, setSeeModal ] = useState({status: 0, text: ""})
 
@@ -17,8 +16,7 @@ function ModifyAccount(props: any) {
         if (nickname !== localStorage.getItem("user.nickname")) {
             localStorage.setItem("user.nickname", nickname)
         }
-        const res = await updateUser({password, update:{nickname: nickname,email: newEmail ? newEmail : email}})
-        console.log(res)
+        const res: any = await updateUser({password, update:{nickname: nickname,email: newEmail}})
         if (res.status === 200) {
             setSeeModal({status: 3, text: "Modifications enregistrés"})
             return navigate("/account")
@@ -73,7 +71,7 @@ function ModifyAccount(props: any) {
                     <TextInput
                         id="email"
                         type="email"
-                        defaultValue={email}
+                        defaultValue={newEmail}
                         onChange={(event) => setNewEmail(event.target.value)}
                         placeholder="name@gmail.com"
                         shadow

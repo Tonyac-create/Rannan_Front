@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 
 export default function ProfileCard() {
   const navigate = useNavigate()
-  const userProfile = {nickname: localStorage.getItem("user.nickname"), avatar_id: localStorage.getItem("user.avatar")}
 
   const handleLogout = async (event: any) => {
     event.preventDefault()
@@ -31,7 +30,7 @@ export default function ProfileCard() {
         </Dropdown.Item>
       </Dropdown>
 
-      <AvatarCard userProfile={userProfile} />
+      <AvatarCard cardFor={"sidebar"} />
 
     </Card>
   )

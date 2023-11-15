@@ -24,7 +24,7 @@ function Signup() {
                 return props.setOpenModal('pop-up')
             }
 
-        // Enoiv des datas à l'api
+        // Envoi des datas à l'api
             const response: any = await signIn({nickname, email, password})
             if (response.status === false) {
                 setModalText(response.data.response.data.error)

@@ -3,24 +3,8 @@ import ChoiceAvatar from '../../components/ChoiceAvatar/ChoiceAvatar'
 import InAppPasswordModif from '../../components/InAppPasswordModif/InAppPasswordModif'
 import Layout2 from '../../components/Layouts/Layout2'
 import ModifyAccount from '../../components/ModifyAccount/ModifyAccount'
-import { getEmail } from '../../services/api/users'
 
 const Account = () => {
-
-  const [ email, setEmail ] = useState("")
-
-
-  useEffect(() => {
-    const getUserProfile = async () => {
-      try {
-        const response: any = await getEmail()
-        setEmail(response.data.email)
-      } catch (error) {
-        console.log("🐼 ~ file: Login.tsx:24 ~ handleSubmit ~ error:", error)
-      }
-    }
-    getUserProfile()
-  }, [])
 
   return (
     <Layout2>
@@ -29,7 +13,7 @@ const Account = () => {
       </section>
       <section className='flex flex-col 2xl:flex-row items-center w-full p-4 gap-7 mb-20 2xl:mb-0 '>
         <div className='flex flex-col lg:flex-row items-center gap-7 md:gap-2 justify-between w-full 2xl:w-1/2'>
-          <ModifyAccount email={email} />
+          <ModifyAccount />
           <InAppPasswordModif />
         </div>
         <ChoiceAvatar />

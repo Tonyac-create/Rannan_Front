@@ -35,7 +35,7 @@ const Profile = () => {
         {/* <img src={`/src/asset/avatars/${user.avatar_id}.svg`} alt="avatar" className="ms-auto me-auto" /> */}
         <div className="profile flex flex-col sm:flex-row p-4 sm:align-baseline gap-2">
           <div className="sm:w-1/3 flex flex-col items-center gap-3 rounded-md p-4 shadow-xl">
-            <AvatarCard userProfile={user} />
+            <AvatarCard cardFor={"profile"} userProfile={user} />
             <Button  color='failure' className='sm:w-2/5'>
               Supprimer ce contact
             </Button>

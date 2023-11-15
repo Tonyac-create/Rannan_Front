@@ -11,19 +11,10 @@ export async function userConnected(){
     }
 }
 
-export async function getEmail(){
+export async function resetPassword(body: any){
     try{
-        const response = await api.get('/api/user/account');
-        return response
-    }
-    catch(error){
-        return error
-    }
-}
-
-export async function resetPassword(){
-    try{
-        const response = await api.get('/user/reset');
+        const received = await api.post('/user/reset', body);
+        const response = received.data
         return response
     }
     catch(error){
@@ -43,8 +34,8 @@ export async function updateUser(body: any){
 
 export async function updatePassword(body: any){
     try{
-        const response = await api.put('/api/user/password', body);
-        console.log(response)
+        const received = await api.put('/api/user/password', body);
+        const response = received.data
         return response
     }
     catch(error){
@@ -54,7 +45,8 @@ export async function updatePassword(body: any){
 
 export async function getProfile(id: string | undefined){
     try{
-        const response = await api.get(`/api/user/profile/${id}`);
+        const received = await api.get(`/api/user/profile/${id}`);
+        const response = received.data
         return response
     }
     catch(error){
