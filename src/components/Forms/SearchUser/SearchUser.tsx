@@ -56,12 +56,11 @@ const SearchUser = () => {
                   <Button type="submit">Recherche</Button>
                 </div>
             </form>
-            {/* <SearchUserList usersFound={usersResponse} action={sendValidation}/> */}
             <div>
               { isContactPage === true || isHomePage === true ?
                 <SearchUserContacts usersFound={usersResponse} />
                 :
-                <p>Un autre page</p>
+                 <SearchUserList usersFound={usersResponse} />
               }
             </div>
         </div>
