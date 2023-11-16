@@ -2,7 +2,7 @@
 import { Alert, Button, Modal } from 'flowbite-react';
 import React, { useState } from 'react';
 import DeleteModal from './DeleteModal/DeleteModal';
-import { deleteValidation } from '../../../../services/API/contacts';
+import { deleteValidation } from '../../../../services/api/contacts';
 
 const RequestInfo = (props: { id: string; nickname: string; }) => {
   const { id, nickname } = props;

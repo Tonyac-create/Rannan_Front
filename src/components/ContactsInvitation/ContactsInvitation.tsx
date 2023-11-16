@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import RequestInfo from './Requests/RequestInfo/Request'
 import RequestForm from './Requests/RequestForm/RequestForm'
-import { createContact, deleteValidation, getAllValidations } from '../../services/API/contacts'
+import { createContact, deleteValidation, getAllValidations } from '../../services/api/contacts'
 import { Modal } from 'flowbite-react'
 import { HiCheck, HiX } from 'react-icons/hi'
 
 const ContactsInvitation = () => {
   const [recievedReq, setRecievedReq] = useState([]);
   const [sentReq, setSentReq] = useState([]);
-  const [recievedIs0, setRecievedIs0 ] = useState(false);
-  const [sentIs0, setSentIs0] = useState(false);
+  const [recievedIs0, setRecievedIs0 ] = useState(true);
+  const [sentIs0, setSentIs0] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const [openAcceptModal, setOpenAcceptModal] = useState(false);
 
@@ -19,18 +19,25 @@ const ContactsInvitation = () => {
       const response = await getAllValidations();
       const validationsList = await response.data;
       const sentValidations = await validationsList.allSent;
-      const recievedValidations = await validationsList.allRecieved;
       setSentReq(sentValidations);
+      const recievedValidations = await validationsList.allRecieved;
       setRecievedReq(recievedValidations);
-      if(sentReq.length === 0){
-        setSentIs0(true);
-      }
-      if(recievedReq.length === 0){
-        setRecievedIs0(true);
-      }
     }
     displayAllValidations();
   }, [])
+
+  //Gérer affichage pour lsite vide
+  useEffect(() => {
+    const emptyRequest = () =>{
+      if(sentReq.length !== 0){
+        setSentIs0(false);
+      }
+      if(recievedReq.length !== 0){
+        setRecievedIs0(false);
+      }
+    }
+    emptyRequest();
+  })
 
   //Gérer le refus des requêtes reçues
   const handleRefusal = async(e: Event) => {
@@ -88,15 +95,15 @@ const ContactsInvitation = () => {
         <div className='recievedRequests myInformations__box rounded-md p-2 shadow-xl flex flex-col gap-4'>
           <h3 className="scroll-m-20 border-b pb-2 text-xl font-semibold tracking-tight transition-colors first:mt-0 sm:text-2xl">Requêtes reçues:</h3>
           <div className='recievedRequestsList flex flex-col gap-2'>
-            { recievedReq !== undefined || recievedReq !== null || recievedIs0 === false 
+            { recievedReq === undefined || recievedReq === null || recievedIs0 === true
               ?
+              <p>Pas de requêtes reçues à afficher.</p>
+              :
                 recievedReq.map(validation => {
                   return(
                     <RequestForm key={validation.id} id={validation.id} nickname={validation.user.nickname} dataTarget={validation.user.user_id} handleRefuse={handleRefusal} handleAccept={handleAcceptRq}/>
                   )
                 })
-              :
-                <p>Pas de requêtes reçues à afficher.</p>
             }
             <Modal show={openModal} size="md" onClose={confirmRefusal} popup>
               <Modal.Header />

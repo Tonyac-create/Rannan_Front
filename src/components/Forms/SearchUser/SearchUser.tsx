@@ -12,7 +12,7 @@ const SearchUser = ({ arrayUsers, setArrayUsers }: any) => {
     const [ isHomePage, setIsHomePage ] = useState(false);
     const [ inputText, setInputText ] = useState<string>("");
     const [ usersResponse, setUsersResponse ] = useState([]);
-
+   
 
     //Gerer la liste et action affichée en fonction de localisation
     const location = useLocation();
