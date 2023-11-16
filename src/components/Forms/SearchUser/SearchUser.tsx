@@ -28,14 +28,15 @@ const SearchUser = () => {
     }, []);
 
     //Gérer la recherche
-    const inputHandler = (event: Event) => {
+    const inputHandler = (event: any) => {
         const lowerCase = event.target.value.toLowerCase();
+        console.log("🚀 ~ file: SearchUser.tsx:34 ~ inputHandler ~ lowerCase:", lowerCase)
         setInputText(lowerCase);
     };
 
-    const handleSubmit = async(e: Event) =>{
+    const handleSubmit = async(e: any) =>{
         e.preventDefault();
-        const response = await userSearch({search : inputText});
+        const response: any = await userSearch({search : inputText});
         const userList = response.data.data
         setUsersResponse(userList);
     }
