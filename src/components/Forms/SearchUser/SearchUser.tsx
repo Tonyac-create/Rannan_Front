@@ -7,12 +7,12 @@ import { SearchUserList } from './SearchUserList/SearchUserList';
 import { userSearch } from '../../../services/api/users';
 import { SearchUserContacts } from './SearchUserContacts/SearchUserContacts';
 
-const SearchUser = () => {
+const SearchUser = ({ arrayUsers, setArrayUsers }: any) => {
     const [ isContactPage, setIsContactPage ] = useState(false);
     const [ isHomePage, setIsHomePage ] = useState(false);
     const [ inputText, setInputText ] = useState<string>("");
     const [ usersResponse, setUsersResponse ] = useState([]);
-   
+
 
     //Gerer la liste et action affichée en fonction de localisation
     const location = useLocation();
@@ -31,7 +31,6 @@ const SearchUser = () => {
     //Gérer la recherche
     const inputHandler = (event: any) => {
         const lowerCase = event.target.value.toLowerCase();
-        console.log("🚀 ~ file: SearchUser.tsx:34 ~ inputHandler ~ lowerCase:", lowerCase)
         setInputText(lowerCase);
     };
 
@@ -61,7 +60,7 @@ const SearchUser = () => {
               { isContactPage === true || isHomePage === true ?
                 <SearchUserContacts usersFound={usersResponse} />
                 :
-                 <SearchUserList usersFound={usersResponse} />
+                 <SearchUserList usersFound={usersResponse} arrayUsers={arrayUsers} setArrayUsers={setArrayUsers}/>
               }
             </div>
         </div>
