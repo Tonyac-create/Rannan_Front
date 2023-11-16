@@ -6,8 +6,6 @@ import MyInformationToShare from '../../components/MyInformationToshare/MyInform
 import { getListUsersGroups, getShares } from '../../services/api/data';
 import BtnDeleteShare from '../../components/BtnDeleteShare/BtnDeleteShare';
 import SearchUser from '../../components/Forms/SearchUser/SearchUser';
-import ButtonCustom from '../../components/MyInformations/MI-Boutons/ButtonCustomAddShare/ButtonCustomAddShare';
-import ButtonCustomAddShare from '../../components/MyInformations/MI-Boutons/ButtonCustomAddShare/ButtonCustomAddShare';
 
 const Shares = (props: any) => {
 
