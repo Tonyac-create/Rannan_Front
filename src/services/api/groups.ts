@@ -90,7 +90,7 @@ export async function addMemberGroup(id: string, body: any){
     }
 }
 
-export async function removeMember(id: string, body: any){
+export async function removeMemberGroup(id: string, body: any){
     try{
         const received = await api.put(`/api/group/${id}/remove`, body);
         const response = received.data

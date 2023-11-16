@@ -18,7 +18,7 @@ export function useApi() {
       config.headers['Authorization'] = `Bearer ${token}`
     }
     return config
-  })
+  });
 
 // Traitement de toutes les erreurs possibles
   api.interceptors.response.use(
@@ -32,7 +32,7 @@ export function useApi() {
       }
       return Promise.reject(error)
     }
-  )
+  );
 
   return api
 }

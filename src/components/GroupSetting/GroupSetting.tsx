@@ -7,9 +7,8 @@ import { getGroupDetailForSetting, updateGroup } from "../../services/api/groups
 
 const GroupSetting = (props: any) => {
   const { selectedGroup } = props
-  const [ group, setGroup ] = useState<{name: string, limited_at: Date|null}|null>(null)
   const [ groupName, setGroupName ] = useState<string|null>("")
-  const [ groupLimit, setGroupLimit ] = useState<Date|null>(null)
+  const [ groupLimit, setGroupLimit ] = useState<string|null>(null)
   const [ memberList, setMemberList ] = useState([])
   const [ contactList, setContactList ] = useState([])
   const [ seeSearch, setSeeSearch ] = useState(false)
@@ -19,7 +18,6 @@ const GroupSetting = (props: any) => {
       const fetchData = async () => {
         try {
           const response = await getGroupDetailForSetting(selectedGroup.id)
-          setGroup(response.data.group)
           setMemberList(response.data.memberList)
           setContactList(response.data.contactList)
         } catch (error) {
@@ -31,13 +29,20 @@ const GroupSetting = (props: any) => {
 
     const handleSubmit = async (event: any) => {
       event.preventDefault()
-      const updatedGroup = {
-        name: groupName,
-        limited_at: groupLimit
+      let newName = selectedGroup.name
+      let newDate = selectedGroup.limited_date
+      if ( groupName !== selectedGroup.name && groupName !== "") {
+        newName = groupName
       }
-      await updateGroup(selectedGroup.id, updatedGroup)
+      if ( groupLimit !== selectedGroup.limited_date && groupLimit !== "") {
+        newDate = groupLimit
+      }
+      const updatedGroup = {
+        name: newName,
+        limited_at: newDate
+      }
+      return updateGroup(selectedGroup.id, updatedGroup)
     }
-
 
 
   return (
@@ -55,7 +60,7 @@ const GroupSetting = (props: any) => {
                 id="groupName"
                 required
                 type="text"
-                defaultValue={group ? group.name : ""}
+                defaultValue={selectedGroup ? selectedGroup.name : ""}
                 onChange={(event) => setGroupName(event.target.value)}
               />
             </div>
@@ -66,11 +71,8 @@ const GroupSetting = (props: any) => {
               <TextInput 
                 id="limitedDate"
                 type="date"
-                onChange={(event) => {
-                  const dateValue = event.target.value;
-                  const parsedDate = dateValue ? new Date(dateValue) : null;
-                  setGroupLimit(parsedDate);
-                }}
+                defaultValue={selectedGroup ? selectedGroup.limited_at : ""}
+                onChange={(event) => {setGroupLimit(event.target.value)}}
               />
             </div>
             <Button type="submit">
@@ -79,8 +81,8 @@ const GroupSetting = (props: any) => {
           </form>
         </section>
         <section className="flex flex-col justify-evenly gap-2 p-2 sm:flex-row my-2 border-2 rounded-xl border-cyan-700">
-          <UserList listFor="ModifyMembers" list={memberList} />
-          <UserList listFor="ModifyContacts" list={contactList} />
+          <UserList listFor="ModifyMembers" list={memberList} group_id={selectedGroup.id} />
+          <UserList listFor="ModifyContacts" list={contactList} group_id={selectedGroup.id} />
         </section>
         <div className="flex justify-center w-full">
           <Button className="w-1/2" onClick={() => setSeeSearch(true)}>Rechercher un utilisateur</Button>

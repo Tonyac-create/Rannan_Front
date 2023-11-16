@@ -11,7 +11,7 @@ import GroupSetting from "../../components/GroupSetting/GroupSetting"
 const Groups = () => {
   const [ seeList, setSeeList ] = useState("member")
   const [ groupList, setGroupList ] = useState([])
-  const [ selectedGroup, setSelectedGroup ] = useState<{id: string, name: string}|null>(null)
+  const [ selectedGroup, setSelectedGroup ] = useState<{id: string, name: string, limited_at: string}|null>(null)
   const [ delCheck, setDelCheck ] = useState(false)
   const [ seeCreate, setSeeCreate ] = useState(false)
   const [ seeSetting, setSeeSetting ] = useState(false)
@@ -80,7 +80,7 @@ useEffect(() => {
               </div>
             </div>
             <div className="w-full h-3/6">
-              {groupList ? <MyGroupsList groups={groupList} onSelectGroup={handleSelectGroup} /> : <span>Aucun groupe à afficher</span>}
+              {groupList !== null ? <MyGroupsList groups={groupList} onSelectGroup={handleSelectGroup} /> : <span>Aucun groupe à afficher</span>}
             </div>
           </div>
           <div className="w-11/12 md:w-3/5">
@@ -107,11 +107,11 @@ useEffect(() => {
         </Modal>
 
         <Modal show={seeSetting} onClose={() => setSeeSetting(false)}>
-            <Modal.Header>Paramétres du groupe</Modal.Header>
-            <Modal.Body>
-                <GroupSetting selectedGroup={selectedGroup} />
-            </Modal.Body>
-          </Modal>
+          <Modal.Header>Paramétres du groupe</Modal.Header>
+          <Modal.Body>
+            <GroupSetting selectedGroup={selectedGroup} />
+          </Modal.Body>
+        </Modal>
 
       </Layout2>
     </>

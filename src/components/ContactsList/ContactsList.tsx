@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ContactCard from './ContactCard/ContactCard';
 import BtnAddContact from './CL-BtnAddContact/BtnAddContact';
-import { getAllContacts } from '../../services/API/contacts';
+import { getAllContacts } from '../../services/api/contacts';
 
 const ContactsList = () => {
     //Récupérer la liste des contacts
