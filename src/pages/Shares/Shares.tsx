@@ -126,7 +126,7 @@ const Shares = (props: any) => {
             <div className="flex max-w-md flex-col gap-4 m-3 w-6/12">
 
             <p>Ajouter un utilisateur</p>
-            <SearchUser arrayUsers={arrayUsers} />
+            <SearchUser />
 
               {/* Liste des utilsateurs et groupes avec qui il y a des partages */}
 
