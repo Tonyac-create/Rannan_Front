@@ -1,47 +1,69 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Button, TextInput } from 'flowbite-react';
 import { HiOutlineSearch } from 'react-icons/hi';
 import { SearchUserList } from './SearchUserList/SearchUserList';
-import { useLocation } from 'react-router-dom';
+import { userSearch } from '../../../services/api/users';
+import { SearchUserContacts } from './SearchUserContacts/SearchUserContacts';
 
-const SearchUser = ({ arrayUsers }: any) => {
+const SearchUser = () => {
+    const [ isContactPage, setIsContactPage ] = useState(false);
+    const [ isHomePage, setIsHomePage ] = useState(false);
+    const [ inputText, setInputText ] = useState<string>("");
+    const [ usersResponse, setUsersResponse ] = useState([]);
+   
 
-    const [ isSharesPage, setIsSharestPage ] = useState(false)
-
-
+    //Gerer la liste et action affichée en fonction de localisation
     const location = useLocation();
     useEffect(() => {
-      if(location.pathname ==='/shares'){
-        setIsSharestPage(true)
-      };
-    }, [])
+      if(location.pathname ==='/contacts'){
+          setIsContactPage(true)
+      }
+    }, []);
 
-    const [inputText, setInputText] = useState("");
+    useEffect(() => {
+      if(location.pathname ==='/home'){
+        setIsHomePage(true)
+      }
+    }, []);
 
-    const inputHandler = (event: any) => {
+    //Gérer la recherche
+    const inputHandler = (event: Event) => {
         const lowerCase = event.target.value.toLowerCase();
         setInputText(lowerCase);
     };
 
+    const handleSubmit = async(e: Event) =>{
+        e.preventDefault();
+        const response = await userSearch({search : inputText});
+        const userList = response.data.data
+        setUsersResponse(userList);
+    }
 
     return (
         <div className='searchUser'>
-            
-            <TextInput
-                id="nickname"
-                required
-                type="text"
-                placeholder='Recherche'
-                rightIcon={HiOutlineSearch}
-                onChange={inputHandler}
-            />
-            { isSharesPage && (
-                <SearchUserList
-                inputText={inputText}
-                arrayUsers={arrayUsers}
-            />
-            )}
+            <form onSubmit={handleSubmit}>
+                <TextInput
+                    id="nickname"
+                    required
+                    type="text"
+                    placeholder='Recherche'
+                    rightIcon={HiOutlineSearch}
+                    onChange={inputHandler}
+                />
+                <div className='flex justify-center py-2'>
+                  <Button type="submit">Recherche</Button>
+                </div>
+            </form>
+            {/* <SearchUserList usersFound={usersResponse} action={sendValidation}/> */}
+            <div>
+              { isContactPage === true || isHomePage === true ?
+                <SearchUserContacts usersFound={usersResponse} />
+                :
+                <p>Un autre page</p>
+              }
+            </div>
         </div>
     )
 }
