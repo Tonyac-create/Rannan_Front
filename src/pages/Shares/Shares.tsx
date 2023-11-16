@@ -119,7 +119,7 @@ const Shares = (props: any) => {
           <div className="flex max-w-md flex-col gap-4 m-3 w-6/12">
 
             <p>Ajouter un utilisateur</p>
-            <SearchUser arrayUsers={arrayUsers}/>
+            <SearchUser arrayUsers={arrayUsers} />
 
             {/* Liste des utilsateurs et groupes avec qui il y a des partages */}
 
@@ -144,12 +144,6 @@ const Shares = (props: any) => {
                 </Button>
               </Button.Group>
               <div className="w-full">
-                {seeList === "users" && (
-                  <MyGroupsList role="users" />
-                )}
-                {seeList === "group" && (
-                  <MyGroupsList role="group" />
-                )}
                 {seeList === 'user' ? arrayUsers.map((element: any) => (
                   <ListGroup key={element.id}>
                     <ListGroup.Item onClick={() => displayInformation(element.id)}>
