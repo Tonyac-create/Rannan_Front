@@ -1,7 +1,7 @@
 import UserList from "../UserList/UserList"
 import { Button, ListGroup, Modal } from "flowbite-react"
 import { useEffect, useState } from "react"
-import { getGroupDetail, removeMember } from "../../services/api/groups"
+import { getGroupDetail, removeMemberGroup } from "../../services/api/groups"
 
 
 const GroupDetail = (props: any) => {
@@ -21,7 +21,7 @@ useEffect(() => {
 }, [group])
 
 const handleLeave = async () => {
-  await removeMember(group.id, {user_id})
+  await removeMemberGroup(group.id, {user_id})
   setOpenModal(false)
   setDel(null)
 }
@@ -41,7 +41,12 @@ const handleDelete = (event: any) => {
       <section className="border-4 border-teal-600 rounded-xl p-2">
         <section className="flex flex-col justify-center items-center">
           <h3 className="text-2xl">Détails de "{group.name}"</h3>
-          {role === "member" && (<span>Créateur du groupe : {group.creator}</span>)}
+          <div className="flex justify-evenly gap-2 w-full my-2 text-center md:text-left">
+            {role === "member" && (
+              <span>Créateur : &ensp;{group.creator_nickname}</span>
+            )}
+            <span>Date limite : &ensp;{group.limited_at === null ? "Aucune" : group.limited_at}</span>
+          </div>
         </section>
         <div className="flex flex-col items-center text-center">
           {role === "creator" && (

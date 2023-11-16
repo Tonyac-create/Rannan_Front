@@ -1,4 +1,4 @@
-import { Button, Label, TextInput } from "flowbite-react"
+import { Button, Label, Modal, TextInput } from "flowbite-react"
 import { useState } from "react"
 import { createGroup } from "../../services/api/groups"
 
@@ -9,11 +9,15 @@ const CreateGroup = (props: any) => {
 
   const [ groupName, setGroupName ] = useState("")
   const [ limitedDate, setLimitedDate ] = useState("")
+  const [ seeError, setSeeError ] = useState(false)
 
   const handleSubmit = async (event: any) => {
     event.preventDefault()
     const group = {name: groupName, limited_at: limitedDate}
     const response = await createGroup(group)
+    if ( response.status === 500 ) {
+
+    }
     setSelectedGroup({id: response.data.id, name: response.data.name})
     setSeeCreate(false)
     return setSeeSetting(true)
@@ -36,6 +40,14 @@ const CreateGroup = (props: any) => {
         </div>
         <Button type="submit">Créer le groupe</Button>
       </form>
+
+      <Modal show={seeError} onClose={() => setSeeError(false)}>
+        <Modal.Header>Paramétres du groupe</Modal.Header>
+        <Modal.Body>
+          <p>Une erreur c'est produite, veuillez essayer a nouveau dans un instant.</p>
+          <Button onClick={() => setSeeError(false)}>J'ai compris</Button>
+        </Modal.Body>
+      </Modal>
     </>
   )
 }

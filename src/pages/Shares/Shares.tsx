@@ -2,9 +2,8 @@ import { Button, Label, Checkbox, Modal } from 'flowbite-react';
 import { ListGroup } from 'flowbite-react';
 import Layout2 from '../../components/Layouts/Layout2';
 import { useEffect, useState } from 'react';
-import MyGroupsList from '../../components/MyGroupsList/MyGroupsList';
 import MyInformationToShare from '../../components/MyInformationToshare/MyInformationToShare';
-import { getListUsersGroups, getShareById, getShares } from '../../services/api/data';
+import { getListUsersGroups, getShares } from '../../services/api/data';
 import BtnDeleteShare from '../../components/BtnDeleteShare/BtnDeleteShare';
 import SearchUser from '../../components/Forms/SearchUser/SearchUser';
 
@@ -119,7 +118,7 @@ const Shares = (props: any) => {
           <div className="flex max-w-md flex-col gap-4 m-3 w-6/12">
 
             <p>Ajouter un utilisateur</p>
-            <SearchUser arrayUsers={arrayUsers} />
+            <SearchUser />
 
             {/* Liste des utilsateurs et groupes avec qui il y a des partages */}
 

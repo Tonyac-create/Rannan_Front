@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Modal } from 'flowbite-react';
 import { HiCheck, HiX } from 'react-icons/hi';
-import { createValidation } from '../../../../services/API/contacts';
+import { createValidation } from '../../../../services/api/contacts';
 import AddUserCard from '../../../AddUserCard/AddUserCard';
 
 export const SearchUserContacts = (props) => {

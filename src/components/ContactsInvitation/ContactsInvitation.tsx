@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import RequestInfo from './Requests/RequestInfo/Request'
 import RequestForm from './Requests/RequestForm/RequestForm'
-import { createContact, deleteValidation, getAllValidations } from '../../services/API/contacts'
+import { createContact, deleteValidation, getAllValidations } from '../../services/api/contacts'
 import { Modal } from 'flowbite-react'
 import { HiCheck, HiX } from 'react-icons/hi'
 
