@@ -28,13 +28,16 @@ const Shares = (props: any) => {
   const listNameGroup = async () => {
     const displayGroup: any = await getListUsersGroups("group")
     const arrayGroupName = displayGroup.data.data
-    const listGroupName = arrayGroupName.map((name: any) => {
-      if (name.id) {
-        return { ...name }
-      }
-      return listGroupName
-    })
-    setArrayGroup(listGroupName)
+
+    if (arrayGroupName !== undefined) {
+      const listGroupName = arrayGroupName.map((name: any) => {
+        if (name.id) {
+          return { ...name }
+        }
+        return listGroupName
+      })
+      setArrayGroup(listGroupName)
+    }    
   }
 
   // Récupérer et afficher les noms des users
@@ -50,7 +53,7 @@ const Shares = (props: any) => {
       // Récupére la liste des users avec qui on a des partages
       const displayUsers: any = await getListUsersGroups("user")
 
-      if (displayUsers.length > 0) {
+      if (displayUsers.data.data.length > 0) {
         const arrayUsersNickname = displayUsers.data.data
         setArrayUsers(arrayUsersNickname)
         // Récupére les datas partagées avec le premier user de la liste
