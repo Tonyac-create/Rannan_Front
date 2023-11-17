@@ -26,7 +26,7 @@ const ContactsInvitation = () => {
     displayAllValidations();
   }, [])
 
-  //Gérer affichage pour lsite vide
+  //Gérer affichage pour lsite vide [sentReq, recievedReq]) tableau de dependance
   useEffect(() => {
     const emptyRequest = () =>{
       if(sentReq.length !== 0){
@@ -37,7 +37,7 @@ const ContactsInvitation = () => {
       }
     }
     emptyRequest();
-  })
+  }, [sentReq, recievedReq])
 
   //Gérer le refus des requêtes reçues
   const handleRefusal = async(e: Event) => {
