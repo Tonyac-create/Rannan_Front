@@ -80,7 +80,7 @@ useEffect(() => {
               </div>
             </div>
             <div className="w-full h-3/6">
-              {groupList !== null ? <MyGroupsList groups={groupList} onSelectGroup={handleSelectGroup} /> : <span>Aucun groupe à afficher</span>}
+              {groupList !== undefined ? <MyGroupsList groups={groupList} onSelectGroup={handleSelectGroup} /> : <span>Aucun groupe à afficher</span>}
             </div>
           </div>
           <div className="w-11/12 md:w-3/5">
