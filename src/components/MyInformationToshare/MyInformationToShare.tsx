@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { createShare, getUserDatas } from '../../services/api/data';
 import ModalInfo from '../MyInformations/ModalInfo';
 
-function MyInformationToShare({ targetId, seeList }: any) {
+function MyInformationToShare({ targetId, seeList, newUserId }: any) {
 
     // Modal qui s'ouvre quand on valide la création
     const [modalValidModify, setModalValidModify] = useState(false)
@@ -26,18 +26,30 @@ function MyInformationToShare({ targetId, seeList }: any) {
     const [checkedData, setCheckedData] = useState<any[]>([])
 
     const handleChecked = async (data: any) => {
-  
-      if (checkedData.includes(data)) {
-        setCheckedData(checkedData.filter(item => item !== data))
-      } else {
-        setCheckedData([...checkedData, data])
-      }
+
+        if (checkedData.includes(data)) {
+            setCheckedData(checkedData.filter(item => item !== data))
+        } else {
+            setCheckedData([...checkedData, data])
+        }
     }
 
     const [shareId, setShareId] = useState(null)
 
+    console.log("newUserId : ", newUserId);
     // Créer un partage de donnée
     const shareData = async (data_id: number) => {
+        if (newUserId) {
+            // Appel API createShare()
+            const dataToShared: any = await createShare(newUserId, data_id, seeList)
+            if (dataToShared) {
+                setModalValidModify(true)
+                setShareId(dataToShared.data.data.id)
+            }
+        } else {
+            console.log("oups");
+            
+        }
         // Appel API createShare()
         const dataToShared: any = await createShare(targetId, data_id, seeList)
         if (dataToShared) {
@@ -45,8 +57,7 @@ function MyInformationToShare({ targetId, seeList }: any) {
             setShareId(dataToShared.data.data.id)
         }
     }
-    console.log("shareId", shareId);
-    
+
     return (
         <div className="flex max-w-md flex-col gap-4 ml-3">
             <h3 className='text-2xl font-bold my-2'>Mes informations</h3>

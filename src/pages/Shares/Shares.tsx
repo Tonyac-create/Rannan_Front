@@ -18,13 +18,13 @@ const Shares = (props: any) => {
   // Un appel au chargement de la page pour avoir les users avec qui on partage
 
   const [seeList, setSeeList] = useState("user")
-  // Récupérer et afficher les noms des groups
-  const [arrayGroup, setArrayGroup] = useState([] as any)
-
   const handleSeeList = async (role: string) => {
     setSeeList(role)
   }
 
+
+  // Récupérer et afficher les noms des groups
+  const [arrayGroup, setArrayGroup] = useState([] as any)
   const listNameGroup = async () => {
     const displayGroup: any = await getListUsersGroups("group")
     const arrayGroupName = displayGroup.data.data
@@ -37,7 +37,7 @@ const Shares = (props: any) => {
         return listGroupName
       })
       setArrayGroup(listGroupName)
-    }    
+    }
   }
 
   // Récupérer et afficher les noms des users
@@ -52,6 +52,7 @@ const Shares = (props: any) => {
 
       // Récupére la liste des users avec qui on a des partages
       const displayUsers: any = await getListUsersGroups("user")
+
 
       if (displayUsers.data.data.length > 0) {
         const arrayUsersNickname = displayUsers.data.data
@@ -69,11 +70,15 @@ const Shares = (props: any) => {
     displayUserWithShare()
   }, [])
 
+  // id récupérer d'un user déjà existant dans la liste
   const [targetId, setTargetId] = useState(null)
 
+  // id récupérer quand il ya un ajout d'un new user dans la liste
+  const [newUserIdList, setNewUserIdList] = useState("")
 
   // Affichage des datas partagées avec un user ou un group
   const displayInformation = async (id: any) => {
+    setNewUserIdList(id)
     const displayUsers: any = await getListUsersGroups(seeList)
     const arrayUsersNickname = displayUsers.data.data
     let userId: any
@@ -89,11 +94,10 @@ const Shares = (props: any) => {
     setInformation(arrayDatas)
   }
 
-  // Sélectionn d'une data
+  // Sélection d'une data
   const [checkedData, setCheckedData] = useState<any[]>([])
 
   const handleChecked = async (data: any) => {
-    // setCheckedData(data)
 
     if (checkedData.includes(data)) {
       setCheckedData(checkedData.filter(item => item !== data))
@@ -101,10 +105,10 @@ const Shares = (props: any) => {
       setCheckedData([...checkedData, data])
     }
 
-
     // const getShare = await getShareById(shareId)
     // console.log("🚀 ~ file: Shares.tsx:106 ~ handleChecked ~ getShare:", getShare)
   }
+
 
   // Suppression d'un partage au click du bouton
   // const [openModalDeleteShare, setOpenModalDeleteShare] = useState(false)
@@ -122,11 +126,12 @@ const Shares = (props: any) => {
           <div className="flex flex-row">
 
             {/* Partie gauche */}
+
             {/* Recherche users ou groups */}
             <div className="flex max-w-md flex-col gap-4 m-3 w-6/12">
 
-            <p>Ajouter un utilisateur</p>
-            <SearchUser />
+              <p>Ajouter un utilisateur</p>
+              <SearchUser arrayUsers={arrayUsers} setArrayUsers={setArrayUsers} />
 
               {/* Liste des utilsateurs et groupes avec qui il y a des partages */}
 
@@ -175,7 +180,7 @@ const Shares = (props: any) => {
 
               <h3 className='text-2xl font-bold my-2'>Mes informations partagées</h3>
               {
-                information.length > 0 ? information.map((data: any, index: any) => {
+                information && information.length > 0 ? information.map((data: any, index: any) => {
                   const isChecked = checkedData.includes(data)
                   return (
                     <div className="flex items-center gap-2" key={index}>
@@ -203,7 +208,10 @@ const Shares = (props: any) => {
                 className='mt-2 w-6/12'
                 onClick={() => pro.setOpenModal('form-elements')}
                 disabled={arrayUsers.length === 0 && arrayGroup.length === 0}
-              >Ajouter un partage</Button>
+              >
+                Ajouter un partage
+              </Button>
+
 
               <Modal show={pro.openModal === 'form-elements'} size="md" popup onClose={() => pro.setOpenModal(undefined)}>
                 <Modal.Header />
@@ -211,6 +219,7 @@ const Shares = (props: any) => {
                   <MyInformationToShare
                     targetId={targetId}
                     seeList={seeList}
+                    newUserId={newUserIdList}
                   />
                 </Modal.Body>
               </Modal>
