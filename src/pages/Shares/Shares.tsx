@@ -20,6 +20,16 @@ const Shares = (props: any) => {
   const [seeList, setSeeList] = useState("user")
   const handleSeeList = async (role: string) => {
     setSeeList(role)
+      const displayUsers: any = await getListUsersGroups("user")
+      if (role === "user") {
+      // Récupére les datas partagées avec le premier user de la liste
+      firstUserList = displayUsers.data.data[0] // Objet = {id: number, nickname=string}
+      const idUser = firstUserList.id
+      // Appel API pour récupérer les datas du 1er user du tableau
+      const displayDatas: any = await getShares(idUser, "user")
+      const arrayDatas = displayDatas.data.data
+      setInformation(arrayDatas)
+    }
   }
 
 
@@ -37,6 +47,12 @@ const Shares = (props: any) => {
         return listGroupName
       })
       setArrayGroup(listGroupName)
+      const firstGroupList = displayGroup.data.data[0] // Objet = {id: number, nickname=string}
+      const idGroup = firstGroupList.id
+      // Appel API pour récupérer les datas du 1er user du tableau
+      const displayDatas: any = await getShares(idGroup, "group")
+      const arrayDatas = displayDatas.data.data
+      setInformation(arrayDatas)
     }
   }
 
@@ -46,6 +62,7 @@ const Shares = (props: any) => {
   // Afficher les informations liés au user
   const [information, setInformation] = useState([] as any)
 
+  let firstUserList: { id: any; }
   // Au chargement ou rafraichissement de la page
   useEffect(() => {
     const displayUserWithShare = async () => {
@@ -58,7 +75,7 @@ const Shares = (props: any) => {
         const arrayUsersNickname = displayUsers.data.data
         setArrayUsers(arrayUsersNickname)
         // Récupére les datas partagées avec le premier user de la liste
-        const firstUserList = displayUsers.data.data[0] // Objet = {id: number, nickname=string}
+        firstUserList = displayUsers.data.data[0] // Objet = {id: number, nickname=string}
         const idUser = firstUserList.id
         // Appel API pour récupérer les datas du 1er user du tableau
         const displayDatas: any = await getShares(idUser, "user")
