@@ -2,10 +2,11 @@ import { useEffect, useState } from "react"
 import Layout2 from "../../components/Layouts/Layout2"
 import MyGroupsList from "../../components/MyGroupsList/MyGroupsList"
 import GroupDetail from "../../components/GroupDetail/GroupDetail"
-import { Button, Modal } from "flowbite-react"
+import { Button, ListGroup, Modal } from "flowbite-react"
 import { getCreatorGroupList, getUserGroupList, removeGroup } from "../../services/api/groups"
 import CreateGroup from "../../components/CreateGroup/CreateGroup"
 import GroupSetting from "../../components/GroupSetting/GroupSetting"
+import { space } from "postcss/lib/list"
 
 
 const Groups = () => {
@@ -21,17 +22,18 @@ useEffect(() => {
     try {
       if (seeList === "member") {
         const groups = await getUserGroupList()
-        setGroupList(groups.data)
+        groups.data === undefined ? setGroupList([]) : setGroupList(groups.data)
       }
       if (seeList === "creator") {
         const groups = await getCreatorGroupList()
-        setGroupList(groups.data)
+        groups.data === undefined ? setGroupList([]) : setGroupList(groups.data)
       }
     } catch (error) {
       console.log("Error :", error)
     }
   }
   fetchApi()
+  console.log(groupList)
 }, [seeList, selectedGroup])
 
   const handleSeeList = (role: string) => {
@@ -80,7 +82,17 @@ useEffect(() => {
               </div>
             </div>
             <div className="w-full h-3/6">
-              {groupList !== undefined ? <MyGroupsList groups={groupList} onSelectGroup={handleSelectGroup} /> : <span>Aucun groupe à afficher</span>}
+              {groupList.length === 0 ? <span>Aucun groupe a afficher</span> :
+                <ListGroup className='w-full h-full overflow-auto'>
+                  {groupList.map((group: any) => {
+                    return (
+                      <ListGroup.Item key={group.id} onClick={() => handleSelectGroup(group.id)}>
+                        <p>{group.name} &ensp;</p>
+                      </ListGroup.Item>
+                      )
+                    })}
+                </ListGroup>
+              }
             </div>
           </div>
           <div className="w-11/12 md:w-3/5">
