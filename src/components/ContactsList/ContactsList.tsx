@@ -31,8 +31,6 @@ const ContactsList = () => {
             if(contacts2.length !== 0){
                 setLengthI2s0(false)
             }
-            console.log("contacts1", contacts1);
-            console.log("contacts2", contacts2);
         }
         emptyGroups();
     }, [contacts1, contacts2])
