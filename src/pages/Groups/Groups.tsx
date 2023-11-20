@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react"
 import Layout2 from "../../components/Layouts/Layout2"
-import MyGroupsList from "../../components/MyGroupsList/MyGroupsList"
 import GroupDetail from "../../components/GroupDetail/GroupDetail"
 import { Button, ListGroup, Modal } from "flowbite-react"
 import { getCreatorGroupList, getUserGroupList, removeGroup } from "../../services/api/groups"
 import CreateGroup from "../../components/CreateGroup/CreateGroup"
 import GroupSetting from "../../components/GroupSetting/GroupSetting"
-import { space } from "postcss/lib/list"
 
 
 const Groups = () => {
@@ -33,7 +31,6 @@ useEffect(() => {
     }
   }
   fetchApi()
-  console.log(groupList)
 }, [seeList, selectedGroup])
 
   const handleSeeList = (role: string) => {
