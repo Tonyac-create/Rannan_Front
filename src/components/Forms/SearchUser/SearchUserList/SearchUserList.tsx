@@ -2,19 +2,19 @@ import React, { useState } from 'react'
 import { ListGroup } from 'flowbite-react';
 
 export const SearchUserList = ({ usersFound, arrayUsers, setArrayUsers }: any) => {
-
+    
     let newUserId: any
     const [nickname, setNickname] = useState("")
-
+    
     // Récupération de l'id du user connecté
     const userId = localStorage.getItem('user.id')
     const userIdNumber = Number(userId)
-
+    
     const getUserNickname = (id: number, nickname: string) => {
         // Non affichage du nom du user connecté
         if (userIdNumber !== id) {
             setNickname(nickname)
-
+            
             // MAJ de la liste utilisateurs er récupère son id
             const updatedArrayUsers = [...arrayUsers, { id, nickname }]
             if (updatedArrayUsers) {
@@ -26,15 +26,25 @@ export const SearchUserList = ({ usersFound, arrayUsers, setArrayUsers }: any) =
 
     return (
         <div className='userList'>
-            {usersFound && usersFound.map((user: any) => (
-                userIdNumber !== user.id ? (
-                    <div className="w-full" key={user.id}>
-                        <ListGroup className="w-48">
-                            <ListGroup.Item onClick={() => getUserNickname(user.id, user.nickname)}>{user.nickname}</ListGroup.Item>
-                        </ListGroup>
-                    </div>
-                ) : <p>Pas d'utilisateur avec ce nom</p>
-            ))}
+            {usersFound ? (
+                usersFound.length > 0 ? (
+                    usersFound.map((user: any) => (
+                        userIdNumber !== user.id ? (
+                            <div className="w-full" key={user.id}>
+                                <ListGroup className="w-48">
+                                    <ListGroup.Item onClick={() => getUserNickname(user.id, user.nickname)}>
+                                        {user.nickname}
+                                    </ListGroup.Item>
+                                </ListGroup>
+                            </div>
+                        ) : null
+                    ))
+                ) : (
+                    <p>En attente d'une recherche...</p>
+                )
+            ) : (
+                <p>Pas d'utilisateur avec ce nom</p>
+            )}
         </div>
     )
 }

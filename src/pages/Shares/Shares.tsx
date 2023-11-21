@@ -3,8 +3,8 @@ import { ListGroup } from 'flowbite-react';
 import Layout2 from '../../components/Layouts/Layout2';
 import { useEffect, useState } from 'react';
 import MyInformationToShare from '../../components/MyInformationToshare/MyInformationToShare';
-import { getListUsersGroups, getShares } from '../../services/api/data';
-import BtnDeleteShare from '../../components/BtnDeleteShare/BtnDeleteShare';
+import { getAllShares, getListUsersGroups, getShares } from '../../services/api/data';
+import BtnDeleteShare from '../../components/MyInformations/MI-Boutons/BtnDeleteShare/BtnDeleteShare';
 import SearchUser from '../../components/Forms/SearchUser/SearchUser';
 
 const Shares = (props: any) => {
@@ -20,8 +20,8 @@ const Shares = (props: any) => {
   const [seeList, setSeeList] = useState("user")
   const handleSeeList = async (role: string) => {
     setSeeList(role)
-      const displayUsers: any = await getListUsersGroups("user")
-      if (role === "user") {
+    const displayUsers: any = await getListUsersGroups("user")
+    if (role === "user") {
       // Récupére les datas partagées avec le premier user de la liste
       firstUserList = displayUsers.data.data[0] // Objet = {id: number, nickname=string}
       const idUser = firstUserList.id
@@ -93,6 +93,9 @@ const Shares = (props: any) => {
   // id récupérer quand il ya un ajout d'un new user dans la liste
   const [newUserIdList, setNewUserIdList] = useState("")
 
+  // id de la share à supprimer
+  const [lastShareId, setLastShareId] = useState(null)
+
   // Affichage des datas partagées avec un user ou un group
   const displayInformation = async (id: any) => {
     setNewUserIdList(id)
@@ -105,11 +108,26 @@ const Shares = (props: any) => {
       }
     })
     setTargetId(userId)
-
+    
     const displayDatas: any = await getShares(userId, seeList)
     const arrayDatas = displayDatas.data.data
     setInformation(arrayDatas)
+
+    // Récupération et conversion de l'id user connecté
+    const idUserConnected = localStorage.getItem('user.id')
+    const parseIdUserconnected = Number(idUserConnected)
+    // Récupère toute les shares
+    const allShares: any = await getAllShares()
+    // Map pour récupèrer les ids et shareids
+    const shareBetweenUsers = allShares.data.data.map((share: any) => ({ target_id: share.target_id, owner_id: share.owner_id, share_id: share.id }))
+    
+    // Filtre pour récupérer les shares entre les deux ids
+    const result = shareBetweenUsers.filter((ids: any) => parseIdUserconnected === ids.owner_id && targetId === ids.target_id)
+    // Prend le dernier élément du tableau
+    const shareId = await result[result.length - 1].share_id
+    setLastShareId(shareId)
   }
+
 
   // Sélection d'une data
   const [checkedData, setCheckedData] = useState<any[]>([])
@@ -121,14 +139,7 @@ const Shares = (props: any) => {
     } else {
       setCheckedData([...checkedData, data])
     }
-
-    // const getShare = await getShareById(shareId)
-    // console.log("🚀 ~ file: Shares.tsx:106 ~ handleChecked ~ getShare:", getShare)
   }
-
-
-  // Suppression d'un partage au click du bouton
-  // const [openModalDeleteShare, setOpenModalDeleteShare] = useState(false)
 
   return (
     <>
@@ -200,8 +211,9 @@ const Shares = (props: any) => {
                 information && information.length > 0 ? information.map((data: any, index: any) => {
                   const isChecked = checkedData.includes(data)
                   return (
-                    <div className="flex items-center gap-2" key={index}>
+                    <div className="flex items-center gap-2">
                       <Checkbox
+                        key={index}
                         checked={checkedData.includes(data)}
                         onChange={() => handleChecked(data)}
                       />
@@ -214,7 +226,7 @@ const Shares = (props: any) => {
                         </p>
                       </Label>
 
-                      <BtnDeleteShare shareId={shareId} disabled={!isChecked} />
+                      <BtnDeleteShare shareId={lastShareId} disabled={!isChecked} />
                     </div>
                   )
                 }) : <p>Pas d'informations partagées</p>

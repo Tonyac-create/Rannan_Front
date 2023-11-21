@@ -1,25 +1,30 @@
 import { Button, Modal } from 'flowbite-react'
 import React, { useState } from 'react'
-import { getShareById } from '../../services/api/data'
+import { removeShare } from '../../../../services/api/data'
+import ModalInfo from '../../ModalInfo'
 
 function BtnDeleteShare({ shareId, disabled }: any) {
     const [openModalDeleteShare, setOpenModalDeleteShare] = useState(false)
-    // console.log(shareId);
 
-    const getIdshare = async () => {
-        const idShareToRemove: any = await getShareById(shareId)
-        // console.log("🚀 ~ file: Shares.tsx:61 ~ deleteShare ~ idShareToRemove:", idShareToRemove.data.data)
+    // Modal qui s'ouvre quand on valide la création
+    const [modalValidDelete, setModalValidDelete] = useState(false)
 
+    const deleteShare = async () => {
+        const shareToRemove: any = await removeShare(shareId)
+        if (shareToRemove)
+        setModalValidDelete(true)
     }
 
     return (
         <>
+            <ModalInfo
+                modalValidModify={modalValidDelete}
+                setModalValidModify={setModalValidDelete}
+                textInfo="Partage supprimée avec succès"
+            />
             <Button
                 disabled={disabled}
-                onClick={() => {
-                    setOpenModalDeleteShare(true)
-                    getIdshare()
-                }}
+                onClick={() => { setOpenModalDeleteShare(true) }}
             >Retirer</Button>
 
             {openModalDeleteShare && (
@@ -34,8 +39,7 @@ function BtnDeleteShare({ shareId, disabled }: any) {
                             </div>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button color="success" >Supprimer</Button>
-                            {/* onClick={() => deleteShare()} */}
+                            <Button color="success" onClick={() => deleteShare()}>Supprimer</Button>
                             <Button color="failure" onClick={() => setOpenModalDeleteShare(false)}>Annuler</Button>
                         </Modal.Footer>
                     </Modal>

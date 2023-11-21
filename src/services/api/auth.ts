@@ -51,9 +51,9 @@ export async function logIn(body: any){
     }
 }
 
-export async function refreshToken(){
+export async function refreshToken(body: any){
     try{
-        const response = await api.get('/api/auth/refreshToken');
+        const response = await api.get('/api/auth/refreshToken', body);
         return ({
             status: true,
             data: response
