@@ -23,6 +23,17 @@ export async function resetPassword(body: any){
     }
 }
 
+export async function checkPassword(body: any){
+    try{
+        const received = await api.put('/api/checkPassword', body);
+        const response = received.data
+        return response
+    }
+    catch(error){
+        return error
+    }
+}
+
 export async function updateUser(body: any){
     try{
         const response = await api.put('/api/user/account', body);
@@ -67,7 +78,8 @@ export async function userSearch(body: any){
 
 export async function removeUser(){
     try{
-        const response = await api.delete('/api/user');
+        const received = await api.delete('/api/user');
+        const response = received.data
         return response
     }
     catch(error){

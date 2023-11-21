@@ -53,7 +53,7 @@ const handleDelete = (event: any) => {
             <div className="flex flex-col items-center lg:flex-row lg:justify-around w-full md:w-1/2 gap-1 space-x-1">
               <Button size="xs" className="whitespace-pre" onClick={(event) => handleDelete(event)}>Supprimer le groupe</Button>
               <Button size="xs" className="whitespace-pre" onClick={(event) => handleSetting(event)}>Modifier le groupe</Button>
-              <Button size="xs" className="whitespace-pre" href="/shares">Modifier les partages</Button>
+              <Button size="xs" className="whitespace-pre" href={`/shares/${group.id}`}>Modifier les partages</Button>
             </div>
           )}
           {role === "member" && (

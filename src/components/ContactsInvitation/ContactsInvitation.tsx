@@ -78,15 +78,15 @@ const ContactsInvitation = () => {
         <div className='sentRequests myInformations__box rounded-md p-2 shadow-xl flex flex-col gap-4'>
           <h3 className="scroll-m-20 border-b pb-2 text-xl font-semibold tracking-tight transition-colors first:mt-0 sm:text-2xl">Requêtes envoyées:</h3>
           <div className='sentRequestsList flex flex-col gap-2'>
-            { sentReq !== undefined || sentReq !== null || sentIs0 === false
+            { sentReq === undefined || sentReq === null || sentIs0 === true
               ?
-                sentReq.map(validation => {
-                  return(
-                    <RequestInfo key={validation.id} id={validation.id} nickname={validation.contact.nickname} />
-                  )
-                })
+              <p>Pas de requêtes envoyées à afficher.</p>
               :
-                <p>Pas de requêtes envoyées à afficher.</p>
+              sentReq.map(validation => {
+                return(
+                  <RequestInfo key={validation.id} id={validation.id} nickname={validation.contact.nickname} />
+                )
+              })
             }
           </div>
         </div>
