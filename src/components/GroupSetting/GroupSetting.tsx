@@ -17,7 +17,9 @@ const GroupSetting = (props: any) => {
     useEffect(() => {
       const fetchData = async () => {
         try {
+        // Appel des informations necessaires
           const response = await getGroupDetailForSetting(selectedGroup.id)
+        // Scinde les listes récupéré
           setMemberList(response.data.memberList)
           setContactList(response.data.contactList)
         } catch (error) {
@@ -29,18 +31,22 @@ const GroupSetting = (props: any) => {
 
     const handleSubmit = async (event: any) => {
       event.preventDefault()
+    // Prédéfinir la variable avec l'ancienne valeur si aucun changement
       let newName = selectedGroup.name
       let newDate = selectedGroup.limited_date
+    // Définir la variable avec la nouvelle valeur si changement
       if ( groupName !== selectedGroup.name && groupName !== "") {
         newName = groupName
       }
       if ( groupLimit !== selectedGroup.limited_date && groupLimit !== "") {
         newDate = groupLimit
       }
+    // Créer l'objet qui contiens les changements pour l'inclure dans le body
       const updatedGroup = {
         name: newName,
         limited_at: newDate
       }
+    // Envoi l'update a l'api
       return updateGroup(selectedGroup.id, updatedGroup)
     }
 

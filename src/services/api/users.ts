@@ -3,7 +3,8 @@ const api = useApi();
 
 export async function userConnected(){
     try{
-        const response = await api.get('/api');
+        const received = await api.get('/api');
+        const response = received.data
         return response
     }
     catch(error){

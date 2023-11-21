@@ -17,7 +17,6 @@ export const SearchUserContacts = (props) => {
         const target = ((e.currentTarget).parentNode).parentNode;
         //RequÊte axios
         const response = await createValidation({contactId : target.id});
-        console.log("🚀 ~ file: SearchUser.tsx:72 ~ sendValidation ~ response:", response)
         //En fonction de la réponse définir un message ou un autre pour le modal
         if(response.status === 200){
           setRequestIsSent(true);
@@ -39,7 +38,7 @@ export const SearchUserContacts = (props) => {
         <div>
             <div className='userList'>
             {usersFound.map((item) => (
-                <AddUserCard id={item.id} nickname={item.nickname} status={item.status} action={sendValidation} />   
+                <AddUserCard key={item.id} id={item.id} nickname={item.nickname} status={item.status} action={sendValidation} />   
             ))}
             </div>
             <div>

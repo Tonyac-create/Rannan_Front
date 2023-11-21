@@ -1,4 +1,4 @@
-import { Button, ListGroup } from "flowbite-react"
+import { ListGroup } from "flowbite-react"
 import { Link } from "react-router-dom"
 import { addMemberGroup, removeMemberGroup } from "../../services/api/groups"
 
@@ -43,12 +43,12 @@ const UserList = (props: any) => {
               {listFor === "ModifyMembers" && (
                 <div className="flex justify-between items-center w-full h-full text-start">
                   {user.nickname}
-                  <Button color="red" size="xs" onClick={(event) => handleRemoveMember(event, user.id)}>Retirer</Button>
+                  <span className="py-1 px-2 text-red-700 border-2 rounded-lg border-red-300" onClick={(event) => handleRemoveMember(event, user.id)}>Retirer</span>
                 </div>)}
               {listFor === "ModifyContacts" && (
                 <div className="flex justify-between items-center w-full h-full text-start">
                   {user.nickname}
-                  <Button size="xs" onClick={(event) => handleAddMember(event, user.id)}>Ajouter</Button>
+                  <span className="py-1 px-2 text-cyan-800 border-2 rounded-lg border-cyan-800" onClick={(event) => handleAddMember(event, user.id)}>Ajouter</span>
                 </div>)}
               {listFor === "Members" && (<Link to={`/profile/${user.id}`} className="w-full h-full text-start">{user.nickname}</Link>)}
               {listFor === "Contacts" && (<Link to={`/profile/${user.id}`} className="w-full h-full text-start">{user.nickname}</Link>)}

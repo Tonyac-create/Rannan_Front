@@ -1,10 +1,11 @@
 import { Label, TextInput, Button } from "flowbite-react"
 import Layout from "../../components/Layouts/Layout"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import PasswordRecup from "../../components/PasswordRecup/PasswordRecup"
 import Signup from "../../components/Signup/Signup"
 import { logIn } from "../../services/api/auth"
 import { useNavigate } from "react-router-dom"
+import { userConnected } from "../../services/api/users"
 
 
 const Login = () => {
@@ -15,6 +16,20 @@ const Login = () => {
   const [ email, setEmail ] = useState("")
   const [ password, setPassword ] = useState("")
   const [ seeError, setSeeError ] =  useState(false)
+
+  useEffect(() => {
+    const logCheck = async () => {
+      const token = localStorage.getItem("authToken")
+      if ( token ) {
+        const logStatus = await userConnected()
+        if ( logStatus.status === 200 ) {
+          navigate("/home")
+        }
+        //! ajout du refresh token ICI ???
+      }
+    }
+    logCheck()
+  }, [])
 
   const handleSubmit = async (event: any) => {
       event.preventDefault()
