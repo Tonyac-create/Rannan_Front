@@ -3,14 +3,15 @@ import Layout2 from "../../components/Layouts/Layout2"
 import AvatarCard from "../../components/AvatarCard/AvatarCard"
 import { Button } from "flowbite-react"
 import RecievedInformation from "../../components/RecievedInformation/RecievedInformation"
-import SharedInformation from "../../components/SharedInformation/SharedInformation"
 import { useEffect, useState } from "react"
 import { getProfile } from "../../services/api/users"
+import { getShares } from "../../services/api/data"
+import SharedInformation from "../../components/SharedInformation/SharedInformation"
 
 const Profile = () => {
 
   const { id } = useParams()
-  const [ user, setUser ] = useState({"avatar_id": 0, "nickname": ""})
+  const [user, setUser] = useState({ "avatar_id": 0, "nickname": "" })
 
   useEffect(() => {
     const getUserProfile = async (id: string | undefined) => {
@@ -24,6 +25,30 @@ const Profile = () => {
     getUserProfile(id)
   }, [])
 
+  const [informationsShare, setInformationsShare] = useState([] as any)
+  const [informationsReceived, setInformationsReceived] = useState([] as any)
+
+  useEffect(() => {
+    // Appel API pour les infos partagées du user connecté
+    const newId = Number(id)
+    const displayDatas = async () => {
+      const datas: any = await getShares(newId, "user")
+      const arrayDatas = datas.data.data
+      setInformationsShare(arrayDatas)
+    }
+
+    // Appel API pour les infos reçues 
+    const idUserConnected = localStorage.getItem("user.id")
+    const testId = Number(idUserConnected)
+    const displayDatasReceived = async () => {
+      const datas: any = await getShares(testId, "user")
+      const arrayDatas = datas.data.data
+      setInformationsReceived(arrayDatas)
+    }
+
+    displayDatas()
+    displayDatasReceived()
+  }, [])
 
 
   return (
@@ -32,20 +57,19 @@ const Profile = () => {
         <section className="flex justify-center p-8">
           <h3 className="text-2xl">Profil de l'Utilisateur {user.nickname}</h3>
         </section>
-        {/* <img src={`/src/asset/avatars/${user.avatar_id}.svg`} alt="avatar" className="ms-auto me-auto" /> */}
         <div className="profile flex flex-col sm:flex-row p-4 sm:align-baseline gap-2">
           <div className="sm:w-1/3 flex flex-col items-center gap-3 rounded-md p-4 shadow-xl">
             <AvatarCard cardFor={"profile"} userProfile={user} />
-            <Button  color='failure' className='sm:w-2/5'>
+            <Button color='failure' className='sm:w-2/5'>
               Supprimer ce contact
             </Button>
           </div>
 
           <div className="profile informationSection flex flex-col sm:flex-row sm:w-2/3">
-            <SharedInformation />
-            <RecievedInformation />
+            <SharedInformation informationsShare={informationsShare} />
+            <RecievedInformation informationsReceived={informationsReceived} />
           </div>
-          </div>
+        </div>
       </Layout2>
     </>
   )

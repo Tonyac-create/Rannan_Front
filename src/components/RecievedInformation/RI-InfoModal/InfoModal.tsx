@@ -1,14 +1,14 @@
 import React from 'react';
 import { Modal } from 'flowbite-react';
 
-const InfoModal = () => {
+const InfoModal = ({ name, value }: any) => {
   return (
     <div>
         <Modal.Header>
-            <h4>Nom Information</h4>
+            <h4>{name}</h4>
         </Modal.Header>
         <Modal.Body>
-            <p>Contenu de l'information</p>
+            <p>{value}</p>
         </Modal.Body>
     </div>
   )
