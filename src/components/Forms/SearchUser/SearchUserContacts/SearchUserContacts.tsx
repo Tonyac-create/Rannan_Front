@@ -10,6 +10,7 @@ export const SearchUserContacts = (props) => {
 
     const [openConfirmModal, setOpenConfirmModal] = useState(false);
     const [requestIsSent, setRequestIsSent] = useState(false);
+    const [errorMsg, setErrorMsg ] = useState<string>("")
 
     //Gérer l'envoi d'une validation
     const sendValidation = async(e: Event) => {
@@ -23,8 +24,30 @@ export const SearchUserContacts = (props) => {
           setOpenConfirmModal(true);
         }
         else{
-          setOpenConfirmModal(true);
-        }      
+          const error = response.response;
+          const errorType = error.data.error;
+          console.log("🚀 ~ file: SearchUserContacts.tsx:30 ~ sendValidation ~ errorType:", errorType)
+          if(errorType === "User and Contact are the same user"){
+            setErrorMsg("Demande faite à vous même.");
+            setOpenConfirmModal(true);
+          }
+          if(errorType === "A contact request exists already"){
+            setErrorMsg("Demande en attente de réponse.");
+            setOpenConfirmModal(true);
+          }
+          if(errorType === "Users are in contact"){
+            setErrorMsg("Cet user est déjà dans vos contacts.");
+            setOpenConfirmModal(true);
+          }
+          if(errorType === "One of the users, or the two don't exist"){
+            setErrorMsg("L'utilisateur ciblé n'existe pas.");
+            setOpenConfirmModal(true);
+          }
+          if(errorType === "Bad request"){
+            setErrorMsg("Erreur de serveur.");
+            setOpenConfirmModal(true);
+          }
+        }
     }
 
     //Gerer la modale notification
@@ -61,6 +84,7 @@ export const SearchUserContacts = (props) => {
                     <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                       Erreur dans l'envoi de la demande.
                     </h3>
+                    <p className="mb-5 text-sm font-normal text-gray-500 dark:text-gray-400">{errorMsg}</p>
                   </div>
                 </Modal.Body>
               </Modal>

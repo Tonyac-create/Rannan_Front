@@ -12,6 +12,8 @@ const SearchUser = ({ arrayUsers, setArrayUsers }: any) => {
     const [ isHomePage, setIsHomePage ] = useState(false);
     const [ inputText, setInputText ] = useState<string>("");
     const [ usersResponse, setUsersResponse ] = useState([]);
+    const [ isEmpty, setIsEmpty ] = useState(true);
+    const [ reqDone, setReqDone ] = useState(false);
    
 
     //Gerer la liste et action affichée en fonction de localisation
@@ -37,9 +39,21 @@ const SearchUser = ({ arrayUsers, setArrayUsers }: any) => {
     const handleSubmit = async(e: any) =>{
         e.preventDefault();
         const response: any = await userSearch({search : inputText});
-        const userList = response.data.data
-        setUsersResponse(userList);
+        if(response.data === "No user found"){
+          setReqDone(true);
+        }
+        else{
+          const userList = response.data.data
+          setUsersResponse(userList);
+          setReqDone(true);
+        }
     }
+
+    useEffect(() => {  
+      if(usersResponse.length !== 0){
+        setIsEmpty(false)
+      }
+    }, [usersResponse]);
 
     return (
         <div className='searchUser'>
@@ -56,6 +70,15 @@ const SearchUser = ({ arrayUsers, setArrayUsers }: any) => {
                   <Button type="submit">Recherche</Button>
                 </div>
             </form>
+            { isEmpty === true ?
+            <div>
+              { reqDone === false ?
+              <div className='hidden'></div>
+              :
+              <p> Pas d'utilisateurs à afficher.</p>
+              }
+            </div>
+            :
             <div>
               { isContactPage === true || isHomePage === true ?
                 <SearchUserContacts usersFound={usersResponse} />
@@ -63,6 +86,7 @@ const SearchUser = ({ arrayUsers, setArrayUsers }: any) => {
                  <SearchUserList usersFound={usersResponse} arrayUsers={arrayUsers} setArrayUsers={setArrayUsers}/>
               }
             </div>
+            }
         </div>
     )
 }
