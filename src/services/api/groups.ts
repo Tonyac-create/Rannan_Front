@@ -48,7 +48,8 @@ export async function getGroupDetail(id: string){
 
 export async function removeGroup(id: string){
     try{
-        const response = await api.delete(`/api/group/${id}`);
+        const received = await api.delete(`/api/group/${id}`);
+        const response = received.data
         return response
     }
     catch(error){
