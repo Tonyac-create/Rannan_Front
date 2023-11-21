@@ -71,9 +71,9 @@ export async function getShares(target_id: number, target: string) { // Récupé
     }
 }
 
-export async function getSharesBetweenUsers() {
+export async function getSharesBetweenUsers(userId_profile: number) {
     try {
-        const response = await api.get('/api/datas/profile');
+        const response = await api.post('/api/datas/profile', {userId_profile});
         return response
     }
     catch (error) {

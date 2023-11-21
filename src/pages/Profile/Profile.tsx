@@ -5,7 +5,7 @@ import { Button } from "flowbite-react"
 import RecievedInformation from "../../components/RecievedInformation/RecievedInformation"
 import { useEffect, useState } from "react"
 import { getProfile } from "../../services/api/users"
-import { getShares } from "../../services/api/data"
+import { getShares, getSharesBetweenUsers } from "../../services/api/data"
 import SharedInformation from "../../components/SharedInformation/SharedInformation"
 
 const Profile = () => {
@@ -29,19 +29,17 @@ const Profile = () => {
   const [informationsReceived, setInformationsReceived] = useState([] as any)
 
   useEffect(() => {
-    // Appel API pour les infos partagées du user connecté
-    const newId = Number(id)
+    // Appel API pour les infos partagées appartenant au user connecté
+    const idProfile = Number(id)
     const displayDatas = async () => {
-      const datas: any = await getShares(newId, "user")
+      const datas: any = await getShares(idProfile, "user")
       const arrayDatas = datas.data.data
       setInformationsShare(arrayDatas)
     }
-
-    // Appel API pour les infos reçues 
-    const idUserConnected = localStorage.getItem("user.id")
-    const testId = Number(idUserConnected)
+    
+    // Appel API pour infos partagées appartenant au userProfil
     const displayDatasReceived = async () => {
-      const datas: any = await getShares(testId, "user")
+      const datas: any = await getSharesBetweenUsers(idProfile)
       const arrayDatas = datas.data.data
       setInformationsReceived(arrayDatas)
     }
@@ -49,7 +47,6 @@ const Profile = () => {
     displayDatas()
     displayDatasReceived()
   }, [])
-
 
   return (
     <>
