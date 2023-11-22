@@ -14,7 +14,7 @@ export async function userConnected(){
 
 export async function resetPassword(body: any){
     try{
-        const received = await api.post('/user/reset', body);
+        const received = await api.post('/user/reset', {email: body});
         const response = received.data
         return response
     }
