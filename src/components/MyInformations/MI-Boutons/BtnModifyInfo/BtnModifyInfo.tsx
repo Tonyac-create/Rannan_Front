@@ -25,7 +25,6 @@ const BtnModifyInfo = (props: any) => {
             setModalValidModify(true)
             pro.setOpenModal('hidden')
         }
-        // window.location.reload()
     }
 
     return (

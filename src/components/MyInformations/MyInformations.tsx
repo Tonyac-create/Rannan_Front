@@ -20,7 +20,7 @@ const MyInformations = () => {
         }
 
         displayAllInformations();
-    }, []);
+    }, [informations]);
 
     return (
         <div className='myInformations sm:w-1/2 p-2 '>
