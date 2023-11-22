@@ -23,7 +23,6 @@ const BtnCreateInfo = () => {
             setModalValidModify(true)
             props.setOpenModal('hidden')
         }
-        // window.location.reload()
     }
 
 

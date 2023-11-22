@@ -95,7 +95,7 @@ const GroupSetting = (props: any) => {
         </div>
 
         <Modal show={seeSearch} onClose={() => setSeeSearch(false)}>
-          <Modal.Header>Créer un groupe</Modal.Header>
+          <Modal.Header>Rechercher un utilisateur</Modal.Header>
           <Modal.Body>
             <SearchUser />
           </Modal.Body>
