@@ -18,10 +18,16 @@ const ContactsInvitation = () => {
     const displayAllValidations = async() => {
       const response = await getAllValidations();
       const validationsList = await response.data;
-      const sentValidations = await validationsList.allSent;
-      setSentReq(sentValidations);
-      const recievedValidations = await validationsList.allRecieved;
-      setRecievedReq(recievedValidations);
+      if(validationsList){
+        const sentValidations = await validationsList.allSent;
+        if(sentValidations){
+          setSentReq(sentValidations);
+        }
+        const recievedValidations = await validationsList.allRecieved;
+        if(recievedValidations){
+          setRecievedReq(recievedValidations);
+        }
+      }
     }
     displayAllValidations();
   }, [])

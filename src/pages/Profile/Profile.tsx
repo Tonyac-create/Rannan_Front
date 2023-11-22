@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom"
 import Layout2 from "../../components/Layouts/Layout2"
 import AvatarCard from "../../components/AvatarCard/AvatarCard"
-import { Button } from "flowbite-react"
 import RecievedInformation from "../../components/RecievedInformation/RecievedInformation"
 import { useEffect, useState } from "react"
 import { getProfile } from "../../services/api/users"
 import { getShares, getSharesBetweenUsers } from "../../services/api/data"
 import SharedInformation from "../../components/SharedInformation/SharedInformation"
+import ProfileRelation from "../../components/ProfileRelation/ProfileRelation"
 
 const Profile = () => {
 
@@ -57,9 +57,7 @@ const Profile = () => {
         <div className="profile flex flex-col sm:flex-row p-4 sm:align-baseline gap-2">
           <div className="sm:w-1/3 flex flex-col items-center gap-3 rounded-md p-4 shadow-xl">
             <AvatarCard cardFor={"profile"} userProfile={user} />
-            <Button color='failure' className='sm:w-2/5'>
-              Supprimer ce contact
-            </Button>
+            <ProfileRelation userName={user.nickname}/>
           </div>
 
           <div className="profile informationSection flex flex-col sm:flex-row sm:w-2/3">

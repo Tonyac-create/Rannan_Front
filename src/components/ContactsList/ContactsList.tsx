@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ContactCard from './ContactCard/ContactCard';
-import BtnAddContact from './CL-BtnAddContact/BtnAddContact';
+import ModalAddContact from './CL-ModalAddContact/ModalAddContact';
 import { getAllContacts } from '../../services/api/contacts';
 
 const ContactsList = () => {
@@ -67,7 +67,7 @@ const ContactsList = () => {
                     <div className='hidden'></div>
                 }
             </div>
-            <BtnAddContact/>
+            <ModalAddContact/>
             </div>
         </div>
     )

@@ -86,3 +86,13 @@ export async function removeUser(){
         return error
     }
 }
+
+export async function getUserRelation(id: string | undefined){
+    try{
+        const response = await api.get(`/api/user/relation/${id}`);
+        return response.data
+    }
+    catch(error){
+        return error
+    }
+}
