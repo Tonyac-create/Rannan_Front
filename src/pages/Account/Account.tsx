@@ -33,7 +33,6 @@ const Account = () => {
   const handleDeleteAccount = async (event: any) => {
     event.preventDefault()
     const remove = await removeUser()
-    console.log(remove)
     if ( remove.status === 500) {
       return setSeeError(true)
     }
