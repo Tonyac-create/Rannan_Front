@@ -23,7 +23,6 @@ const Account = () => {
       return setSeeNeedPassword(true)
     }
     const check = await checkPassword({password: password})
-    console.log(check)
     if ( check.status === 500 ) {
       return setSeeNeedPassword(true)
     }
@@ -34,8 +33,9 @@ const Account = () => {
   const handleDeleteAccount = async (event: any) => {
     event.preventDefault()
     const remove = await removeUser()
+    console.log(remove)
     if ( remove.status === 500) {
-      setSeeError(true)
+      return setSeeError(true)
     }
     setSeeValidation(true)
   }
@@ -43,10 +43,13 @@ const Account = () => {
   const handleOut = async (event: any) => {
     event.preventDefault()
     setSeeValidation(false)
-    const goOut = await logOut()
-    if (goOut.status === true) {
-      navigate("/login")
-    }
+    localStorage.removeItem("authToken")
+    localStorage.removeItem("authRefreshToken")
+    localStorage.removeItem("user.nickname")
+    localStorage.removeItem("user.avatar")
+    localStorage.removeItem("user.id")
+    localStorage.removeItem("user.email")
+    navigate("/login")
   }
 
   return (
