@@ -4,7 +4,7 @@ import { getUserRelation } from '../../services/api/users';
 import { Link, useParams } from 'react-router-dom';
 import { HiOutlineExclamationCircle, HiCheckCircle, HiCheck, HiX } from 'react-icons/hi';
 import { createValidation, deleteContact } from '../../services/api/contacts';
-import { getSharesBetweenUsers, removeShare } from '../../services/api/data';
+import { removeShareByUsers } from '../../services/api/data';
 
 const ProfileRelation = (props) => {
     const { userName } = props;
@@ -59,64 +59,52 @@ const ProfileRelation = (props) => {
     const [ openErrorModal, setOpenErrorModal ] = useState(false);
     //Delete contact
     const contactDelete = async() => {
-        const response = await deleteContact(+target);
-        console.log("🚀 ~ file: ProfileRelation.tsx:61 ~ contactDelete ~ target:", target)
-        console.log("🚀 ~ file: ProfileRelation.tsx:61 ~ contactDelete ~ response:", response)
-        const error = response.response;
-        if(response.status === 200){
-            setSuccessMsg("Utilisateur supprimé de la liste des contacts avec succès.");
-            setOpenSuccessModal(true)
+      const response = await deleteContact(+target);
+      const error = response.response;
+      if(response.status === 200){
+        setSuccessMsg("Utilisateur supprimé de la liste des contacts avec succès.");
+        setOpenSuccessModal(true)
+      }
+      if(error.status === 500){
+        const errorType = error.data.error;
+        if(errorType === "Unauthorized"){
+          setErrorMsg("Vous n'êtes pas authorisé.");
+          setOpenErrorModal(true)
         }
-        if(error.status === 500){
-            const errorType = error.data.error;
-            if(errorType === "Unauthorized"){
-                setErrorMsg("Vous n'êtes pas authorisé.");
-                setOpenErrorModal(true)
-            }
-            if(errorType === "contact not found"){
-                setErrorMsg("Utilisateur non trouvé.");
-                setOpenErrorModal(true)
-            }
-            else{
-                setErrorMsg("Erreur dans le serveur.");
-                setOpenErrorModal(true)
-            }
-           
+        if(errorType === "contact not found"){
+          setErrorMsg("Utilisateur non trouvé.");
+          setOpenErrorModal(true)
         }
+        else{
+          setErrorMsg("Erreur dans le serveur.");
+          setOpenErrorModal(true)
+        }       
+      }
     }
 
     //Delete Contact + Delete shares
     const contactShareDelete = async() => {
-        //Verifier si un share existe entre les users
-        const share = await getSharesBetweenUsers(+id);
-        const share_id = +share.id;
-        if(!share){
-            setErrorMsg("Vous n'avez pas de partage avec l'utilisateur.");
-            setOpenErrorModal(true);
-        }
-        else{
-            //Delete share + delete contact
-            const contactResponse = await deleteContact(+target);
-            console.log("🚀 ~ file: ProfileRelation.tsx:85 ~ contactShareDelete ~ contactResponse:", contactResponse);
-            const shareResponse = await removeShare(share_id);
-            console.log("🚀 ~ file: ProfileRelation.tsx:98 ~ contactShareDelete ~ shareResponse:", shareResponse);
-            if(contactResponse.data.status === 200 && shareResponse.status === 200){
-                setSuccessMsg("Utilisateur supprimé de la liste de contacts, et partage supprimés avec succès.");
-                setOpenSuccessModal(true);
-            }
-            if(contactResponse.data.status === 200 && shareResponse.data.status === 500){
-                setErrorMsg("Utilisateur supprimé de la liste de contacts, mais erreur dans la suppression du partage. Veuillez réesayer ultérieurement.");
-                setOpenErrorModal(true);
-            }
-            if(contactResponse.data.status === 500 && shareResponse.data.status === 200){
-                setErrorMsg("Partage supprimé, mais erreur dans la suppression de l'utilisateur de la liste de contacts. Veuillez réesayer ultérieurement.");
-                setOpenErrorModal(true);
-            }
-            if(contactResponse.data.status === 500 && shareResponse.data.status === 200){
-                setErrorMsg("Une erreur est survenue lors de la suppression de l'utilisateur de la liste de contacts et du partage avec celui-ci.");
-                setOpenErrorModal(true);
-            }
-        }
+      /* const contactResponse = await deleteContact(+target);
+      console.log("🚀 ~ file: ProfileRelation.tsx:85 ~ contactShareDelete ~ contactResponse:", contactResponse); */
+      const shareResponse = await removeShareByUsers(+id);
+      console.log("🚀 ~ file: ProfileRelation.tsx:90 ~ contactShareDelete ~ shareResponse:", shareResponse);
+      if(contactResponse.data.status === 200 && shareResponse.status === 200){
+          setSuccessMsg("Utilisateur supprimé de la liste de contacts, et partage supprimés avec succès.");
+          setOpenSuccessModal(true);
+      }
+      if(contactResponse.data.status === 200 && shareResponse.data.status === 500){
+          setErrorMsg("Utilisateur supprimé de la liste de contacts, mais erreur dans la suppression du partage. Veuillez réesayer ultérieurement.");
+          setOpenErrorModal(true);
+      }
+      if(contactResponse.data.status === 500 && shareResponse.data.status === 200){
+          setErrorMsg("Partage supprimé, mais erreur dans la suppression de l'utilisateur de la liste de contacts. Veuillez réesayer ultérieurement.");
+          setOpenErrorModal(true);
+      }
+      if(contactResponse.data.status === 500 && shareResponse.data.status === 200){
+          setErrorMsg("Une erreur est survenue lors de la suppression de l'utilisateur de la liste de contacts et du partage avec celui-ci.");
+          setOpenErrorModal(true);
+      }
+        
     }
     
     //Modale ajouterUser

@@ -123,3 +123,13 @@ export async function getShareById(id: number) {
         return error
     }
 }
+
+export async function removeShareByUsers(id: number){
+    try{
+        const response = await api.delete(`/api/share/${id}`)
+        return response
+    }
+    catch(error){
+        return error
+    }
+}
