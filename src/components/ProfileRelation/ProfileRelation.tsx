@@ -21,13 +21,15 @@ const ProfileRelation = (props) => {
             if(response.status === 500){
                 setIsNoRelation(true)
             }
-            if(response.data.relation_type === "contact"){
-                setIsContact(true);
-                setTarget(response.data.relation_id)
-            }
-            if(response.data.relation_type === "validation"){
-                setIsValidation(true);
-                setTarget(response.data.relation_id);
+            else{
+              if(response.data.relation_type === "contact"){
+                  setIsContact(true);
+                  setTarget(response.data.relation_id)
+              }
+              if(response.data.relation_type === "validation"){
+                  setIsValidation(true);
+                  setTarget(response.data.relation_id);
+              }
             }
         }
         getBtn();
