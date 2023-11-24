@@ -11,7 +11,7 @@ export async function getAllContacts(){  // Récuperer tous les contacts d'un us
     }
 }
 
-export async function deleteContact(id: string){  // supprimer un contact id=contact_id
+export async function deleteContact(id: number){  // supprimer un contact id=contact_id
     try{
         const response = await api.delete(`/api/contact/${id}`);
         return response
