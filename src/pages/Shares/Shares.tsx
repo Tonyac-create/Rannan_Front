@@ -6,13 +6,15 @@ import MyInformationToShare from '../../components/MyInformationToshare/MyInform
 import { getAllShares, getListUsersGroups, getShares } from '../../services/api/data';
 import BtnDeleteShare from '../../components/MyInformations/MI-Boutons/BtnDeleteShare/BtnDeleteShare';
 import SearchUser from '../../components/Forms/SearchUser/SearchUser';
+import { useParams } from 'react-router-dom';
 
 const Shares = (props: any) => {
 
   const [openModal, setOpenModal] = useState<string | undefined>();
   const pro = { openModal, setOpenModal }
 
-  const { shareId } = props
+  // const { shareId } = props
+  // console.log("🚀 ~ file: Shares.tsx:16 ~ Shares ~ shareId:", shareId)
 
   // Header de la liste des users et groups boutons cliquables pour avoir soit users soit groups
   // Un appel au chargement de la page pour avoir les users avec qui on partage
@@ -98,6 +100,9 @@ const Shares = (props: any) => {
 
   // Affichage des datas partagées avec un user ou un group
   const displayInformation = async (id: any) => {
+
+    // Quand on cherche un user, on l'ajoute à la liste
+    // on rajoute un partage, récupération de l'id du user
     setNewUserIdList(id)
     const displayUsers: any = await getListUsersGroups(seeList)
     const arrayUsersNickname = displayUsers.data.data
@@ -105,9 +110,9 @@ const Shares = (props: any) => {
     arrayUsersNickname.map((user: any) => {
       if (user.id === id) {
         userId = user.id
+        setTargetId(userId)
       }
     })
-    setTargetId(userId)
     
     const displayDatas: any = await getShares(userId, seeList)
     const arrayDatas = displayDatas.data.data
@@ -120,6 +125,7 @@ const Shares = (props: any) => {
     const allShares: any = await getAllShares()
     // Map pour récupèrer les ids et shareids
     const shareBetweenUsers = allShares.data.data.map((share: any) => ({ target_id: share.target_id, owner_id: share.owner_id, share_id: share.id }))
+    
     
     // Filtre pour récupérer les shares entre les deux ids
     const result = shareBetweenUsers.filter((ids: any) => parseIdUserconnected === ids.owner_id && targetId === ids.target_id)
@@ -243,7 +249,6 @@ const Shares = (props: any) => {
 
 
               <Modal show={pro.openModal === 'form-elements'} size="md" popup onClose={() => pro.setOpenModal(undefined)}>
-                <Modal.Header />
                 <Modal.Body>
                   <MyInformationToShare
                     targetId={targetId}

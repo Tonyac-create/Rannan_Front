@@ -45,48 +45,53 @@ function MyInformationToShare({ targetId, seeList, newUserId }: any) {
                 setModalValidModify(true)
                 setShareId(dataToShared.data.data.id)
             }
-        }
-
-        // Appel API createShare()
-        const dataToShared: any = await createShare(targetId, data_id, seeList)
-        if (dataToShared) {
-            setModalValidModify(true)
-            setShareId(dataToShared.data.data.id)
+        } else {
+            const dataToShared: any = await createShare(targetId, data_id, seeList)
+            if (dataToShared) {
+                setModalValidModify(true)
+                setShareId(dataToShared.data.data.id)
+            }
         }
     }
+    // const [testModal, setTestModal] = useState(true)
 
     return (
-        <div className="flex max-w-md flex-col gap-4 ml-3">
-            <h3 className='text-2xl font-bold my-2'>Mes informations</h3>
-            {
-                informations.length > 0 ? informations.map((data: any, index: any) => {
-                    const isChecked = checkedData.includes(data)
-                    return (
-                        <div className='flex flex-row items-center' key={index}>
-                            <Checkbox
-                                checked={checkedData.includes(data)}
-                                onChange={() => handleChecked(data)}
-                            />
-                            <Label
-                                className="flex grow pl-2"
-                                htmlFor="agree"
-                            >
-                                <p>
-                                    {data.value}
-                                </p>
-                            </Label>
-                            <Button onClick={() => shareData(data.id)} disabled={!isChecked}>Ajouter</Button>
-                        </div>
-                    )
+        // <Modal show={testModal} onClose={() => setTestModal(false)} size="md">
+        //     <Modal.Body>
+                <div className="flex max-w-md flex-col gap-4 ml-3">
+                    <h3 className='text-2xl font-bold my-2'>Mes informations</h3>
+                    {
+                        informations.length > 0 ? informations.map((data: any, index: any) => {
+                            const isChecked = checkedData.includes(data)
+                            return (
+                                <div className='flex flex-row items-center' key={index}>
+                                    <Checkbox
+                                        checked={checkedData.includes(data)}
+                                        onChange={() => handleChecked(data)}
+                                    />
+                                    <Label
+                                        className="flex grow pl-2"
+                                        htmlFor="agree"
+                                    >
+                                        <p>
+                                            {data.value}
+                                        </p>
+                                    </Label>
+                                    <Button onClick={() => shareData(data.id)} disabled={!isChecked} >Ajouter</Button>
+                                </div>
+                            )
 
-                }) : <p>Pas d'information(s) à partager</p>
-            }
-            <ModalInfo
-                modalValidModify={modalValidModify}
-                setModalValidModify={setModalValidModify}
-                textInfo="Information partagée avec succès"
-            />
-        </div>
+                        }) : <p>Pas d'information(s) à partager</p>
+                    }
+                    <ModalInfo
+                        // setTestModal={setTestModal}
+                        modalValidModify={modalValidModify}
+                        setModalValidModify={setModalValidModify}
+                        textInfo="Information partagée avec succès"
+                    />
+                </div>
+        //     </Modal.Body>
+        // </Modal>
     )
 }
 

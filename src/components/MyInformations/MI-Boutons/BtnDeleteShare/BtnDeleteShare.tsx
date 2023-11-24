@@ -8,11 +8,18 @@ function BtnDeleteShare({ shareId, disabled }: any) {
 
     // Modal qui s'ouvre quand on valide la création
     const [modalValidDelete, setModalValidDelete] = useState(false)
+    const [modalErrorDelete, setModalErrorDelete] = useState(false)
+
 
     const deleteShare = async () => {
         const shareToRemove: any = await removeShare(shareId)
-        if (shareToRemove)
-        setModalValidDelete(true)
+        console.log("🚀 ~ file: BtnDeleteShare.tsx:14 ~ deleteShare ~ shareToRemove:", shareToRemove.data.status)
+        if (shareToRemove.data.status === 404 && shareToRemove.status === 200) {
+            console.log("🚀 ~ file: BtnDeleteShare.tsx:18 ~ deleteShare ~ shareToRemove.status:", shareToRemove.status)
+            setModalErrorDelete(true)
+        } else if (shareToRemove) {
+            setModalValidDelete(true)
+        }
     }
 
     return (
@@ -21,6 +28,11 @@ function BtnDeleteShare({ shareId, disabled }: any) {
                 modalValidModify={modalValidDelete}
                 setModalValidModify={setModalValidDelete}
                 textInfo="Partage supprimée avec succès"
+            />
+            <ModalInfo
+                modalValidModify={modalErrorDelete}
+                setModalValidModify={setModalErrorDelete}
+                textInfo="Erreur, veuillez sélectionner l'utilisateur puis choisir le partage à supprimer"
             />
             <Button
                 disabled={disabled}
