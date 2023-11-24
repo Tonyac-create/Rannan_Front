@@ -1,8 +1,6 @@
 'use client';
 import React, { useState } from 'react';
 import { Button, Textarea, Label, Select, TextInput } from 'flowbite-react';
-import { createData, updateData } from '../../../services/api/data';
-import { useParams } from 'react-router-dom';
 
 const MyInformationData = (props: any) => {
 

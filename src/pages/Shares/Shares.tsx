@@ -85,7 +85,7 @@ const Shares = (props: any) => {
     }
 
     displayUserWithShare()
-  }, [arrayUsers, information])
+  }, [])
 
   // id récupérer d'un user déjà existant dans la liste
   const [targetId, setTargetId] = useState(null)

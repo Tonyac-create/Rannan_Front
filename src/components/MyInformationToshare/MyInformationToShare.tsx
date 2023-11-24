@@ -36,7 +36,6 @@ function MyInformationToShare({ targetId, seeList, newUserId }: any) {
 
     const [shareId, setShareId] = useState(null)
 
-    console.log("newUserId : ", newUserId);
     // Créer un partage de donnée
     const shareData = async (data_id: number) => {
         if (newUserId) {
@@ -46,10 +45,8 @@ function MyInformationToShare({ targetId, seeList, newUserId }: any) {
                 setModalValidModify(true)
                 setShareId(dataToShared.data.data.id)
             }
-        } else {
-            console.log("oups");
-            
         }
+
         // Appel API createShare()
         const dataToShared: any = await createShare(targetId, data_id, seeList)
         if (dataToShared) {
@@ -79,16 +76,16 @@ function MyInformationToShare({ targetId, seeList, newUserId }: any) {
                                 </p>
                             </Label>
                             <Button onClick={() => shareData(data.id)} disabled={!isChecked}>Ajouter</Button>
-                            <ModalInfo
-                                modalValidModify={modalValidModify}
-                                setModalValidModify={setModalValidModify}
-                                textInfo="Information partagée avec succès"
-                            />
                         </div>
                     )
 
                 }) : <p>Pas d'information(s) à partager</p>
             }
+            <ModalInfo
+                modalValidModify={modalValidModify}
+                setModalValidModify={setModalValidModify}
+                textInfo="Information partagée avec succès"
+            />
         </div>
     )
 }
