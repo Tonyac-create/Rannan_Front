@@ -84,23 +84,21 @@ const ProfileRelation = (props) => {
 
     //Delete Contact + Delete shares
     const contactShareDelete = async() => {
-      /* const contactResponse = await deleteContact(+target);
-      console.log("🚀 ~ file: ProfileRelation.tsx:85 ~ contactShareDelete ~ contactResponse:", contactResponse); */
+      const contactResponse = await deleteContact(+target);
       const shareResponse = await removeShareByUsers(+id);
-      console.log("🚀 ~ file: ProfileRelation.tsx:90 ~ contactShareDelete ~ shareResponse:", shareResponse);
       if(contactResponse.data.status === 200 && shareResponse.status === 200){
           setSuccessMsg("Utilisateur supprimé de la liste de contacts, et partage supprimés avec succès.");
           setOpenSuccessModal(true);
       }
-      if(contactResponse.data.status === 200 && shareResponse.data.status === 500){
+      else if(contactResponse.data.status === 200 &&  shareResponse.response.status === 500){
           setErrorMsg("Utilisateur supprimé de la liste de contacts, mais erreur dans la suppression du partage. Veuillez réesayer ultérieurement.");
           setOpenErrorModal(true);
       }
-      if(contactResponse.data.status === 500 && shareResponse.data.status === 200){
+      else if(contactResponse.data.status === 500 && shareResponse.status === 200){
           setErrorMsg("Partage supprimé, mais erreur dans la suppression de l'utilisateur de la liste de contacts. Veuillez réesayer ultérieurement.");
           setOpenErrorModal(true);
       }
-      if(contactResponse.data.status === 500 && shareResponse.data.status === 200){
+      else{
           setErrorMsg("Une erreur est survenue lors de la suppression de l'utilisateur de la liste de contacts et du partage avec celui-ci.");
           setOpenErrorModal(true);
       }

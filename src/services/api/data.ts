@@ -126,7 +126,7 @@ export async function getShareById(id: number) {
 
 export async function removeShareByUsers(id: number){
     try{
-        const response = await api.delete(`/api/share/${id}`)
+        const response = await api.delete(`/api/share/user/${id}`)
         return response
     }
     catch(error){
