@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import InformationCard from './MI-InformationCard/InformationCard';
 import BtnCreateInfo from './MI-Boutons/BtnCreateInfo/BtnCreateInfo';
 import { getUserDatas } from '../../services/api/data';
@@ -8,19 +8,20 @@ const MyInformations = () => {
     //Récupérer et afficher la liste des datas
     const [informations, setInformations] = useState([]);
 
+    const displayAllInformations = useCallback(async () => {
+
+        //Récupérer service API getallinformations
+        const datas: any = await getUserDatas()
+        // console.log("🚀 ~ file: MyInformations.tsx:18 ~ displayAllInformations ~ datas:", datas.data)
+        const arrayDatas = datas.data
+        // console.log("🚀 ~ file: MyInformations.tsx:19 ~ displayAllInformations ~ arrayDatas:", arrayDatas)
+        setInformations(arrayDatas);
+    }, []);
 
     // Au chargement de la page, appel au back pour récupérer la liste des datas du user connecté
     useEffect(() => {
-        const displayAllInformations = async () => {
-
-            //Récupérer service API getallinformations
-            const datas: any = await getUserDatas()
-            const arrayDatas = datas.data.data
-            setInformations(arrayDatas);
-        }
-
         displayAllInformations();
-    }, [informations]);
+    }, [displayAllInformations]);
 
     return (
         <div className='myInformations sm:w-1/2 p-2 '>
@@ -38,7 +39,7 @@ const MyInformations = () => {
                     }) : <p>Pas d'informations</p>
                 }
 
-                <BtnCreateInfo />
+                <BtnCreateInfo refreshData={displayAllInformations}/>
             </div>
         </div>
     )
