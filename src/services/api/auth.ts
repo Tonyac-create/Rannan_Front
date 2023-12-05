@@ -4,19 +4,40 @@ const api = useApi();
 export async function signIn(body: any){
     try{
         const response = await api.post('/auth/register', body);
-        const { token, refreshToken, user } = response.data
-        if (token !== undefined && refreshToken !== undefined) {
-            localStorage.setItem("authToken", token)
-            localStorage.setItem("authRefreshToken", refreshToken)
-            localStorage.setItem("user.avatar", user.avatar_id)
-            localStorage.setItem("user.nickname", user.nickname)
-            localStorage.setItem("user.id", user.id)
-            localStorage.setItem("user.email", user.email)
+        if (response.data.status === 201) {
+            localStorage.setItem("validationToken", response.data.data)
         }
         return ({
             status: true,
             data: response.data
         })
+    }
+    catch(error){
+        return ({
+            status: false,
+            data: error
+        })
+    }
+}
+
+export async function validationMail(body: {email: string}) {
+    try {
+        const received = await api.post('/user/validation/mail', body);
+        const response = received.data
+        return response
+    } catch (error) {
+        return ({
+            status: false,
+            data: error
+        })
+    }
+}
+
+export async function returnValidation(body: {email: string}){
+    try{
+        const received = await api.post('/user/return/validation', body);
+        const response = received.data
+        return response
     }
     catch(error){
         return ({

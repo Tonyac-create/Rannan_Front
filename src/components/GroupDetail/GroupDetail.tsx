@@ -5,7 +5,7 @@ import { getGroupDetail, removeMemberGroup } from "../../services/api/groups"
 
 
 const GroupDetail = (props: any) => {
-  const { role, group, setDel, seeSetting, seeDelete } = props
+  const { role, selectedGroup, setDel, seeSetting, seeDelete } = props
   const user_id = localStorage.getItem("user.id")
   const [ memberList, setMemberList ] = useState<[{id: number, nickname: string}]|null>(null)
   const [ dataList, setDataList ] = useState<[{id: number, name: string, value: any}]|null>(null)
@@ -13,15 +13,15 @@ const GroupDetail = (props: any) => {
 
 useEffect(() => {
   const fetchData = async () => {
-    const response = await getGroupDetail(group.id)
+    const response = await getGroupDetail(selectedGroup.id)
     setMemberList(response.data.memberList)
     setDataList(response.data.dataList)
   }
   fetchData()
-}, [group])
+}, [selectedGroup])
 
 const handleLeave = async () => {
-  await removeMemberGroup(group.id, {user_id})
+  await removeMemberGroup(selectedGroup.id, {user_id})
   setOpenModal(false)
   setDel(null)
 }
@@ -40,12 +40,12 @@ const handleDelete = (event: any) => {
     <>
       <section className="border-4 border-teal-600 rounded-xl p-2">
         <section className="flex flex-col justify-center items-center">
-          <h3 className="text-2xl">Détails de "{group.name}"</h3>
+          <h3 className="text-2xl">Détails de "{selectedGroup.name}"</h3>
           <div className="flex justify-evenly gap-2 w-full my-2 text-center md:text-left">
             {role === "member" && (
-              <span>Créateur : &ensp;{group.creator_nickname}</span>
+              <span>Créateur : &ensp;{selectedGroup.creator_nickname}</span>
             )}
-            <span>Date limite : &ensp;{group.limited_at === null ? "Aucune" : group.limited_at}</span>
+            <span>Date limite : &ensp;{selectedGroup.limited_at === null ? "Aucune" : selectedGroup.limited_at}</span>
           </div>
         </section>
         <div className="flex flex-col items-center text-center">
@@ -53,7 +53,7 @@ const handleDelete = (event: any) => {
             <div className="flex flex-col items-center lg:flex-row lg:justify-around w-full md:w-1/2 gap-1 space-x-1">
               <Button size="xs" className="whitespace-pre" onClick={(event) => handleDelete(event)}>Supprimer le groupe</Button>
               <Button size="xs" className="whitespace-pre" onClick={(event) => handleSetting(event)}>Modifier le groupe</Button>
-              <Button size="xs" className="whitespace-pre" href={`/shares/${group.id}`}>Modifier les partages</Button>
+              <Button size="xs" className="whitespace-pre" href={`/shares/${selectedGroup.id}`}>Modifier les partages</Button>
             </div>
           )}
           {role === "member" && (

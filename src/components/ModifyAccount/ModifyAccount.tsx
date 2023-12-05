@@ -27,7 +27,6 @@ function ModifyAccount() {
     return (
         <div className="flex flex-col items-center gap-4 w-full lg:w-1/2 p-4 border-4 border-teal-600 rounded-xl">
             <Modal show={seeModal.status !== 0} size="md" popup onClose={() => setSeeModal({status: 0, text: ""})}>
-                <Modal.Header />
                 <Modal.Body>
                 <div className="text-center">
                     <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />

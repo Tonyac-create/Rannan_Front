@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import ChoiceAvatar from '../../components/ChoiceAvatar/ChoiceAvatar'
 import InAppPasswordModif from '../../components/InAppPasswordModif/InAppPasswordModif'
 import Layout2 from '../../components/Layouts/Layout2'
 import ModifyAccount from '../../components/ModifyAccount/ModifyAccount'
 import { Button, Label, Modal, TextInput } from 'flowbite-react'
 import { checkPassword, removeUser } from '../../services/api/users'
-import { logOut } from '../../services/api/auth'
 import { useNavigate } from 'react-router-dom'
 
 const Account = () => {

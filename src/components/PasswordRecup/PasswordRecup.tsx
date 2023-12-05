@@ -17,6 +17,7 @@ function PasswordRecup() {
         if (!response.status) {
             return setOpenModal("notFound")
         }
+        localStorage.setItem("resetToken", response.data)
         return setOpenModal("default")
     }
 

@@ -6,7 +6,7 @@ import { getGroupDetailForSetting, updateGroup } from "../../services/api/groups
 
 
 const GroupSetting = (props: any) => {
-  const { selectedGroup } = props
+  const { selectedGroup, refresh, setRefresh } = props
   const [ groupName, setGroupName ] = useState<string|null>("")
   const [ groupLimit, setGroupLimit ] = useState<string|null>(null)
   const [ memberList, setMemberList ] = useState([])
@@ -27,7 +27,7 @@ const GroupSetting = (props: any) => {
         }
       }
       fetchData()
-    }, [selectedGroup])
+    }, [selectedGroup, refresh])
 
     const handleSubmit = async (event: any) => {
       event.preventDefault()
@@ -47,7 +47,9 @@ const GroupSetting = (props: any) => {
         limited_at: newDate
       }
     // Envoi l'update a l'api
-      return updateGroup(selectedGroup.id, updatedGroup)
+      await updateGroup(selectedGroup.id, updatedGroup)
+    // Refresh
+      return setRefresh(!refresh)
     }
 
 
@@ -87,8 +89,8 @@ const GroupSetting = (props: any) => {
           </form>
         </section>
         <section className="flex flex-col justify-evenly gap-2 p-2 sm:flex-row my-2 border-2 rounded-xl border-cyan-700">
-          <UserList listFor="ModifyMembers" list={memberList} group_id={selectedGroup.id} />
-          <UserList listFor="ModifyContacts" list={contactList} group_id={selectedGroup.id} />
+          <UserList refresh={refresh} setRefresh={setRefresh} listFor="ModifyMembers" list={memberList} group_id={selectedGroup.id} />
+          <UserList refresh={refresh} setRefresh={setRefresh} listFor="ModifyContacts" list={contactList} group_id={selectedGroup.id} />
         </section>
         <div className="flex justify-center w-full">
           <Button className="w-1/2" onClick={() => setSeeSearch(true)}>Rechercher un utilisateur</Button>
