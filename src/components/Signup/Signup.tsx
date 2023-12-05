@@ -27,12 +27,12 @@ function Signup() {
         // Envoi des datas à l'api
             const response: any = await signIn({nickname, email, password})
             if (response.status === false) {
-                setModalText(response.data.response.data.error)
+                setModalText("Une erreur est survenue. Veuillez recommencer.")
                 setModalBtn("login")
                 return props.setOpenModal('pop-up')
             }
             if (response.status === true) {
-                setModalText(response.data.message)
+                setModalText("Compte créé. Veuillez valider votre email.")
                 setModalBtn("home")
                 return props.setOpenModal('pop-up')
             }
@@ -41,7 +41,7 @@ function Signup() {
     return (
         <>
             <Modal show={props.openModal === 'pop-up'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
-                <Modal.Header />
+                <Modal.Header></Modal.Header>
                 <Modal.Body>
                 <div className="text-center">
                     <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />

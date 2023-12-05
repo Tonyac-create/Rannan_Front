@@ -23,6 +23,17 @@ export async function resetPassword(body: any){
     }
 }
 
+export async function returnResetPassword(body: any){
+    try{
+        const received = await api.post('/user/return/reset', body);
+        const response = received.data
+        return response
+    }
+    catch(error){
+        return error
+    }
+}
+
 export async function checkPassword(body: any){
     try{
         const received = await api.put('/api/checkPassword', body);

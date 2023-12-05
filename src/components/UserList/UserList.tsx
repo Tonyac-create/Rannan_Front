@@ -4,7 +4,7 @@ import { addMemberGroup, removeMemberGroup } from "../../services/api/groups"
 
 const UserList = (props: any) => {
 
-  const { listFor, list, group_id } = props
+  const { refresh, setRefresh, listFor, list, group_id } = props
 
 // Afficher le nickname ou le nom du groupe dans l'en tete du tableau
   const getHeader = () => {
@@ -21,14 +21,14 @@ const UserList = (props: any) => {
 
   const handleAddMember = async (event: any, user_id: string) => {
     event.preventDefault()
-    const response = await addMemberGroup(group_id, {user_id: user_id})
-    console.log(response)
+    addMemberGroup(group_id, {user_id: user_id})
+    setRefresh(!refresh)
   }
 
   const handleRemoveMember = async (event: any, user_id: string) => {
     event.preventDefault()
-    const response = await removeMemberGroup(group_id, {user_id: user_id})
-    console.log(response)
+    await removeMemberGroup(group_id, {user_id: user_id})
+    setRefresh(!refresh)
   }
 
   return (

@@ -1,4 +1,4 @@
-import { Label, TextInput, Button } from "flowbite-react"
+import { Label, TextInput, Button, Modal } from "flowbite-react"
 import Layout from "../../components/Layouts/Layout"
 import { useEffect, useState } from "react"
 import PasswordRecup from "../../components/PasswordRecup/PasswordRecup"
@@ -6,6 +6,8 @@ import Signup from "../../components/Signup/Signup"
 import { logIn } from "../../services/api/auth"
 import { useNavigate } from "react-router-dom"
 import { userConnected } from "../../services/api/users"
+import { HiOutlineExclamationCircle } from 'react-icons/hi'
+import ValidationMail from "../../components/ValidationMail/ValidationMail"
 
 
 const Login = () => {
@@ -16,15 +18,28 @@ const Login = () => {
   const [ email, setEmail ] = useState("")
   const [ password, setPassword ] = useState("")
   const [ seeError, setSeeError ] =  useState(false)
+  const [ seeModal, setSeeModal ] =  useState<{status: boolean, text: string}>({status: false, text: ""})
+  const [ invalid, setInvalid ] = useState<boolean>(false)
 
   useEffect(() => {
     const logCheck = async () => {
       const token = localStorage.getItem("authToken")
+      const validationCheck = localStorage.getItem("validationToken")
+      if ( validationCheck ) {
+        setInvalid(true)
+        return setSeeModal({status: true, text: "invalid"})
+      }
       if ( token ) {
         const logStatus = await userConnected()
-        if ( logStatus.status === 200 ) {
-          navigate("/home")
+        console.log(logStatus)
+        if ( logStatus.status !== 200 ) {
+          return setSeeModal({status: true, text: "back"})
         }
+        if ( logStatus.data.validation === 0 ) {
+          setSeeModal({status: true, text: "invalid"})
+          return setInvalid(true)
+        }
+        return navigate("/home")
         //! ajout du refresh token ICI ???
       }
     }
@@ -52,8 +67,37 @@ const Login = () => {
   return (
     <>
 
+      <Modal show={seeModal.status === true} size="md" popup onClose={() => setSeeModal({status: false, text: ""})}>
+        <Modal.Header>Rannan Support</Modal.Header>
+        <Modal.Body>
+          {seeModal.text === "back" &&
+            <div className="text-center">
+              <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+              <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                Une erreur est survenu lors du traitement de votre demande, veuillez rafraichir la page.
+              </h3>
+            </div>
+          }
+          {seeModal.text === "invalid" &&
+            <div className="text-center">
+              <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+              <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                Veuillez valider votre email pour pouvoir vous connecté. Souhaitez vous que nous vous renvoyons un mail?
+              </h3>
+              <div className="flex gap-4">
+                <Button onClick={() => setSeeModal({status: true, text: "validationMail"})}>Oui</Button>
+                <Button onClick={() => navigate("/login")}>Non</Button>
+              </div>
+            </div>
+          }
+          {seeModal.text === "validationMail" &&
+            <ValidationMail />
+          }
+        </Modal.Body>
+      </Modal>
+
       {
-        login ? (
+        login && invalid === false ? (
 
           <Layout>
             <div className="flex flex-col items-center max-w-md mx-auto">
@@ -108,7 +152,7 @@ const Login = () => {
             </div>
           </Layout>
         ) : (
-          components ? (
+          components && invalid === false ? (
             <Layout>
               <div className="flex flex-col items-center max-w-md mx-auto">
                 <PasswordRecup />

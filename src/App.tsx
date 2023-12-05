@@ -9,10 +9,11 @@ import GroupDetail from './components/GroupDetail/GroupDetail'
 import Home from './pages/Homepage/Home'
 import Profile from './pages/Profile/Profile'
 import Account from './pages/Account/Account'
-import GroupSetting from './components/GroupSetting/GroupSetting'
 import Signup from './components/Signup/Signup'
 import PrivateRoute from './services/utils/privateRoute'
 import NotFoundPage from './services/utils/NotFoundPage'
+import ReturnValidation from './pages/Verify/ReturnValidation'
+import ReturnReset from './pages/Verify/ReturnReset'
 import './App.css'
 
 
@@ -27,6 +28,8 @@ function App() {
 				<Route path="/" element={<Login />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/signup" element={<Signup />} />
+				<Route path="/mail/return/validation/:token" element={<ReturnValidation />} />
+				<Route path="/mail/return/reset/:token" element={<ReturnReset />} />
 				<Route path='/about' element={<About/>} />
 				<Route path='/legal' element={<Legal/>} />
 

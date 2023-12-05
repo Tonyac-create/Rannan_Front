@@ -14,6 +14,7 @@ const Groups = () => {
   const [ delCheck, setDelCheck ] = useState(false)
   const [ seeCreate, setSeeCreate ] = useState(false)
   const [ seeSetting, setSeeSetting ] = useState(false)
+  const [ refresh, setRefresh ] = useState(false)
 
 useEffect(() => {
   const fetchApi = async () => {
@@ -26,12 +27,13 @@ useEffect(() => {
         const groups = await getCreatorGroupList()
         groups.data === undefined ? setGroupList([]) : setGroupList(groups.data)
       }
+      console.log(selectedGroup)
     } catch (error) {
       console.log("Error :", error)
     }
   }
   fetchApi()
-}, [seeList, selectedGroup])
+}, [seeList, refresh])
 
   const handleSeeList = (role: string) => {
     setSelectedGroup(null)
@@ -93,7 +95,7 @@ useEffect(() => {
             </div>
           </div>
           <div className="w-11/12 md:w-3/5">
-            {selectedGroup && <GroupDetail group={selectedGroup} role={seeList} setDel={setSelectedGroup} seeSetting={setSeeSetting} seeDelete={setDelCheck} />}
+            {selectedGroup && <GroupDetail role={seeList} selectedGroup={selectedGroup} setDel={setSelectedGroup} seeSetting={setSeeSetting} seeDelete={setDelCheck} />}
           </div>
         </section>
 
@@ -118,7 +120,7 @@ useEffect(() => {
         <Modal show={seeSetting} onClose={() => setSeeSetting(false)}>
           <Modal.Header>Paramétres du groupe</Modal.Header>
           <Modal.Body>
-            <GroupSetting selectedGroup={selectedGroup} />
+            <GroupSetting refresh={refresh} setRefresh={setRefresh} selectedGroup={selectedGroup} />
           </Modal.Body>
         </Modal>
 

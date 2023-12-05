@@ -70,7 +70,6 @@ export async function getGroupDetailForSetting(id: string){
 
 export async function updateGroup(id: string, body: any){
     try{
-        console.log(body)
         const received = await api.put(`/api/group/${id}`, body);
         const response = received.data
         return response
