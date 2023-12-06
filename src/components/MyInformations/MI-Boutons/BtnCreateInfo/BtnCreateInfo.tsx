@@ -5,7 +5,7 @@ import MyInformationData from '../../../Forms/MyInformationData/MyInformationDat
 import { createData } from '../../../../services/api/data';
 import ModalInfo from '../../ModalInfo';
 
-const BtnCreateInfo = () => {
+const BtnCreateInfo = ({ refreshData }: any) => {
 
     const [openModal, setOpenModal] = useState<string | undefined>()
     const props = { openModal, setOpenModal }
@@ -19,9 +19,11 @@ const BtnCreateInfo = () => {
     const createNewData = async (newData: any) => {
         //requête POST
         const dataCreated = await createData(newData)
+        console.log("🚀 ~ file: BtnCreateInfo.tsx:22 ~ createNewData ~ dataCreated:", dataCreated)
         if (dataCreated) {
             setModalValidModify(true)
             props.setOpenModal('hidden')
+            refreshData()
         }
     }
 
