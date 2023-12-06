@@ -24,8 +24,11 @@ const MyInformations = () => {
 
             //Récupérer service API getallinformations
             const datas: any = await getUserDatas()
-            const arrayDatas = datas.data.data
-            setInformations(arrayDatas);
+            //! AJOUT "si il n'y a pas de data"
+            if(datas.status === true ) {
+                const arrayDatas = datas.data.data
+                setInformations(arrayDatas);
+            }
         }
 
         displayAllInformations();
