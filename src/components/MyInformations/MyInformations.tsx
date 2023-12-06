@@ -14,9 +14,12 @@ const MyInformations = () => {
         const displayAllInformations = async () => {
 
             //Récupérer service API getallinformations
+        //! MODIFIER pour pouvoir charger la page home sans bug
             const datas: any = await getUserDatas()
-            const arrayDatas = datas.data.data
-            setInformations(arrayDatas);
+            if (datas.status === true ) {
+                const arrayDatas = datas.data.data
+                setInformations(arrayDatas);
+            }
         }
 
         displayAllInformations();

@@ -1,5 +1,4 @@
-import { Button, Checkbox, Label } from 'flowbite-react'
-import React from 'react'
+import { Button, Label } from 'flowbite-react'
 import { Link } from 'react-router-dom'
 
 const SharedInformation = ({ informationsShare }: any) => {

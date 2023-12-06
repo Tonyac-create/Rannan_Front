@@ -72,7 +72,8 @@ const Shares = (props: any) => {
       // Récupére la liste des users avec qui on a des partages
       const displayUsers: any = await getListUsersGroups("user")
 
-
+//! AJOUT car quand aucune data => erreur dans le log.
+if (displayUsers.status === true ){ //! AJOUT
       if (displayUsers.data.data.length > 0) {
         const arrayUsersNickname = displayUsers.data.data
         setArrayUsers(arrayUsersNickname)
@@ -84,6 +85,7 @@ const Shares = (props: any) => {
         const arrayDatas = displayDatas.data.data
         setInformation(arrayDatas)
       }
+} //! AJOUT
     }
 
     displayUserWithShare()

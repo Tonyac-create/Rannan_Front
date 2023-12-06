@@ -70,15 +70,21 @@ const ReturnValidation = () => {
       }
 
       <Modal show={seeModal.status === true} size="md" popup onClose={() => setSeeModal({status: false, text: ""})}>
+        <Modal.Header></Modal.Header>
         <Modal.Body>
           {seeModal.text === "error" &&
             <div className="text-center">
               <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                Erreur lors du traitement de votre demande. Veuillez recharger la page ou contacter le support de rannan.
+                Erreur lors du traitement de votre demande. Veuillez vérifier votre adresse mail, recharger la page ou contacter le support de rannan.
               </h3>
-              <Button onClick={() => navigate("/login")}>
-                Retour a l'accueil
-              </Button>
+              <div className="flex gap-4">
+                <Button onClick={() => setSeeModal({status: false, text: ""})}>
+                  Entrer a nouveau mon mail
+                </Button>
+                <Button onClick={() => navigate("/login")}>
+                  Retour a l'accueil
+                </Button>
+              </div>
             </div>
           }
         </Modal.Body>

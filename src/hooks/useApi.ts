@@ -27,7 +27,7 @@ export function useApi() {
       if (error.response && error.response.status === 401) {
         "OUPS INTERCEPTORS ERROR"
       }
-      if (error.message === "Network Error") {
+      if (error.response && error.response.status === 500) {
         "OUPS NETWORK ERROR"
       }
       return Promise.reject(error)

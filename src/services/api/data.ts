@@ -12,12 +12,23 @@ export async function getOneDataById(id: string) {  // Récupère une data par s
 }
 
 export async function getUserDatas() {  // Récupère des datas avec son user_id (recupéré du token en back)
+//! Modifié pour pouvoir charger la page Home sans bug.
     try {
-        const response = await api.get('/api/datas');
-        return response
+        const received = await api.get('/api/datas');
+        const response = received.data
+        if (response.data) {
+            return ({
+                status: true,
+                data: response.data
+            })
+        }
+        throw new Error ("No Data Found")
     }
     catch (error) {
-        return error
+        return ({
+            status: false,
+            data: error
+        })
     }
 }
 
@@ -53,8 +64,15 @@ export async function createData(body: any) {  //créer une data
 
 export async function getListUsersGroups(target: any) { // Récupération de liste users ou groups
     try {
-        const response = await api.post(`/api/datas/shares`, { target });
-        return response
+        const received = await api.post(`/api/datas/shares`, { target });
+        const response = received.data
+        if (response.data) {
+            return ({
+                status: true,
+                data: response.data
+            })
+        }
+        throw new Error ("No Data Found")
     }
     catch (error) {
         return error

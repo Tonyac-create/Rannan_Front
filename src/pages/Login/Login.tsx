@@ -86,7 +86,7 @@ const Login = () => {
               </h3>
               <div className="flex gap-4">
                 <Button onClick={() => setSeeModal({status: true, text: "validationMail"})}>Oui</Button>
-                <Button onClick={() => navigate("/login")}>Non</Button>
+                <Button onClick={() => setSeeModal({status: false, text: ""})}>Non</Button>
               </div>
             </div>
           }
