@@ -5,7 +5,7 @@ export function useApi() {
 
   const headers = {
     "Content-Type": "application/json",
-    "Access-control-Allow-Origin": 'http://localhost:5173', //à regarder
+    "Access-control-Allow-Origin": 'http://localhost:5173',
   };
 
   const api: AxiosInstance = axios.create({
