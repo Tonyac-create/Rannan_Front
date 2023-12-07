@@ -12,11 +12,10 @@ export async function getOneDataById(id: string) {  // Récupère une data par s
 }
 
 export async function getUserDatas() {  // Récupère des datas avec son user_id (recupéré du token en back)
-//! Modifié pour pouvoir charger la page Home sans bug.
     try {
         const received = await api.get('/api/datas');
         const response = received.data
-        if (response.data) {
+        if (response.data) { //! AJOUT pour charger la page Home sans bug.
             return ({
                 status: true,
                 data: response.data

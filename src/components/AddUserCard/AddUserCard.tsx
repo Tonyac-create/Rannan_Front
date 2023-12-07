@@ -1,7 +1,7 @@
 'use client';
 import { Button, Card } from 'flowbite-react';
 
-const AddUserCard = (props) => {
+const AddUserCard = (props: any) => {
     const { nickname, id, action } = props;
 
   return (

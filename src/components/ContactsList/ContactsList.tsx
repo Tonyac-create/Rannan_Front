@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import ContactCard from './ContactCard/ContactCard';
 import ModalAddContact from './CL-ModalAddContact/ModalAddContact';
 import { getAllContacts } from '../../services/api/contacts';
@@ -44,7 +44,7 @@ const ContactsList = () => {
                 ? 
                     <div className='hidden'></div>
                 :
-                    contacts1.map(contact => {
+                    contacts1.map((contact: any) => {
                         return(
                             <ContactCard key={contact.id} id={contact.id} otherUserId={contact.user2.user2_id} nickname={contact.user2.nickname} />
                         )
@@ -54,7 +54,7 @@ const ContactsList = () => {
                 ?
                     <div className='hidden'></div>
                 :
-                    contacts2.map(contact => {
+                    contacts2.map((contact : any) => {
                         return(
                             <ContactCard key={contact.id} id={contact.id} otherUserId={contact.user1.user1_id} nickname={contact.user1.nickname} />
                         )

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Modal } from 'flowbite-react';
 import { getUserRelation } from '../../services/api/users';
 import { Link, useParams } from 'react-router-dom';
@@ -6,13 +6,13 @@ import { HiOutlineExclamationCircle, HiCheckCircle, HiCheck, HiX } from 'react-i
 import { createValidation, deleteContact } from '../../services/api/contacts';
 import { removeShareByUsers } from '../../services/api/data';
 
-const ProfileRelation = (props) => {
+const ProfileRelation = (props: any) => {
     const { userName } = props;
     //Gestion de l'affichage
     const [ isContact, setIsContact ] = useState(false);
     const [ isValidation, setIsValidation ] = useState(false);
     const [ isNoRelation, setIsNoRelation ] = useState(false);
-    const [ target, setTarget ] = useState<string>();
+    const [ target, setTarget ] = useState<string>("");
     const { id } = useParams()
 
     useEffect(() => {
@@ -42,7 +42,7 @@ const ProfileRelation = (props) => {
         e.preventDefault();
         setOpenDeleteModal(true)
     }
-       
+
     //Modale DeletionType
     const [errorMsg, setErrorMsg ] = useState<string>("");  //reutilisé + tard
     const [succesMsg, setSuccessMsg ] = useState<string>("");
@@ -59,7 +59,7 @@ const ProfileRelation = (props) => {
     const [ openErrorModal, setOpenErrorModal ] = useState(false);
     //Delete contact
     const contactDelete = async() => {
-      const response = await deleteContact(+target);
+      const response: any = await deleteContact(+target);
       const error = response.response;
       if(response.status === 200){
         setSuccessMsg("Utilisateur supprimé de la liste des contacts avec succès.");
@@ -84,8 +84,8 @@ const ProfileRelation = (props) => {
 
     //Delete Contact + Delete shares
     const contactShareDelete = async() => {
-      const contactResponse = await deleteContact(+target);
-      const shareResponse = await removeShareByUsers(+id);
+      const contactResponse: any = await deleteContact(+target);
+      const shareResponse: any = await removeShareByUsers(+id); //! id can be undefined
       if(contactResponse.data.status === 200 && shareResponse.status === 200){
           setSuccessMsg("Utilisateur supprimé de la liste de contacts, et partage supprimés avec succès.");
           setOpenSuccessModal(true);
@@ -119,7 +119,7 @@ const ProfileRelation = (props) => {
     const sendValidation = async(e: Event) => {
         e.preventDefault();
         //RequÊte axios
-        const response = await createValidation({contactId : id});
+        const response: any = await createValidation({contactId : id});
         //En fonction de la réponse définir un message ou un autre pour le modal
         if(response.status === 200){
           setRequestIsSent(true);
@@ -164,7 +164,7 @@ const ProfileRelation = (props) => {
   return (
     <div>
         <div className={isContact === true ? "activeAction" : "hidden"}>
-            <Button color='failure' onClick={openUserDltModal}>
+            <Button color='failure' onClick={() =>openUserDltModal}>
                 Supprimer ce contact
             </Button>
             <Modal show={openDeleteModal} size="md" onClose={() => setOpenDeleteModal(false)} popup>
@@ -178,7 +178,7 @@ const ProfileRelation = (props) => {
                             <span>Veuillez confirmer.</span>
                         </h3>
                         <div className="flex justify-center gap-4">
-                            <Button color="failure" onClick={dltTypeModal}>
+                            <Button color="failure" onClick={() => dltTypeModal}>
                                 {"Confirmer"}
                             </Button>
                         </div>
@@ -203,7 +203,7 @@ const ProfileRelation = (props) => {
                 </Modal.Footer>
             </Modal>
             <div>
-              <Modal show={openSuccessModal} size="md" onClose={confirmAccept} popup>
+              <Modal show={openSuccessModal} size="md" onClose={() => confirmAccept} popup>
                 <Modal.Header />
                 <Modal.Body>
                   <div className="text-center">
@@ -214,7 +214,7 @@ const ProfileRelation = (props) => {
                   </div>
                 </Modal.Body>
               </Modal>
-              <Modal show={openErrorModal} size="md" onClose={confirmAccept} popup>
+              <Modal show={openErrorModal} size="md" onClose={() => confirmAccept} popup>
                 <Modal.Header />
                 <Modal.Body>
                   <div className="text-center">
@@ -234,7 +234,7 @@ const ProfileRelation = (props) => {
             </Button>
         </div>
         <div className={isNoRelation === true ? "activeAction" : "hidden"}>
-            <Button onClick={openUserAddModal}>
+            <Button onClick={() => openUserAddModal}>
                 Envoyer une demande
             </Button>
             <Modal show={openAddModal} size="md" onClose={() => setOpenAddModal(false)} popup>
@@ -248,7 +248,7 @@ const ProfileRelation = (props) => {
                             <span>Veuillez confirmer.</span>
                         </h3>
                         <div className="flex justify-center gap-4">
-                            <Button color="success" onClick={sendValidation}>
+                            <Button color="success" onClick={() => sendValidation}>
                                 {"Confirmer"}
                             </Button>
                         </div>
@@ -256,7 +256,7 @@ const ProfileRelation = (props) => {
                 </Modal.Body>
             </Modal>
             <div>
-              <Modal show={openConfirmModal} size="md" onClose={confirmAccept} popup className={requestIsSent === true ? "modal" : "hidden"}>
+              <Modal show={openConfirmModal} size="md" onClose={() => confirmAccept} popup className={requestIsSent === true ? "modal" : "hidden"}>
                 <Modal.Header />
                 <Modal.Body>
                   <div className="text-center">
@@ -267,7 +267,7 @@ const ProfileRelation = (props) => {
                   </div>
                 </Modal.Body>
               </Modal>
-              <Modal show={openConfirmModal} size="md" onClose={confirmAccept} popup className={requestIsSent === false ? "modal" : "hidden"}>
+              <Modal show={openConfirmModal} size="md" onClose={() => confirmAccept} popup className={requestIsSent === false ? "modal" : "hidden"}>
                 <Modal.Header />
                 <Modal.Body>
                   <div className="text-center">

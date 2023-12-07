@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Button, TextInput } from 'flowbite-react';
 import { HiOutlineSearch } from 'react-icons/hi';
@@ -14,7 +14,7 @@ const SearchUser = ({ arrayUsers, setArrayUsers }: any) => {
     const [ usersResponse, setUsersResponse ] = useState([]);
     const [ isEmpty, setIsEmpty ] = useState(true);
     const [ reqDone, setReqDone ] = useState(false);
-   
+
 
     //Gerer la liste et action affichée en fonction de localisation
     const location = useLocation();
@@ -83,7 +83,7 @@ const SearchUser = ({ arrayUsers, setArrayUsers }: any) => {
               { isContactPage === true || isHomePage === true ?
                 <SearchUserContacts usersFound={usersResponse} />
                 :
-                 <SearchUserList usersFound={usersResponse} arrayUsers={arrayUsers} setArrayUsers={setArrayUsers}/>
+                <SearchUserList usersFound={usersResponse} arrayUsers={arrayUsers} setArrayUsers={setArrayUsers}/>
               }
             </div>
             }

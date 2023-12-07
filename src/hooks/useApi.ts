@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from "axios";
+import { getRefreshToken } from "../services/api/auth";
 
 export function useApi() {
 
@@ -23,14 +24,48 @@ export function useApi() {
 // Traitement de toutes les erreurs possibles
   api.interceptors.response.use(
     (response) => response,
-    (error) => {
-      if (error.response && error.response.status === 401) {
-        "OUPS INTERCEPTORS ERROR"
-      }
-      if (error.response && error.response.status === 500) {
-        "OUPS NETWORK ERROR"
-      }
-      return Promise.reject(error)
+
+    async (error) => {
+
+        if (error.response && error.response.status === 401) {
+
+            const originalRequest = error.config;
+            // pour éviter boucle infinie du refreshToken
+            if (!originalRequest._retry) {
+                originalRequest._retry = true;
+            }
+
+            const refreshToken = localStorage.getItem('refreshToken');
+
+            if (refreshToken) {
+                try {
+                    const result = await getRefreshToken();
+
+                    localStorage.setItem('accessToken', result.data.tokens.accessToken);
+                    localStorage.setItem('refreshToken', result.data.tokens.refreshToken);
+
+                    originalRequest.headers['Authorization'] = 'Bearer' + result.data.tokens.accessToken;
+                    
+                    return axios(originalRequest);
+                } catch (error) {
+                    // Supprimer tous les Tokens du localstorage
+                    localStorage.removeItem('accessToken')
+                    //TODO Renvoyer vers la page des login 
+                }
+            } else {
+                // Supprimer tous les Tokens du localstorage
+                localStorage.removeItem('accessToken')
+                //TODO Supprimer tous les Tokens du localstorage
+                //TODO Renvoyer vers la page des login 
+            }
+        }
+
+        if (error.response && error.response.status === 500) {
+
+        }
+        
+
+        return Promise.reject(error)
     }
   );
 

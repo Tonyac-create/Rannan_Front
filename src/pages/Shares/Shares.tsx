@@ -6,9 +6,8 @@ import MyInformationToShare from '../../components/MyInformationToshare/MyInform
 import { getAllShares, getListUsersGroups, getShares } from '../../services/api/data';
 import BtnDeleteShare from '../../components/MyInformations/MI-Boutons/BtnDeleteShare/BtnDeleteShare';
 import SearchUser from '../../components/Forms/SearchUser/SearchUser';
-import { useParams } from 'react-router-dom';
 
-const Shares = (props: any) => {
+const Shares = () => {
 
   const [openModal, setOpenModal] = useState<string | undefined>();
   const pro = { openModal, setOpenModal }

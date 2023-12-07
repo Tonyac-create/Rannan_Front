@@ -40,7 +40,6 @@ const Login = () => {
           return setInvalid(true)
         }
         return navigate("/home")
-        //! ajout du refresh token ICI ???
       }
     }
     logCheck()

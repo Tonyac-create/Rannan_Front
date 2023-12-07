@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button, Modal } from 'flowbite-react'
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
 

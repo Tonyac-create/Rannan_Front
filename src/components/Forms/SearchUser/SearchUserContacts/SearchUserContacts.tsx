@@ -1,11 +1,11 @@
 'use client';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Modal } from 'flowbite-react';
 import { HiCheck, HiX } from 'react-icons/hi';
 import { createValidation } from '../../../../services/api/contacts';
 import AddUserCard from '../../../AddUserCard/AddUserCard';
 
-export const SearchUserContacts = (props) => {
+export const SearchUserContacts = (props: any) => {
     const {usersFound} = props;
 
     const [openConfirmModal, setOpenConfirmModal] = useState(false);
@@ -15,9 +15,9 @@ export const SearchUserContacts = (props) => {
     //Gérer l'envoi d'une validation
     const sendValidation = async(e: Event) => {
         e.preventDefault();
-        const target = ((e.currentTarget).parentNode).parentNode;
+        const target = ((e.currentTarget).parentNode).parentNode; //! typage+".parentNode" n'existe pas dans EventTarget
         //RequÊte axios
-        const response = await createValidation({contactId : target.id});
+        const response: any = await createValidation({contactId : target.id});
         //En fonction de la réponse définir un message ou un autre pour le modal
         if(response.status === 200){
           setRequestIsSent(true);
@@ -26,7 +26,7 @@ export const SearchUserContacts = (props) => {
         else{
           const error = response.response;
           const errorType = error.data.error;
-          console.log("🚀 ~ file: SearchUserContacts.tsx:30 ~ sendValidation ~ errorType:", errorType)
+          console.log("🚀 ~ file: SearchUserContacts.tsx:29 ~ sendValidation ~ errorType:", errorType)
           if(errorType === "User and Contact are the same user"){
             setErrorMsg("Demande faite à vous même.");
             setOpenConfirmModal(true);
@@ -60,12 +60,12 @@ export const SearchUserContacts = (props) => {
     return (
         <div>
             <div className='userList'>
-            {usersFound.map((item) => (
+            {usersFound.map((item: any) => (
                 <AddUserCard key={item.id} id={item.id} nickname={item.nickname} status={item.status} action={sendValidation} />   
             ))}
             </div>
             <div>
-              <Modal show={openConfirmModal} size="md" onClose={confirmAccept} popup className={requestIsSent === true ? "modal" : "hidden"}>
+              <Modal show={openConfirmModal} size="md" onClose={() => confirmAccept} popup className={requestIsSent === true ? "modal" : "hidden"}>
                 <Modal.Header />
                 <Modal.Body>
                   <div className="text-center">
@@ -76,7 +76,7 @@ export const SearchUserContacts = (props) => {
                   </div>
                 </Modal.Body>
               </Modal>
-              <Modal show={openConfirmModal} size="md" onClose={confirmAccept} popup className={requestIsSent === false ? "modal" : "hidden"}>
+              <Modal show={openConfirmModal} size="md" onClose={() => confirmAccept} popup className={requestIsSent === false ? "modal" : "hidden"}>
                 <Modal.Header />
                 <Modal.Body>
                   <div className="text-center">

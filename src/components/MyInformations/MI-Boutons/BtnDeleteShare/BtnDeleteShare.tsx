@@ -1,5 +1,5 @@
 import { Button, Modal } from 'flowbite-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { removeShare } from '../../../../services/api/data'
 import ModalInfo from '../../ModalInfo'
 
@@ -13,7 +13,7 @@ function BtnDeleteShare({ shareId, disabled }: any) {
 
     const deleteShare = async () => {
         const shareToRemove: any = await removeShare(shareId)
-        console.log("🚀 ~ file: BtnDeleteShare.tsx:14 ~ deleteShare ~ shareToRemove:", shareToRemove.data.status)
+        console.log("🚀 ~ file: BtnDeleteShare.tsx:16 ~ deleteShare ~ shareToRemove:", shareToRemove.data.status)
         if (shareToRemove.data.status === 404 && shareToRemove.status === 200) {
             console.log("🚀 ~ file: BtnDeleteShare.tsx:18 ~ deleteShare ~ shareToRemove.status:", shareToRemove.status)
             setModalErrorDelete(true)

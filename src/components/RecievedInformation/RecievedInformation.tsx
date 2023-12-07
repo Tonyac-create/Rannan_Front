@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Checkbox, Label, ListGroup, Modal } from 'flowbite-react';
+import { useState } from 'react';
+import { Label, Modal } from 'flowbite-react';
 import InfoModal from './RI-InfoModal/InfoModal';
 import { getOneDataById } from '../../services/api/data';
 

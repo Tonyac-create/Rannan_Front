@@ -1,6 +1,6 @@
 'use client';
 import { Button, Modal } from 'flowbite-react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import MyInformationData from '../../../Forms/MyInformationData/MyInformationData';
 import { createData } from '../../../../services/api/data';
 import ModalInfo from '../../ModalInfo';

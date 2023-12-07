@@ -100,7 +100,7 @@ const InAppPasswordModif = () => {
             </Button>
         </form>
     </div>
-  )
+    )
 }
 
 export default InAppPasswordModif

@@ -1,9 +1,10 @@
+import axios from "axios";
 import { useApi } from "../../hooks/useApi";
 const api = useApi();
 
 export async function signIn(body: any){
     try{
-        const response = await api.post('/auth/register', body);
+        const response = await axios.post('/auth/register', body);
         if (response.data.status === 201) {
             localStorage.setItem("validationToken", response.data.data)
         }
@@ -22,7 +23,7 @@ export async function signIn(body: any){
 
 export async function validationMail(body: {email: string}) {
     try {
-        const received = await api.post('/user/validation/mail', body);
+        const received = await axios.post('/user/validation/mail', body);
         const response = received.data
         return response
     } catch (error) {
@@ -35,7 +36,7 @@ export async function validationMail(body: {email: string}) {
 
 export async function returnValidation(body: {email: string}){
     try{
-        const received = await api.post('/user/return/validation', body);
+        const received = await axios.post('/user/return/validation', body);
         const response = received.data
         return response
     }
@@ -49,7 +50,7 @@ export async function returnValidation(body: {email: string}){
 
 export async function logIn(body: any){
     try{
-        const response = await api.post('/auth/login', body);
+        const response = await axios.post('/auth/login', body);
         const { token, refreshToken, user } = response.data
         if (token !== undefined && refreshToken !== undefined) {
             localStorage.setItem("authToken", token)
@@ -72,12 +73,16 @@ export async function logIn(body: any){
     }
 }
 
-export async function refreshToken(body: any){
-    try{
-        const response = await api.get('/api/auth/refreshToken', body);
+export async function getRefreshToken(){
+    const refreshToken = localStorage.getItem('refresh-token')
+    const headers = { Authorization : "Bearer " + refreshToken }
+
+    try {
+        const {data} = await axios.get(import.meta.env.VITE_API_BASE_URL + 'api/refreshToken', {headers});
+        console.log(data)
         return ({
             status: true,
-            data: response
+            data: data
         })
     }
     catch(error){

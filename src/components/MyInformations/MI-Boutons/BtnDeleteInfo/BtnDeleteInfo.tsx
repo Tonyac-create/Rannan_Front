@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, Modal } from 'flowbite-react';
 import { HiTrash } from 'react-icons/hi'
 import { removeData } from '../../../../services/api/data';

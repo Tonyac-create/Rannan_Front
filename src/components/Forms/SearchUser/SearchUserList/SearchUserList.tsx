@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { ListGroup } from 'flowbite-react';
 
 export const SearchUserList = ({ usersFound, arrayUsers, setArrayUsers }: any) => {
     
-    let newUserId: any
-    const [nickname, setNickname] = useState("")
+    let newUserId: any //? non utilisé?
+    const [nickname, setNickname] = useState("") //? "nickname" même nom qu'une clé de "getUserNickname" & non utilisé?
     
     // Récupération de l'id du user connecté
     const userId = localStorage.getItem('user.id')

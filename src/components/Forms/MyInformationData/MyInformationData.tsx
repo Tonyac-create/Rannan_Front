@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, Textarea, Label, Select, TextInput } from 'flowbite-react';
 
 const MyInformationData = (props: any) => {
