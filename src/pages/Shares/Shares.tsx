@@ -93,14 +93,13 @@ const Shares = () => {
         const arrayDatas = displayDatas.data
         setInformation(arrayDatas)
       }
-} //! AJOUT
+
+
     }
 
     displayUserWithShare()
   }, [])
 
-  useEffect(() => {    
-  }, [arrayUsers])
 
   // id récupérer d'un user déjà existant dans la liste
   const [targetId, setTargetId] = useState(null)
@@ -146,139 +145,139 @@ const Shares = () => {
     const shareId = await result[result.length - 1].share_id
     setLastShareId(shareId)
   }
+
+
+
+// Sélection d'une data
+const [checkedData, setCheckedData] = useState<any[]>([])
+
+const handleChecked = async (data: any) => {
+
+  if (checkedData.includes(data)) {
+    setCheckedData(checkedData.filter(item => item !== data))
+  } else {
+    setCheckedData([...checkedData, data])
   }
+}
 
+return (
+  <>
 
-  // Sélection d'une data
-  const [checkedData, setCheckedData] = useState<any[]>([])
+    <Layout2>
+      <section className="flex justify-center p-8">
 
-  const handleChecked = async (data: any) => {
+        <h2 className="text-3xl font-medium">Mes Partages</h2>
+      </section>
 
-    if (checkedData.includes(data)) {
-      setCheckedData(checkedData.filter(item => item !== data))
-    } else {
-      setCheckedData([...checkedData, data])
-    }
-  }
+      {arrayUsers && (
+        <div className="flex flex-row">
 
-  return (
-    <>
+          {/* Partie gauche */}
 
-      <Layout2>
-        <section className="flex justify-center p-8">
+          {/* Recherche users ou groups */}
+          <div className="flex max-w-md flex-col gap-4 m-3 w-6/12">
 
-          <h2 className="text-3xl font-medium">Mes Partages</h2>
-        </section>
+            <p>Ajouter un utilisateur</p>
+            <SearchUser arrayUsers={arrayUsers} setArrayUsers={setArrayUsers} />
 
-        {arrayUsers && (
-          <div className="flex flex-row">
+            {/* Liste des utilsateurs et groupes avec qui il y a des partages */}
 
-            {/* Partie gauche */}
-
-            {/* Recherche users ou groups */}
-            <div className="flex max-w-md flex-col gap-4 m-3 w-6/12">
-
-              <p>Ajouter un utilisateur</p>
-              <SearchUser arrayUsers={arrayUsers} setArrayUsers={setArrayUsers} />
-
-              {/* Liste des utilsateurs et groupes avec qui il y a des partages */}
-
-              <div className="flex flex-col items-center min-w-2/5 m-5">
-                <Button.Group className="w-full">
-                  <Button
-                    color="white"
-                    onClick={() => handleSeeList("user")}
-                    className={`w-full border border-cyan-700 ${seeList === "user" && ('bg-cyan-700 text-white')}`}>
-                    Utilisateur(s)
-                  </Button>
-                  <Button
-                    color="white"
-                    onClick={
-                      () => {
-                        handleSeeList("group")
-                        listNameGroup()
-                      }
+            <div className="flex flex-col items-center min-w-2/5 m-5">
+              <Button.Group className="w-full">
+                <Button
+                  color="white"
+                  onClick={() => handleSeeList("user")}
+                  className={`w-full border border-cyan-700 ${seeList === "user" && ('bg-cyan-700 text-white')}`}>
+                  Utilisateur(s)
+                </Button>
+                <Button
+                  color="white"
+                  onClick={
+                    () => {
+                      handleSeeList("group")
+                      listNameGroup()
                     }
-                    className={`w-full border border-cyan-700 ${seeList === "group" && ('bg-cyan-700 text-white')}`}>
-                    Groupe(s)
-                  </Button>
-                </Button.Group>
-                <div className="w-full">
-                  {seeList === 'user' ? arrayUsers.map((element: any) => (
-                    <ListGroup key={element.id}>
-                      <ListGroup.Item onClick={() => displayInformation(element.id)}>
-                        {element.name}
-                      </ListGroup.Item>
-                    </ListGroup>
-                  )) : arrayGroup.map((element: any) => (
-                    <ListGroup >
-                      <ListGroup.Item onClick={() => displayInformation(element.id)}>
-                        {element.name}
-                      </ListGroup.Item>
-                    </ListGroup>
-                  ))}
-                </div>
+                  }
+                  className={`w-full border border-cyan-700 ${seeList === "group" && ('bg-cyan-700 text-white')}`}>
+                  Groupe(s)
+                </Button>
+              </Button.Group>
+              <div className="w-full">
+                {seeList === 'user' ? arrayUsers.map((element: any) => (
+                  <ListGroup key={element.id}>
+                    <ListGroup.Item onClick={() => displayInformation(element.id)}>
+                      {element.name}
+                    </ListGroup.Item>
+                  </ListGroup>
+                )) : arrayGroup.map((element: any) => (
+                  <ListGroup >
+                    <ListGroup.Item onClick={() => displayInformation(element.id)}>
+                      {element.name}
+                    </ListGroup.Item>
+                  </ListGroup>
+                ))}
               </div>
-
-
             </div>
 
-            {/* Partie droite liste des partages avec un user ou un group */}
-            <div className="flex max-w-md flex-col gap-4 m-3 w-6/12">
-
-              <h3 className='text-2xl font-bold my-2'>Mes informations partagées</h3>
-              {
-                information && information.length > 0 ? information.map((data: any, index: any) => {
-                  const isChecked = checkedData.includes(data)
-                  return (
-                    <div className="flex items-center gap-2">
-                      <Checkbox
-                        key={index}
-                        checked={checkedData.includes(data)}
-                        onChange={() => handleChecked(data)}
-                      />
-                      <Label
-                        className="flex grow"
-                        htmlFor="agree"
-                      >
-                        <p>
-                          {data.value}
-                        </p>
-                      </Label>
-
-                      <BtnDeleteShare shareId={lastShareId} disabled={!isChecked} />
-                    </div>
-                  )
-                }) : <p>Pas d'informations partagées</p>
-              }
-
-              {/* Créer un partage */}
-              <Button
-                className='mt-2 w-6/12'
-                onClick={() => pro.setOpenModal('form-elements')}
-                disabled={arrayUsers.length === 0 && arrayGroup.length === 0}
-              >
-                Ajouter un partage
-              </Button>
-
-
-              <Modal show={pro.openModal === 'form-elements'} size="md" popup onClose={() => pro.setOpenModal(undefined)}>
-                <Modal.Header />
-                <Modal.Body>
-                  <MyInformationToShare
-                    targetId={targetId}
-                    seeList={seeList}
-                    newUserId={newUserIdList}
-                  />
-                </Modal.Body>
-              </Modal>
-            </div>
 
           </div>
-        )}
 
-      </Layout2>
-    </>
-  )
+          {/* Partie droite liste des partages avec un user ou un group */}
+          <div className="flex max-w-md flex-col gap-4 m-3 w-6/12">
+
+            <h3 className='text-2xl font-bold my-2'>Mes informations partagées</h3>
+            {
+              information && information.length > 0 ? information.map((data: any, index: any) => {
+                const isChecked = checkedData.includes(data)
+                return (
+                  <div className="flex items-center gap-2">
+                    <Checkbox
+                      key={index}
+                      checked={checkedData.includes(data)}
+                      onChange={() => handleChecked(data)}
+                    />
+                    <Label
+                      className="flex grow"
+                      htmlFor="agree"
+                    >
+                      <p>
+                        {data.value}
+                      </p>
+                    </Label>
+
+                    <BtnDeleteShare shareId={lastShareId} disabled={!isChecked} />
+                  </div>
+                )
+              }) : <p>Pas d'informations partagées</p>
+            }
+
+            {/* Créer un partage */}
+            <Button
+              className='mt-2 w-6/12'
+              onClick={() => pro.setOpenModal('form-elements')}
+              disabled={arrayUsers.length === 0 && arrayGroup.length === 0}
+            >
+              Ajouter un partage
+            </Button>
+
+
+            <Modal show={pro.openModal === 'form-elements'} size="md" popup onClose={() => pro.setOpenModal(undefined)}>
+              <Modal.Header />
+              <Modal.Body>
+                <MyInformationToShare
+                  targetId={targetId}
+                  seeList={seeList}
+                  newUserId={newUserIdList}
+                />
+              </Modal.Body>
+            </Modal>
+          </div>
+
+        </div>
+      )}
+
+    </Layout2>
+  </>
+)
 }
 export default Shares
