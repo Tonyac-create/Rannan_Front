@@ -59,7 +59,7 @@ const Shares = () => {
       const displayDatas: any = await getShares(idGroup, "group")
       const arrayDatas = displayDatas.data.data
       setInformation(arrayDatas)
-    } //! AJOUT car sinon si aucune data => ERROR
+    }
   }
 
   // Récupérer et afficher les noms des users
@@ -77,15 +77,10 @@ const Shares = () => {
       // Récupére la liste des users avec qui on a des partages
       const displayUsers: any = await getListUsersGroups("user")
 
-      if (displayUsers.data.length > 0) {
-        let userNicknames: any[] = []
-        for (const userId of displayUsers.data) {
-          // Faire un appel API pour chaque userId
-          const apiResponse = await getProfile(userId)
-          userNicknames.push({ id: userId, name: apiResponse.data.nickname })
-        }
-        setArrayUsers(userNicknames);
-
+if (displayUsers.status === true ){
+      if (displayUsers.data.data.length > 0) {
+        const arrayUsersNickname = displayUsers.data.data
+        setArrayUsers(arrayUsersNickname)
         // Récupére les datas partagées avec le premier user de la liste
         firstUserList = displayUsers.data[0] // Objet = {id: number, nickname=string}
         // Appel API pour récupérer les datas du 1er user du tableau

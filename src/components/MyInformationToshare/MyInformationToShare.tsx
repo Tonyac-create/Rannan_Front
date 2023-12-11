@@ -15,8 +15,10 @@ function MyInformationToShare({ targetId, seeList, newUserId }: any) {
         const displayAllInformations = async () => {
             //Récupérer service API getallinformations
             const datas: any = await getUserDatas()
-            const arrayDatas = datas.data
-            setInformations(arrayDatas)
+            if(datas.status === true ) { 
+                const arrayDatas = datas.data.data
+                setInformations(arrayDatas);
+            }
         }
 
         displayAllInformations();

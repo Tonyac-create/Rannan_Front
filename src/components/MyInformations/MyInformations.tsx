@@ -26,7 +26,7 @@ const MyInformations = () => {
             if(datas.status === true ) { //! AJOUT "si il n'y a pas de data"
                 const arrayDatas = datas.data.data
                 setInformations(arrayDatas);
-            } //! AJOUT "si il n'y a pas de data"
+            }
         }
 
         displayAllInformations();
