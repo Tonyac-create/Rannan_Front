@@ -31,7 +31,6 @@ const Login = () => {
       }
       if ( token ) {
         const logStatus = await userConnected()
-        console.log(logStatus)
         if ( logStatus.status !== 200 ) {
           return setSeeModal({status: true, text: "back"})
         }

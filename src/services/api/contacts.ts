@@ -3,8 +3,15 @@ const api = useApi();
 
 export async function getAllContacts(){  // Récuperer tous les contacts d'un user
     try{
-        const response = await api.get('/api/contacts');
-        return response.data
+        const received = await api.get('/api/contacts');
+        const response = received.data
+        if (response.data) {
+            return ({
+                status: true,
+                data: response.data
+            })
+        }
+        throw "data not received"
     }
     catch(error){
         return error

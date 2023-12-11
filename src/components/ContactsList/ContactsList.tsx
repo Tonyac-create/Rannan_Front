@@ -12,12 +12,14 @@ const ContactsList = () => {
     
     useEffect(() => {
         const displayAllContacts = async() => {
-            const response = await getAllContacts();
-            const contactList = await response.data;
-            const contactList1 = await contactList.allUserOne;
-            const contactList2 = await contactList.allUserTwo;
-            setContacts1(contactList1);
-            setContacts2(contactList2);
+            const response: any = await getAllContacts();
+            if ( response.status === true ) { //! AJOUT pour enlever l'erreur lors d'absence de données.
+                const contactList = await response.data;
+                const contactList1 = await contactList.allUserOne;
+                const contactList2 = await contactList.allUserTwo;
+                setContacts1(contactList1);
+                setContacts2(contactList2);
+            }
         }
         displayAllContacts();
     }, []);

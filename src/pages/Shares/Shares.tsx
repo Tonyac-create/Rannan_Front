@@ -38,9 +38,8 @@ const Shares = () => {
   const [arrayGroup, setArrayGroup] = useState([] as any)
   const listNameGroup = async () => {
     const displayGroup: any = await getListUsersGroups("group")
-    const arrayGroupName = displayGroup.data.data
-
-    if (arrayGroupName !== undefined) {
+    if (displayGroup.status === true ) { //! AJOUT car sinon si aucune data => ERROR
+      const arrayGroupName = displayGroup.data
       const listGroupName = arrayGroupName.map((name: any) => {
         if (name.id) {
           return { ...name }
@@ -54,7 +53,7 @@ const Shares = () => {
       const displayDatas: any = await getShares(idGroup, "group")
       const arrayDatas = displayDatas.data.data
       setInformation(arrayDatas)
-    }
+    } //! AJOUT car sinon si aucune data => ERROR
   }
 
   // Récupérer et afficher les noms des users
@@ -106,18 +105,19 @@ if (displayUsers.status === true ){ //! AJOUT
     // on rajoute un partage, récupération de l'id du user
     setNewUserIdList(id)
     const displayUsers: any = await getListUsersGroups(seeList)
-    const arrayUsersNickname = displayUsers.data.data
-    let userId: any
-    arrayUsersNickname.map((user: any) => {
-      if (user.id === id) {
-        userId = user.id
-        setTargetId(userId)
-      }
-    })
+    if ( displayUsers.status === true ) {
+      const arrayUsersNickname = displayUsers.data
+      let userId: any
+      arrayUsersNickname.map((user: any) => {
+        if (user.id === id) {
+          userId = user.id
+          setTargetId(userId)
+        }
+      })
     
-    const displayDatas: any = await getShares(userId, seeList)
-    const arrayDatas = displayDatas.data.data
-    setInformation(arrayDatas)
+      const displayDatas: any = await getShares(userId, seeList)
+      const arrayDatas = displayDatas.data.data
+      setInformation(arrayDatas)
 
     // Récupération et conversion de l'id user connecté
     const idUserConnected = localStorage.getItem('user.id')
@@ -133,6 +133,7 @@ if (displayUsers.status === true ){ //! AJOUT
     // Prend le dernier élément du tableau
     const shareId = await result[result.length - 1].share_id
     setLastShareId(shareId)
+  }
   }
 
 

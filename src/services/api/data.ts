@@ -3,11 +3,21 @@ const api = useApi();
 
 export async function getOneDataById(id: string) {  // Récupère une data par son id
     try {
-        const response = await api.get(`/api/data/${id}`);
-        return response
+        const received = await api.get(`/api/data/${id}`);
+        const response = received.data
+        if (response.data) { //! AJOUT
+            return ({
+                status: true,
+                data: response.data
+            })
+        }
+        throw "data not received"
     }
     catch (error) {
-        return error
+        return ({
+            status: false,
+            data: error
+        })
     }
 }
 
@@ -21,7 +31,7 @@ export async function getUserDatas() {  // Récupère des datas avec son user_id
                 data: response.data
             })
         }
-        throw new Error ("No Data Found")
+        throw "data not received"
     }
     catch (error) {
         return ({
@@ -71,7 +81,7 @@ export async function getListUsersGroups(target: any) { // Récupération de lis
                 data: response.data
             })
         }
-        throw new Error ("No Data Found")
+        throw "data not received"
     }
     catch (error) {
         return error

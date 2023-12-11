@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useApi } from "../../hooks/useApi";
 const api = useApi();
 
@@ -72,16 +73,14 @@ export async function logIn(body: any){
     }
 }
 
-export async function getRefreshToken(){
-    const refreshToken = localStorage.getItem('refresh-token')
-    const headers = { Authorization : "Bearer " + refreshToken }
-
+export async function getRefreshToken(refreshToken: any){
+    const headers = { Authorization : `Bearer ${refreshToken}` }
     try {
-        const {data} = await api.get('api/refreshToken', {headers});
-        console.log(data)
+        const received = await axios.get(import.meta.env.VITE_API_BASE_URL + '/auth/refreshToken', {headers});
+        const response = received.data
         return ({
             status: true,
-            data: data
+            data: response.data
         })
     }
     catch(error){

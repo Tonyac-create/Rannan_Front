@@ -16,8 +16,10 @@ function MyInformationToShare({ targetId, seeList, newUserId }: any) {
 
             //Récupérer service API getallinformations
             const datas: any = await getUserDatas()
-            const arrayDatas = datas.data.data
-            setInformations(arrayDatas);
+            if(datas.status === true ) { //! AJOUT "si il n'y a pas de data"
+                const arrayDatas = datas.data.data
+                setInformations(arrayDatas);
+            } //! AJOUT "si il n'y a pas de data"
         }
 
         displayAllInformations();
