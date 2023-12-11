@@ -1,5 +1,5 @@
 import { Button, Modal } from 'flowbite-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import MyInformationData from '../../../Forms/MyInformationData/MyInformationData'
 import { HiPencil } from 'react-icons/hi'
 import { updateData } from '../../../../services/api/data'

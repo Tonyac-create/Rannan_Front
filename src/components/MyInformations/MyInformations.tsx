@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import InformationCard from './MI-InformationCard/InformationCard';
 import BtnCreateInfo from './MI-Boutons/BtnCreateInfo/BtnCreateInfo';
 import { getUserDatas } from '../../services/api/data';
@@ -19,6 +19,16 @@ const MyInformations = () => {
 
     // Au chargement de la page, appel au back pour récupérer la liste des datas du user connecté
     useEffect(() => {
+        const displayAllInformations = async () => {
+
+            //Récupérer service API getallinformations
+            const datas: any = await getUserDatas()
+            if(datas.status === true ) { //! AJOUT "si il n'y a pas de data"
+                const arrayDatas = datas.data.data
+                setInformations(arrayDatas);
+            } //! AJOUT "si il n'y a pas de data"
+        }
+
         displayAllInformations();
     }, [displayAllInformations]);
 

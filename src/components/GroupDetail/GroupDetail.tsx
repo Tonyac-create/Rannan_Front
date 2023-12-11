@@ -14,8 +14,8 @@ const GroupDetail = (props: any) => {
 useEffect(() => {
   const fetchData = async () => {
     const response = await getGroupDetail(selectedGroup.id)
-    setMemberList(response.data.memberList)
-    setDataList(response.data.dataList)
+    setMemberList(response.memberList)
+    setDataList(response.dataList)
   }
   fetchData()
 }, [selectedGroup])

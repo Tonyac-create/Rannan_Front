@@ -7,7 +7,10 @@ export async function getOneDataById(id: string) {  // Récupère une data par s
         return response
     }
     catch (error) {
-        return error
+        return ({
+            status: false,
+            data: error
+        })
     }
 }
 
@@ -17,7 +20,10 @@ export async function getUserDatas() {  // Récupère des datas avec son user_id
         return response
     }
     catch (error) {
-        return error
+        return ({
+            status: false,
+            data: error
+        })
     }
 }
 
@@ -53,8 +59,15 @@ export async function createData(body: any) {  //créer une data
 
 export async function getListUsersGroups(target: any) { // Récupération de liste users ou groups
     try {
-        const response = await api.post(`/api/datas/shares`, { target });
-        return response
+        const received = await api.post(`/api/datas/shares`, { target });
+        const response = received.data
+        if (response.data) {
+            return ({
+                status: true,
+                data: response.data
+            })
+        }
+        throw "data not received"
     }
     catch (error) {
         return error

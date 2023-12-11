@@ -27,7 +27,6 @@ useEffect(() => {
         const groups = await getCreatorGroupList()
         groups.data === undefined ? setGroupList([]) : setGroupList(groups.data)
       }
-      console.log(selectedGroup)
     } catch (error) {
       console.log("Error :", error)
     }

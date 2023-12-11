@@ -17,6 +17,12 @@ export async function getUserGroupList(){
     try{
         const received = await api.get('/api/groups/member');
         const response = received.data
+        if ( response.statut === 400 ) {
+            return ({
+                status: false,
+                data: response
+            })
+        }
         return response
     }
     catch(error){

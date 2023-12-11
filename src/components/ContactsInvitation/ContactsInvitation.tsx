@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import RequestInfo from './Requests/RequestInfo/Request'
 import RequestForm from './Requests/RequestForm/RequestForm'
 import { createContact, deleteValidation, getAllValidations } from '../../services/api/contacts'
@@ -13,7 +13,7 @@ const ContactsInvitation = () => {
   const [openModal, setOpenModal] = useState(false);
   const [openAcceptModal, setOpenAcceptModal] = useState(false);
 
-  //Afficher la liste des reuÊtes
+  //Afficher la liste des requêtes
   useEffect(() => {
     const displayAllValidations = async() => {
       const response = await getAllValidations();
@@ -48,7 +48,7 @@ const ContactsInvitation = () => {
   //Gérer le refus des requêtes reçues
   const handleRefusal = async(e: Event) => {
     e.preventDefault();
-    const target = (((e.currentTarget).parentNode).parentNode).parentNode;
+    const target = (((e.currentTarget).parentNode).parentNode).parentNode; //! typage+".parentNode" n'existe pas dans EventTarget
     const target_id = target.id;
     console.log(target_id)
     await deleteValidation(target_id);
@@ -64,11 +64,11 @@ const ContactsInvitation = () => {
   //Gérer accepter une requÊte reçue
   const handleAcceptRq = async(e: Event) => {
     e.preventDefault();
-    const target = (((e.currentTarget).parentNode).parentNode).parentNode;
+    const target = (((e.currentTarget).parentNode).parentNode).parentNode; //! typage+".parentNode" n'existe pas dans EventTarget
     const body = {otherUser_id : target.dataset.user, validation_id : target.id};
-    console.log("🚀 ~ file: ContactsInvitation.tsx:59 ~ handleAcceptRq ~ body:", body)
+    console.log("🚀 ~ file: ContactsInvitation.tsx:69 ~ handleAcceptRq ~ body:", body)
     const response = await createContact(body);
-    console.log("🚀 ~ file: ContactsInvitation.tsx:60 ~ handleAcceptRq ~ response:", response)
+    console.log("🚀 ~ file: ContactsInvitation.tsx:71 ~ handleAcceptRq ~ response:", response)
     setOpenAcceptModal(true)
   }
 
@@ -88,7 +88,7 @@ const ContactsInvitation = () => {
               ?
               <p>Pas de requêtes envoyées à afficher.</p>
               :
-              sentReq.map(validation => {
+              sentReq.map((validation: any) => {
                 return(
                   <RequestInfo key={validation.id} id={validation.id} nickname={validation.contact.nickname} />
                 )
@@ -105,13 +105,13 @@ const ContactsInvitation = () => {
               ?
               <p>Pas de requêtes reçues à afficher.</p>
               :
-                recievedReq.map(validation => {
+                recievedReq.map((validation: any) => {
                   return(
                     <RequestForm key={validation.id} id={validation.id} nickname={validation.user.nickname} dataTarget={validation.user.user_id} handleRefuse={handleRefusal} handleAccept={handleAcceptRq}/>
                   )
                 })
             }
-            <Modal show={openModal} size="md" onClose={confirmRefusal} popup>
+            <Modal show={openModal} size="md" onClose={() => confirmRefusal} popup>
               <Modal.Header />
               <Modal.Body>
                 <div className="text-center">
@@ -122,7 +122,7 @@ const ContactsInvitation = () => {
                 </div>
               </Modal.Body>
             </Modal>
-            <Modal show={openAcceptModal} size="md" onClose={confirmAccept} popup>
+            <Modal show={openAcceptModal} size="md" onClose={() => confirmAccept} popup>
               <Modal.Header />
               <Modal.Body>
                 <div className="text-center">

@@ -37,7 +37,7 @@ const UserList = (props: any) => {
       <ListGroup.Item active href="#">
           {getHeader()}
       </ListGroup.Item>
-      {list.map((user: any) => {
+      {list ? (list.map((user: any) => {
         return (
           <ListGroup.Item key={user.id}>
               {listFor === "ModifyMembers" && (
@@ -54,7 +54,9 @@ const UserList = (props: any) => {
               {listFor === "Contacts" && (<Link to={`/profile/${user.id}`} className="w-full h-full text-start">{user.nickname}</Link>)}
             </ListGroup.Item>
           )
-        })}
+        })
+        ) : (((listFor === "Members" || listFor === "ModifyMembers") ? (<ListGroup.Item><p>Aucun membre</p></ListGroup.Item>) : (<ListGroup.Item><p>Aucun contact</p></ListGroup.Item>)))
+      }
     </ListGroup>
   </>
   )

@@ -1,8 +1,7 @@
 'use client';
-import React from 'react';
 import { Card } from 'flowbite-react';
 
-const ContactCard = (props) => {
+const ContactCard = (props: any) => {
     const { id, otherUserId, nickname } = props;
 
     return (

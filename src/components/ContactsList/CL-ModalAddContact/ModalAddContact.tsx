@@ -1,5 +1,5 @@
 import { Button, Modal } from 'flowbite-react';
-import React, { useState } from 'react'
+import { useState } from 'react'
 import AddContact from '../../Forms/AddContact/AddContact';
 
 const ModalAddContact = () => {

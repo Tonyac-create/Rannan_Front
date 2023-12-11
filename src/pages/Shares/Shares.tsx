@@ -9,7 +9,7 @@ import SearchUser from '../../components/Forms/SearchUser/SearchUser';
 import { getProfile, userSearch } from '../../services/api/users';
 import { getGroupDetail, getOnegroup, getUserGroupList } from '../../services/api/groups';
 
-const Shares = (props: any) => {
+const Shares = () => {
 
   const [openModal, setOpenModal] = useState<string | undefined>();
   const pro = { openModal, setOpenModal }
@@ -59,7 +59,7 @@ const Shares = (props: any) => {
       const displayDatas: any = await getShares(idGroup, "group")
       const arrayDatas = displayDatas.data.data
       setInformation(arrayDatas)
-    }
+    } //! AJOUT car sinon si aucune data => ERROR
   }
 
   // Récupérer et afficher les noms des users
@@ -93,6 +93,7 @@ const Shares = (props: any) => {
         const arrayDatas = displayDatas.data
         setInformation(arrayDatas)
       }
+} //! AJOUT
     }
 
     displayUserWithShare()
@@ -144,6 +145,7 @@ const Shares = (props: any) => {
     // Prend le dernier élément du tableau
     const shareId = await result[result.length - 1].share_id
     setLastShareId(shareId)
+  }
   }
 
 

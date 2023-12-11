@@ -20,8 +20,8 @@ const GroupSetting = (props: any) => {
         // Appel des informations necessaires
           const response = await getGroupDetailForSetting(selectedGroup.id)
         // Scinde les listes récupéré
-          setMemberList(response.data.memberList)
-          setContactList(response.data.contactList)
+          setMemberList(response.memberList)
+          setContactList(response.contactList)
         } catch (error) {
           console.log("Error :", error)
         }

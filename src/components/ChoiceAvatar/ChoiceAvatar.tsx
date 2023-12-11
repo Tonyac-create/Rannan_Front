@@ -18,7 +18,7 @@ function ChoiceAvatar() {
     const handleSubmit = async (event: any) => {
         event.preventDefault()
         if (choosenAvatar !== userAvatar) {
-            const res = await updateUser({password, update: {avatar_id: choosenAvatar}})
+            const res: any = await updateUser({password, update: {avatar_id: choosenAvatar}})
             if (res.status === 200) {
                 localStorage.setItem("user.avatar", choosenAvatar ? choosenAvatar : "0")
                 setSeeModal({status: 3, text: "Avatar Enregistré"})

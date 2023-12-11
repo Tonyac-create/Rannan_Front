@@ -1,5 +1,5 @@
-import { Button, Checkbox, Label, Modal } from 'flowbite-react'
-import React, { useEffect, useState } from 'react'
+import { Button, Checkbox, Label } from 'flowbite-react'
+import{ useEffect, useState } from 'react'
 import { createShare, getUserDatas } from '../../services/api/data';
 import ModalInfo from '../MyInformations/ModalInfo';
 
@@ -33,7 +33,7 @@ function MyInformationToShare({ targetId, seeList, newUserId }: any) {
         }
     }
 
-    const [shareId, setShareId] = useState(null)
+    const [shareId, setShareId] = useState(null) //? non utilisé?
 
     // Créer un partage de donnée
     const shareData = async (data_id: string) => {

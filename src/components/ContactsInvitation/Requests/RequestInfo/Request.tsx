@@ -1,6 +1,6 @@
 'use client';
 import { Alert, Button, Modal } from 'flowbite-react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import DeleteModal from './DeleteModal/DeleteModal';
 import { deleteValidation } from '../../../../services/api/contacts';
 
@@ -10,7 +10,7 @@ const RequestInfo = (props: { id: string; nickname: string; }) => {
   const [ targetId, setTargetId ] = useState();
 
   const openDeleteModal = (e: Event) => {
-    const target = (((((e.currentTarget).parentNode).parentNode).parentNode).parentNode).parentNode;
+    const target = (((((e.currentTarget).parentNode).parentNode).parentNode).parentNode).parentNode; //! typage+".parentNode" n'existe pas dans EventTarget
     const target_id = target.id;
     console.log(target_id);
     setTargetId(target_id);
@@ -36,7 +36,7 @@ const RequestInfo = (props: { id: string; nickname: string; }) => {
                 <span>En attente</span>
             </span>
             <span className='flex flex-row gap-1'>
-              <Button color="failure" size="xs" onClick={openDeleteModal}>Supprimer</Button>
+              <Button color="failure" size="xs" onClick={() => openDeleteModal}>Supprimer</Button>
               <Modal show={openModal} size="md" onClose={() => setOpenModal(false)} popup>
                 <DeleteModal  deleteRequest={handleDelete} closeModal={() => setOpenModal(false)}/>
               </Modal>

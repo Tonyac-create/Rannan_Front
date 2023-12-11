@@ -1,8 +1,7 @@
 import { Button, Card } from 'flowbite-react'
-import React from 'react'
 import { HiCheck, HiX } from 'react-icons/hi'
 
-const RequestForm = (props) => {
+const RequestForm = (props: any) => {
   const {nickname, id, handleRefuse, handleAccept, dataTarget} = props;
 
   return (

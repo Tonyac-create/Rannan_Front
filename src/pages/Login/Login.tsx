@@ -31,7 +31,6 @@ const Login = () => {
       }
       if ( token ) {
         const logStatus = await userConnected()
-        console.log(logStatus)
         if ( logStatus.status !== 200 ) {
           return setSeeModal({status: true, text: "back"})
         }
@@ -40,7 +39,6 @@ const Login = () => {
           return setInvalid(true)
         }
         return navigate("/home")
-        //! ajout du refresh token ICI ???
       }
     }
     logCheck()
@@ -86,7 +84,7 @@ const Login = () => {
               </h3>
               <div className="flex gap-4">
                 <Button onClick={() => setSeeModal({status: true, text: "validationMail"})}>Oui</Button>
-                <Button onClick={() => navigate("/login")}>Non</Button>
+                <Button onClick={() => setSeeModal({status: false, text: ""})}>Non</Button>
               </div>
             </div>
           }
