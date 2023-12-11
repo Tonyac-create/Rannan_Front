@@ -66,7 +66,7 @@ export async function updatePassword(body: any){
     }
 }
 
-export async function getProfile(id: string | undefined){
+export async function getProfile(id: string | undefined | number){
     try{
         const received = await api.get(`/api/user/profile/${id}`);
         const response = received.data

@@ -18,6 +18,7 @@ const BtnCreateInfo = ({ refreshData }: any) => {
 
     const createNewData = async (newData: any) => {
         //requête POST
+        // try {
         const dataCreated = await createData(newData)
         console.log("🚀 ~ file: BtnCreateInfo.tsx:22 ~ createNewData ~ dataCreated:", dataCreated)
         if (dataCreated) {
@@ -25,8 +26,10 @@ const BtnCreateInfo = ({ refreshData }: any) => {
             props.setOpenModal('hidden')
             refreshData()
         }
+        // } catch (error: any) {
+        //     console.log("error :", error.message);
+        // }
     }
-
 
     return (
         <>
@@ -41,7 +44,10 @@ const BtnCreateInfo = ({ refreshData }: any) => {
             <Modal show={props.openModal === 'form-elements'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
                 <Modal.Header />
                 <Modal.Body>
-                    <MyInformationData title="Formulaire de création de données" action={action} actionData={createNewData} />
+                    <MyInformationData
+                        title="Formulaire de création de données"
+                        action={action}
+                        actionData={createNewData} />
 
                 </Modal.Body>
             </Modal>

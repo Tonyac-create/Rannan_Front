@@ -13,10 +13,9 @@ function MyInformationToShare({ targetId, seeList, newUserId }: any) {
 
     useEffect(() => {
         const displayAllInformations = async () => {
-
             //Récupérer service API getallinformations
             const datas: any = await getUserDatas()
-            if(datas.status === true ) { //! AJOUT "si il n'y a pas de data"
+            if(datas.status === true ) { 
                 const arrayDatas = datas.data.data
                 setInformations(arrayDatas);
             }
@@ -39,61 +38,61 @@ function MyInformationToShare({ targetId, seeList, newUserId }: any) {
     const [shareId, setShareId] = useState(null) //? non utilisé?
 
     // Créer un partage de donnée
-    const shareData = async (data_id: number) => {
+    const shareData = async (data_id: string) => {
         if (newUserId) {
             // Appel API createShare()
             const dataToShared: any = await createShare(newUserId, data_id, seeList)
+            console.log("🚀 ~ file: MyInformationToShare.tsx:43 ~ shareData ~ dataToShared:", dataToShared)
             if (dataToShared) {
                 setModalValidModify(true)
-                setShareId(dataToShared.data.data.id)
+                setShareId(dataToShared.data._id)
             }
         } else {
             const dataToShared: any = await createShare(targetId, data_id, seeList)
+            console.log("🚀 ~ file: MyInformationToShare.tsx:45 ~ shareData ~ dataToShared:", dataToShared)
+
             if (dataToShared) {
                 setModalValidModify(true)
-                setShareId(dataToShared.data.data.id)
+                setShareId(dataToShared.data._id)
             }
         }
     }
+
     // const [testModal, setTestModal] = useState(true)
 
     return (
-        // <Modal show={testModal} onClose={() => setTestModal(false)} size="md"> //? Modal or not Modal?
-        //     <Modal.Body>
-                <div className="flex max-w-md flex-col gap-4 ml-3">
-                    <h3 className='text-2xl font-bold my-2'>Mes informations</h3>
-                    {
-                        informations.length > 0 ? informations.map((data: any, index: any) => {
-                            const isChecked = checkedData.includes(data)
-                            return (
-                                <div className='flex flex-row items-center' key={index}>
-                                    <Checkbox
-                                        checked={checkedData.includes(data)}
-                                        onChange={() => handleChecked(data)}
-                                    />
-                                    <Label
-                                        className="flex grow pl-2"
-                                        htmlFor="agree"
-                                    >
-                                        <p>
-                                            {data.value}
-                                        </p>
-                                    </Label>
-                                    <Button onClick={() => shareData(data.id)} disabled={!isChecked} >Ajouter</Button>
-                                </div>
-                            )
+        <div className="flex max-w-md flex-col gap-4 ml-3">
+            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Partager une donnée</h3>
+            {
+                informations.length > 0 ? informations.map((data: any) => {
+                    const isChecked = checkedData.includes(data)
+                    return (
+                        <div className='flex flex-row items-center' key={data._id}>
+                            <Checkbox
+                                checked={checkedData.includes(data)}
+                                onChange={() => handleChecked(data)}
+                            />
+                            <Label
+                                className="flex grow pl-2"
+                                htmlFor="agree"
+                            >
+                                <p>
+                                    {data.value}
+                                </p>
+                            </Label>
+                            <Button type='submit' onClick={() => shareData(data._id)} disabled={!isChecked} >Ajouter</Button>
+                        </div>
+                    )
 
-                        }) : <p>Pas d'information(s) à partager</p>
-                    }
-                    <ModalInfo
-                        // setTestModal={setTestModal}
-                        modalValidModify={modalValidModify}
-                        setModalValidModify={setModalValidModify}
-                        textInfo="Information partagée avec succès"
-                    />
-                </div>
-        //     </Modal.Body>
-        // </Modal>
+                }) : <p>Pas d'information(s) à partager</p>
+            }
+            <ModalInfo
+                // setTestModal={setTestModal}
+                modalValidModify={modalValidModify}
+                setModalValidModify={setModalValidModify}
+                textInfo="Information partagée avec succès"
+            />
+        </div>
     )
 }
 

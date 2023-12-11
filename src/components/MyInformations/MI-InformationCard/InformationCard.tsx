@@ -3,25 +3,30 @@ import { Button, Card } from 'flowbite-react';
 import BtnDeleteInfo from '../MI-Boutons/BtnDeleteInfo/BtnDeleteInfo';
 
 const InformationCard = (props: any) => {
-  const { id } = props
+  const { id, refreshData } = props
+  // console.log("🚀 ~ file: InformationCard.tsx:7 ~ InformationCard ~ id:", id)
 
+  const handleRefreshData = () => { refreshData() }
   return (
-    <Card key={id} className='informationCard'>
+    <Card key={id._id} className='informationCard'>
 
       <h5 className="scroll-m-20 text-xl font-semibold tracking-tight ">{id.name}</h5>
       <h4 className="scroll-m-20 text-l font-semibold tracking-tight ">{id.value}</h4>
 
-        <Button.Group className='flex justify-center gap-2'>
-          <>
-            <BtnModifyInfo
-              id={id}
-              name={id.name}
-              value={id.value}
-            />
-            <BtnDeleteInfo id={id} />
-          </>
-        </Button.Group>
-      
+      <Button.Group className='flex justify-center gap-2'>
+        <>
+          <BtnModifyInfo
+            id={id}
+            name={id.name}
+            value={id.value}
+            onClick={handleRefreshData}
+          />
+          <BtnDeleteInfo
+            id={id}
+            onClick={handleRefreshData} />
+        </>
+      </Button.Group>
+
     </Card>
   )
 }

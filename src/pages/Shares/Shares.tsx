@@ -6,6 +6,8 @@ import MyInformationToShare from '../../components/MyInformationToshare/MyInform
 import { getAllShares, getListUsersGroups, getShares } from '../../services/api/data';
 import BtnDeleteShare from '../../components/MyInformations/MI-Boutons/BtnDeleteShare/BtnDeleteShare';
 import SearchUser from '../../components/Forms/SearchUser/SearchUser';
+import { getProfile, userSearch } from '../../services/api/users';
+import { getGroupDetail, getOnegroup, getUserGroupList } from '../../services/api/groups';
 
 const Shares = () => {
 
@@ -38,9 +40,13 @@ const Shares = () => {
   const [arrayGroup, setArrayGroup] = useState([] as any)
   const listNameGroup = async () => {
     const displayGroup: any = await getListUsersGroups("group")
-    if (displayGroup.status === true ) { //! AJOUT car sinon si aucune data => ERROR
-      const arrayGroupName = displayGroup.data
-      const listGroupName = arrayGroupName.map((name: any) => {
+    const arrayGroupName = displayGroup.data
+    // console.log("🚀 ~ file: Shares.tsx:43 ~ listNameGroup ~ arrayGroupName:", arrayGroupName)
+    const groupFound: any = await getOnegroup(arrayGroupName)
+    console.log("🚀 ~ file: Shares.tsx:46 ~ listNameGroup ~ groupFound:", groupFound)
+    if (arrayGroupName !== undefined) {
+      const listGroupName = groupFound.map((name: any) => {
+        console.log("🚀 ~ file: Shares.tsx:49 ~ listGroupName ~ name:", name)
         if (name.id) {
           return { ...name }
         }
@@ -62,7 +68,8 @@ const Shares = () => {
   // Afficher les informations liés au user
   const [information, setInformation] = useState([] as any)
 
-  let firstUserList: { id: any; }
+  let firstUserList: any
+
   // Au chargement ou rafraichissement de la page
   useEffect(() => {
     const displayUserWithShare = async () => {
@@ -70,16 +77,15 @@ const Shares = () => {
       // Récupére la liste des users avec qui on a des partages
       const displayUsers: any = await getListUsersGroups("user")
 
-if (displayUsers.status === true ){ //! AJOUT car quand aucune data => erreur dans le log.
+if (displayUsers.status === true ){
       if (displayUsers.data.data.length > 0) {
         const arrayUsersNickname = displayUsers.data.data
         setArrayUsers(arrayUsersNickname)
         // Récupére les datas partagées avec le premier user de la liste
-        firstUserList = displayUsers.data.data[0] // Objet = {id: number, nickname=string}
-        const idUser = firstUserList.id
+        firstUserList = displayUsers.data[0] // Objet = {id: number, nickname=string}
         // Appel API pour récupérer les datas du 1er user du tableau
-        const displayDatas: any = await getShares(idUser, "user")
-        const arrayDatas = displayDatas.data.data
+        const displayDatas: any = await getShares(firstUserList, "user")
+        const arrayDatas = displayDatas.data
         setInformation(arrayDatas)
       }
 }
@@ -87,6 +93,9 @@ if (displayUsers.status === true ){ //! AJOUT car quand aucune data => erreur da
 
     displayUserWithShare()
   }, [])
+
+  useEffect(() => {    
+  }, [arrayUsers])
 
   // id récupérer d'un user déjà existant dans la liste
   const [targetId, setTargetId] = useState(null)
@@ -104,19 +113,18 @@ if (displayUsers.status === true ){ //! AJOUT car quand aucune data => erreur da
     // on rajoute un partage, récupération de l'id du user
     setNewUserIdList(id)
     const displayUsers: any = await getListUsersGroups(seeList)
-    if ( displayUsers.status === true ) {
-      const arrayUsersNickname = displayUsers.data
-      let userId: any
-      arrayUsersNickname.map((user: any) => {
-        if (user.id === id) {
-          userId = user.id
-          setTargetId(userId)
-        }
-      })
-    
-      const displayDatas: any = await getShares(userId, seeList)
-      const arrayDatas = displayDatas.data.data
-      setInformation(arrayDatas)
+    const arrayUsersNickname = displayUsers.data
+    let userId: any
+    arrayUsersNickname.map((user: any) => {
+      if (user.id === id) {
+        userId = user.id
+        setTargetId(userId)
+      }
+    })
+
+    const displayDatas: any = await getShares(id, seeList)
+    const arrayDatas = displayDatas.data
+    setInformation(arrayDatas)
 
     // Récupération et conversion de l'id user connecté
     const idUserConnected = localStorage.getItem('user.id')
@@ -124,9 +132,9 @@ if (displayUsers.status === true ){ //! AJOUT car quand aucune data => erreur da
     // Récupère toute les shares
     const allShares: any = await getAllShares()
     // Map pour récupèrer les ids et shareids
-    const shareBetweenUsers = allShares.data.data.map((share: any) => ({ target_id: share.target_id, owner_id: share.owner_id, share_id: share.id }))
-    
-    
+    const shareBetweenUsers = allShares.data.map((share: any) => ({ target_id: share.target_id, owner_id: share.owner_id, share_id: share.id }))
+
+
     // Filtre pour récupérer les shares entre les deux ids
     const result = shareBetweenUsers.filter((ids: any) => parseIdUserconnected === ids.owner_id && targetId === ids.target_id)
     // Prend le dernier élément du tableau
@@ -194,7 +202,7 @@ if (displayUsers.status === true ){ //! AJOUT car quand aucune data => erreur da
                   {seeList === 'user' ? arrayUsers.map((element: any) => (
                     <ListGroup key={element.id}>
                       <ListGroup.Item onClick={() => displayInformation(element.id)}>
-                        {element.nickname}
+                        {element.name}
                       </ListGroup.Item>
                     </ListGroup>
                   )) : arrayGroup.map((element: any) => (
@@ -250,6 +258,7 @@ if (displayUsers.status === true ){ //! AJOUT car quand aucune data => erreur da
 
 
               <Modal show={pro.openModal === 'form-elements'} size="md" popup onClose={() => pro.setOpenModal(undefined)}>
+                <Modal.Header />
                 <Modal.Body>
                   <MyInformationToShare
                     targetId={targetId}

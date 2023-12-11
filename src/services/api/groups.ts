@@ -45,6 +45,7 @@ export async function getGroupDetail(id: string){
     try{
         const received = await api.get(`/api/group/${id}`);
         const response = received.data
+        console.log("🚀 ~ file: groups.ts:42 ~ getGroupDetail ~ received:", received)
         return response
     }
     catch(error){
@@ -103,6 +104,15 @@ export async function removeMemberGroup(id: string, body: any){
         return response
     }
     catch(error){
+        return error
+    }
+}
+
+export async function getOnegroup(id: number) {
+    try {
+        const response = await api.get(`/api/onegroup/${id}`)
+        return response
+    } catch (error) {
         return error
     }
 }
