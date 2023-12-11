@@ -53,7 +53,7 @@ const Shares = () => {
       const displayDatas: any = await getShares(idGroup, "group")
       const arrayDatas = displayDatas.data.data
       setInformation(arrayDatas)
-    } //! AJOUT car sinon si aucune data => ERROR
+    }
   }
 
   // Récupérer et afficher les noms des users
@@ -70,8 +70,7 @@ const Shares = () => {
       // Récupére la liste des users avec qui on a des partages
       const displayUsers: any = await getListUsersGroups("user")
 
-//! AJOUT car quand aucune data => erreur dans le log.
-if (displayUsers.status === true ){ //! AJOUT
+if (displayUsers.status === true ){ //! AJOUT car quand aucune data => erreur dans le log.
       if (displayUsers.data.data.length > 0) {
         const arrayUsersNickname = displayUsers.data.data
         setArrayUsers(arrayUsersNickname)
@@ -83,7 +82,7 @@ if (displayUsers.status === true ){ //! AJOUT
         const arrayDatas = displayDatas.data.data
         setInformation(arrayDatas)
       }
-} //! AJOUT
+}
     }
 
     displayUserWithShare()
