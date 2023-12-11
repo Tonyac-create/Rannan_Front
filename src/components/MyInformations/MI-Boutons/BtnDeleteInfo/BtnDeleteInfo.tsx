@@ -16,17 +16,15 @@ const BtnDeleteInfo = (props: any) => {
 
     //API DELETE data
     const deleteData = async () => {
-        console.log("coucou")
-
         //requête POST
-        const dataDelete = await removeData(id.id)
+        const dataDelete = await removeData(id._id)
+        console.log("🚀 ~ file: BtnDeleteInfo.tsx:21 ~ deleteData ~ dataDelete:", dataDelete)
+        
         if (dataDelete) {
             setModalValidModify(true)
             prop.setOpenModal('hidden')
         }
-        // window.location.reload()
     }
-
 
     return (
         <>

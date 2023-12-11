@@ -38,7 +38,7 @@ const SearchUser = ({ arrayUsers, setArrayUsers }: any) => {
 
     const handleSubmit = async(e: any) =>{
         e.preventDefault();
-        const response: any = await userSearch({search : inputText});
+        const response: any = await userSearch({search : inputText})
         if(response.data === "No user found"){
           setReqDone(true);
         }

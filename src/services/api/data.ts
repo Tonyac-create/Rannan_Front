@@ -1,9 +1,9 @@
-import { useApi } from "../../hooks/useApi";
+import { useApi } from "../../hooks/useApi"
 const api = useApi();
 
 export async function getOneDataById(id: string) {  // Récupère une data par son id
     try {
-        const response = await api.get(`/api/data/${id}`);
+        const response = await api.get(`/api/data/${id}`)
         return response
     }
     catch (error) {
@@ -13,7 +13,7 @@ export async function getOneDataById(id: string) {  // Récupère une data par s
 
 export async function getUserDatas() {  // Récupère des datas avec son user_id (recupéré du token en back)
     try {
-        const response = await api.get('/api/datas');
+        const response = await api.get('/api/datas')
         return response
     }
     catch (error) {
@@ -23,7 +23,7 @@ export async function getUserDatas() {  // Récupère des datas avec son user_id
 
 export async function updateData(id: string, body: any) {  //MaJ d'une data id= data_id
     try {
-        const response = await api.put(`/api/data/${id}`, body);
+        const response = await api.put(`/api/data/${id}`, body)
         return response
     }
     catch (error) {
@@ -33,7 +33,7 @@ export async function updateData(id: string, body: any) {  //MaJ d'une data id= 
 
 export async function removeData(id: string | undefined) {  //supression d'une data id= data_id
     try {
-        const response = await api.delete(`/api/data/${id}`);
+        const response = await api.delete(`/api/data/${id}`)
         return response
     }
     catch (error) {
@@ -43,7 +43,7 @@ export async function removeData(id: string | undefined) {  //supression d'une d
 
 export async function createData(body: any) {  //créer une data
     try {
-        const response = await api.post('/api/data', body);
+        const response = await api.post('/api/data', body)
         return response
     }
     catch (error) {
@@ -63,7 +63,7 @@ export async function getListUsersGroups(target: any) { // Récupération de lis
 
 export async function getShares(target_id: number, target: string) { // Récupérer une liste des datas partagé avec l’utilisateur ou le groupe lié
     try {
-        const response = await api.post('/api/datas/target', { target_id, target });
+        const response = await api.post('/api/datas/target', { target_id, target })
         return response
     }
     catch (error) {
@@ -83,7 +83,7 @@ export async function getSharesBetweenUsers(userId_profile: number) {
 
 export async function createShare(
     target_id: number,
-    data_id: number,
+    data_id: string,
     target: string
 ) { // Création d'un partage
     try {
@@ -98,6 +98,16 @@ export async function createShare(
 export async function removeShare(id: number) {  // Supprimer un partage id= share.id
     try {
         const response = await api.delete(`/api/share/${id}`);
+        return response
+    }
+    catch (error) {
+        return error
+    }
+}
+
+export async function removeDataInShare(id: number) {  // Supprimer un partage id= share.id
+    try {
+        const response = await api.delete(`/api/datainshare/${id}`);
         return response
     }
     catch (error) {

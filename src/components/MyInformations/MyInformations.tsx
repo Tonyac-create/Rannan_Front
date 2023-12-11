@@ -12,9 +12,8 @@ const MyInformations = () => {
 
         //Récupérer service API getallinformations
         const datas: any = await getUserDatas()
-        // console.log("🚀 ~ file: MyInformations.tsx:18 ~ displayAllInformations ~ datas:", datas.data)
         const arrayDatas = datas.data
-        // console.log("🚀 ~ file: MyInformations.tsx:19 ~ displayAllInformations ~ arrayDatas:", arrayDatas)
+        
         setInformations(arrayDatas);
     }, []);
 
@@ -34,6 +33,7 @@ const MyInformations = () => {
                                 id={data}
                                 name={data.value}
                                 value={data.name}
+                                refreshData={displayAllInformations}
                             />
                         )
                     }) : <p>Pas d'informations</p>
