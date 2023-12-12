@@ -10,15 +10,17 @@ function MyInformationToShare({ targetId, seeList, newUserId }: any) {
 
     //Récupérer et afficher la liste des datas
     const [informations, setInformations] = useState([]);
-
+    console.log("informations", informations);
+    
     useEffect(() => {
         const displayAllInformations = async () => {
             //Récupérer service API getallinformations
             const datas: any = await getUserDatas()
-            if(datas.status === true ) { 
-                const arrayDatas = datas.data.data
+            console.log("🚀 ~ file: MyInformationToShare.tsx:19 ~ displayAllInformations ~ datas:", datas)
+            // if(datas.status === true ) { 
+                const arrayDatas = datas.data
                 setInformations(arrayDatas);
-            }
+            // }
         }
 
         displayAllInformations();
@@ -35,7 +37,7 @@ function MyInformationToShare({ targetId, seeList, newUserId }: any) {
         }
     }
 
-    const [shareId, setShareId] = useState(null) //? non utilisé?
+    const [_shareId, setShareId] = useState(null) 
 
     // Créer un partage de donnée
     const shareData = async (data_id: string) => {

@@ -13,7 +13,7 @@ const MyInformations = () => {
         //Récupérer service API getallinformations
         const datas: any = await getUserDatas()
         const arrayDatas = datas.data
-        
+
         setInformations(arrayDatas);
     }, []);
 
@@ -23,10 +23,8 @@ const MyInformations = () => {
 
             //Récupérer service API getallinformations
             const datas: any = await getUserDatas()
-            if(datas.status === true ) { //! AJOUT "si il n'y a pas de data"
-                const arrayDatas = datas.data.data
-                setInformations(arrayDatas);
-            }
+            const arrayDatas = datas.data
+            setInformations(arrayDatas)
         }
 
         displayAllInformations();
@@ -49,7 +47,7 @@ const MyInformations = () => {
                     }) : <p>Pas d'informations</p>
                 }
 
-                <BtnCreateInfo refreshData={displayAllInformations}/>
+                <BtnCreateInfo refreshData={displayAllInformations} />
             </div>
         </div>
     )

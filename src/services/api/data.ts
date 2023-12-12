@@ -61,13 +61,14 @@ export async function getListUsersGroups(target: any) { // Récupération de lis
     try {
         const received = await api.post(`/api/datas/shares`, { target });
         const response = received.data
-        if (response.data) {
-            return ({
-                status: true,
-                data: response.data
-            })
-        }
-        throw "data not received"
+        return response
+        // if (response.data) {
+        //     return ({
+        //         status: true,
+        //         data: response.data
+        //     })
+        // }
+        // throw "data not received"
     }
     catch (error) {
         return error

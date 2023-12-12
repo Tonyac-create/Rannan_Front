@@ -26,7 +26,7 @@ const Shares = () => {
     const displayUsers: any = await getListUsersGroups("user")
     if (role === "user") {
       // Récupére les datas partagées avec le premier user de la liste
-      firstUserList = displayUsers.data.data[0] // Objet = {id: number, nickname=string}
+      firstUserList = displayUsers.data[0] // Objet = {id: number, nickname=string}
       const idUser = firstUserList.id
       // Appel API pour récupérer les datas du 1er user du tableau
       const displayDatas: any = await getShares(idUser, "user")
@@ -39,25 +39,23 @@ const Shares = () => {
   // Récupérer et afficher les noms des groups
   const [arrayGroup, setArrayGroup] = useState([] as any)
   const listNameGroup = async () => {
+    // Va chercher les groupes avec partage
     const displayGroup: any = await getListUsersGroups("group")
-    const arrayGroupName = displayGroup.data
-    // console.log("🚀 ~ file: Shares.tsx:43 ~ listNameGroup ~ arrayGroupName:", arrayGroupName)
-    const groupFound: any = await getOnegroup(arrayGroupName)
-    console.log("🚀 ~ file: Shares.tsx:46 ~ listNameGroup ~ groupFound:", groupFound)
-    if (arrayGroupName !== undefined) {
-      const listGroupName = groupFound.map((name: any) => {
-        console.log("🚀 ~ file: Shares.tsx:49 ~ listGroupName ~ name:", name)
-        if (name.id) {
-          return { ...name }
-        }
-        return listGroupName
-      })
+    // Récupère id et name de chaque groupe
+    if (displayGroup !== undefined) {
+      const listGroupName = await Promise.all(
+        displayGroup.map(async (idGroup: any) => {
+          const groupFound: any = await getOnegroup(idGroup);
+          return { id: idGroup, name: groupFound.data.name };
+        })
+      )
       setArrayGroup(listGroupName)
-      const firstGroupList = displayGroup.data.data[0] // Objet = {id: number, nickname=string}
+      // Affichage des infos partagés avec le 1er groupe de la liste
+      const firstGroupList = displayGroup[0] // Objet = {id: number, nickname=string}
       const idGroup = firstGroupList.id
       // Appel API pour récupérer les datas du 1er user du tableau
       const displayDatas: any = await getShares(idGroup, "group")
-      const arrayDatas = displayDatas.data.data
+      const arrayDatas = displayDatas.data
       setInformation(arrayDatas)
     }
   }
@@ -76,19 +74,30 @@ const Shares = () => {
 
       // Récupére la liste des users avec qui on a des partages
       const displayUsers: any = await getListUsersGroups("user")
-
-      if (displayUsers.status === true) {
-        if (displayUsers.data.data.length > 0) {
-          const arrayUsersNickname = displayUsers.data.data
-          setArrayUsers(arrayUsersNickname)
-          // Récupére les datas partagées avec le premier user de la liste
-          firstUserList = displayUsers.data[0] // Objet = {id: number, nickname=string}
-          // Appel API pour récupérer les datas du 1er user du tableau
-          const displayDatas: any = await getShares(firstUserList, "user")
-          const arrayDatas = displayDatas.data
-          setInformation(arrayDatas)
+      if (displayUsers.length > 0) {
+        let userNicknames: any[] = []
+        for (const userId of displayUsers) {
+          // Faire un appel API pour chaque userId
+          const apiResponse = await getProfile(userId)
+          userNicknames.push({ id: userId, name: apiResponse.data.nickname })
         }
+        setArrayUsers(userNicknames);
+        // Appel API pour récupérer les datas du 1er user du tableau
+        firstUserList = displayUsers[0]
+        const displayDatas: any = await getShares(firstUserList, "user")
+        const arrayDatas = displayDatas.data
+        setInformation(arrayDatas)
 
+        // if (displayUsers.length > 0) {
+        //   const arrayUsersNickname = displayUsers
+        //   setArrayUsers(arrayUsersNickname)
+        //   // Récupére les datas partagées avec le premier user de la liste
+        //   firstUserList = displayUsers.data[0] // Objet = {id: number, nickname=string}
+        //   // Appel API pour récupérer les datas du 1er user du tableau
+        //   const displayDatas: any = await getShares(firstUserList, "user")
+        //   const arrayDatas = displayDatas.data
+        //   setInformation(arrayDatas)
+        // }
       }
     }
 
@@ -112,7 +121,7 @@ const Shares = () => {
     // on rajoute un partage, récupération de l'id du user
     setNewUserIdList(id)
     const displayUsers: any = await getListUsersGroups(seeList)
-    const arrayUsersNickname = displayUsers.data
+    const arrayUsersNickname = displayUsers
     let userId: any
     arrayUsersNickname.map((user: any) => {
       if (user.id === id) {
@@ -140,8 +149,6 @@ const Shares = () => {
     const shareId = await result[result.length - 1].share_id
     setLastShareId(shareId)
   }
-
-
 
   // Sélection d'une data
   const [checkedData, setCheckedData] = useState<any[]>([])
@@ -204,13 +211,28 @@ const Shares = () => {
                         {element.name}
                       </ListGroup.Item>
                     </ListGroup>
-                  )) : arrayGroup.map((element: any) => (
-                    <ListGroup >
-                      <ListGroup.Item onClick={() => displayInformation(element.id)}>
-                        {element.name}
-                      </ListGroup.Item>
-                    </ListGroup>
-                  ))}
+                  )) : (
+                    <>
+                      {arrayGroup.length === 0 ? (
+                        <p>Aucun groupe disponible.</p>
+                      ) : (
+                        arrayGroup.map((element: any) => (
+                          <ListGroup key={element.id}>
+                            <ListGroup.Item onClick={() => displayInformation(element.id)}>
+                              {element.name}
+                            </ListGroup.Item>
+                          </ListGroup>
+                        ))
+                      )}
+                    </>
+                  )}
+                  {/* //  : arrayGroup.map((element: any) => (
+                  //   <ListGroup >
+                  //     <ListGroup.Item onClick={() => displayInformation(element.id)}>
+                  //       {element.name}
+                  //     </ListGroup.Item>
+                  //   </ListGroup>
+                  // ))} */}
                 </div>
               </div>
 
