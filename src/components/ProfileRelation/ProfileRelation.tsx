@@ -203,7 +203,7 @@ const ProfileRelation = (props: any) => {
                 </Modal.Footer>
             </Modal>
             <div>
-              <Modal show={openSuccessModal} size="md" onClose={() => confirmAccept} popup>
+              <Modal show={openSuccessModal} size="md" onClose={confirmAccept} popup> //! probléme de typage
                 <Modal.Header />
                 <Modal.Body>
                   <div className="text-center">
@@ -214,7 +214,7 @@ const ProfileRelation = (props: any) => {
                   </div>
                 </Modal.Body>
               </Modal>
-              <Modal show={openErrorModal} size="md" onClose={() => confirmAccept} popup>
+              <Modal show={openErrorModal} size="md" onClose={confirmAccept} popup> //! probléme de typage
                 <Modal.Header />
                 <Modal.Body>
                   <div className="text-center">
@@ -256,7 +256,7 @@ const ProfileRelation = (props: any) => {
                 </Modal.Body>
             </Modal>
             <div>
-              <Modal show={openConfirmModal} size="md" onClose={() => confirmAccept} popup className={requestIsSent === true ? "modal" : "hidden"}>
+              <Modal show={openConfirmModal} size="md" onClose={confirmAccept} popup className={requestIsSent === true ? "modal" : "hidden"}> //! probléme de typage
                 <Modal.Header />
                 <Modal.Body>
                   <div className="text-center">
@@ -267,7 +267,7 @@ const ProfileRelation = (props: any) => {
                   </div>
                 </Modal.Body>
               </Modal>
-              <Modal show={openConfirmModal} size="md" onClose={() => confirmAccept} popup className={requestIsSent === false ? "modal" : "hidden"}>
+              <Modal show={openConfirmModal} size="md" onClose={confirmAccept} popup className={requestIsSent === false ? "modal" : "hidden"}> //! probléme de typage
                 <Modal.Header />
                 <Modal.Body>
                   <div className="text-center">

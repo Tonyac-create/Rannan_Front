@@ -58,6 +58,7 @@ const ContactsInvitation = () => {
   const confirmRefusal = (e: Event) =>{
     e.preventDefault();
     setOpenModal(false);
+    console.log(openModal)
     window.location.reload();
   }
 
@@ -111,7 +112,7 @@ const ContactsInvitation = () => {
                   )
                 })
             }
-            <Modal show={openModal} size="md" onClose={() => confirmRefusal} popup>
+            <Modal show={openModal} size="md" onClose={confirmRefusal} popup> //! probléme de typage
               <Modal.Header />
               <Modal.Body>
                 <div className="text-center">
@@ -122,7 +123,7 @@ const ContactsInvitation = () => {
                 </div>
               </Modal.Body>
             </Modal>
-            <Modal show={openAcceptModal} size="md" onClose={() => confirmAccept} popup>
+            <Modal show={openAcceptModal} size="md" onClose={confirmAccept} popup> //! probléme de typage
               <Modal.Header />
               <Modal.Body>
                 <div className="text-center">
