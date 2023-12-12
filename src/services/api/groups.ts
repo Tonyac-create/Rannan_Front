@@ -45,7 +45,6 @@ export async function getGroupDetail(id: string){
     try{
         const received = await api.get(`/api/group/${id}`);
         const response = received.data
-        console.log("🚀 ~ file: groups.ts:42 ~ getGroupDetail ~ received:", received)
         return response
     }
     catch(error){

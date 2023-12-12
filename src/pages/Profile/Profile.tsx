@@ -19,7 +19,7 @@ const Profile = () => {
         const response: any = await getProfile(id)
         setUser(response.data)
       } catch (error) {
-        console.log("🐼 ~ file: Login.tsx:24 ~ handleSubmit ~ error:", error)
+        console.log("Error :", error)
       }
     }
     getUserProfile(id)

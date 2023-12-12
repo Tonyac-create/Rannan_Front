@@ -49,7 +49,7 @@ export function useApi() {
           localStorage.setItem("authRefreshToken", result.data.authRefreshToken);
           // Paramétre et Renvoi de la requête originale
           originalRequest.headers['Authorization'] = `Bearer ${result.data.authToken}`;
-          console.log("originalRequest send after refresh")
+          console.log("SUCCESS : originalRequest send after refresh")
           return axios(originalRequest);
         } catch (error: any) {
           if ( error.status !== false || error.status === undefined ) {
