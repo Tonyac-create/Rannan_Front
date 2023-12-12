@@ -9,35 +9,34 @@ const BtnDeleteInfo = (props: any) => {
     const [openModal, setOpenModal] = useState<string | undefined>()
     const prop = { openModal, setOpenModal }
 
-    const { id } = props
+    const { id, onClick } = props
 
     // Modal qui s'ouvre quand on valide la suppression
-    const [modalValidModify, setModalValidModify] = useState(false)
+    const [modalValidDelete, setModalValidDelete] = useState(false)
 
     //API DELETE data
     const deleteData = async () => {
-        //requête POST
         const dataDelete = await removeData(id._id)
-        console.log("🚀 ~ file: BtnDeleteInfo.tsx:21 ~ deleteData ~ dataDelete:", dataDelete)
         
         if (dataDelete) {
-            setModalValidModify(true)
+            setModalValidDelete(true)
             prop.setOpenModal('hidden')
+            onClick()
         }
     }
 
     return (
         <>
             <ModalInfo 
-                modalValidModify={modalValidModify}
-                setModalValidModify={setModalValidModify}
+                modalValidModify={modalValidDelete}
+                setModalValidModify={setModalValidDelete}
                 textInfo="Information supprimée"
             />
             <Button color='failure' onClick={() => prop.setOpenModal('default')}>
                 <span className='sm:hidden'><HiTrash className="h-6 w-6" /></span>
                 <span className='hidden sm:block'>Supprimer</span>
             </Button>
-            <Modal show={prop.openModal === 'default'} onClose={() => prop.setOpenModal(undefined)}>
+            <Modal show={prop.openModal === 'default'} size="md" popup onClose={() => prop.setOpenModal(undefined)}>
                 <Modal.Header>Êtes vous sur de vouloir supprimer cette donnée?</Modal.Header>
                 <Modal.Body>
                     <div className="space-y-6">

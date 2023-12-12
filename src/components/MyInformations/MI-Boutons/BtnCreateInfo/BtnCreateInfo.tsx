@@ -14,11 +14,7 @@ const BtnCreateInfo = ({ refreshData }: any) => {
     // Modal qui s'ouvre quand on valide la création
     const [modalValidModify, setModalValidModify] = useState(false)
 
-    //Fonction API POST data
-
     const createNewData = async (newData: any) => {
-        //requête POST
-        // try {
         const dataCreated = await createData(newData)
         console.log("🚀 ~ file: BtnCreateInfo.tsx:22 ~ createNewData ~ dataCreated:", dataCreated)
         if (dataCreated) {
@@ -26,9 +22,6 @@ const BtnCreateInfo = ({ refreshData }: any) => {
             props.setOpenModal('hidden')
             refreshData()
         }
-        // } catch (error: any) {
-        //     console.log("error :", error.message);
-        // }
     }
 
     return (

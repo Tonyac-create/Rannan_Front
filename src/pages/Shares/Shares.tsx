@@ -87,17 +87,6 @@ const Shares = () => {
         const displayDatas: any = await getShares(firstUserList, "user")
         const arrayDatas = displayDatas.data
         setInformation(arrayDatas)
-
-        // if (displayUsers.length > 0) {
-        //   const arrayUsersNickname = displayUsers
-        //   setArrayUsers(arrayUsersNickname)
-        //   // Récupére les datas partagées avec le premier user de la liste
-        //   firstUserList = displayUsers.data[0] // Objet = {id: number, nickname=string}
-        //   // Appel API pour récupérer les datas du 1er user du tableau
-        //   const displayDatas: any = await getShares(firstUserList, "user")
-        //   const arrayDatas = displayDatas.data
-        //   setInformation(arrayDatas)
-        // }
       }
     }
 
@@ -140,20 +129,30 @@ const Shares = () => {
     // Récupère toute les shares
     const allShares: any = await getAllShares()
     // Map pour récupèrer les ids et shareids
-    const shareBetweenUsers = allShares.data.map((share: any) => ({ target_id: share.target_id, owner_id: share.owner_id, share_id: share.id }))
-
+    const shareBetweenUsers = allShares.data.map((share: any) => {
+      // console.log("🚀 ~ file: Shares.tsx:133 ~ displayInformation ~ share:", share)
+      return ({ target_id: share.target_id, owner_id: share.owner_id, share_id: share._id })
+    })
+    // console.log("🚀 ~ file: Shares.tsx:133 ~ displayInformation ~ shareBetweenUsers:", shareBetweenUsers)
 
     // Filtre pour récupérer les shares entre les deux ids
-    const result = shareBetweenUsers.filter((ids: any) => parseIdUserconnected === ids.owner_id && targetId === ids.target_id)
+    const result = shareBetweenUsers.filter((ids: any) => {
+      // console.log("🚀 ~ file: Shares.tsx:137 ~ displayInformation ~ ids:", ids)
+      return parseIdUserconnected === ids.owner_id && targetId === ids.target_id
+    })
+    // console.log("🚀 ~ file: Shares.tsx:136 ~ displayInformation ~ result:", result)
     // Prend le dernier élément du tableau
     const shareId = await result[result.length - 1].share_id
     setLastShareId(shareId)
   }
 
+
   // Sélection d'une data
   const [checkedData, setCheckedData] = useState<any[]>([])
 
   const handleChecked = async (data: any) => {
+    console.log("id data :", data.id)
+
 
     if (checkedData.includes(data)) {
       setCheckedData(checkedData.filter(item => item !== data))
@@ -226,13 +225,6 @@ const Shares = () => {
                       )}
                     </>
                   )}
-                  {/* //  : arrayGroup.map((element: any) => (
-                  //   <ListGroup >
-                  //     <ListGroup.Item onClick={() => displayInformation(element.id)}>
-                  //       {element.name}
-                  //     </ListGroup.Item>
-                  //   </ListGroup>
-                  // ))} */}
                 </div>
               </div>
 
@@ -244,12 +236,12 @@ const Shares = () => {
 
               <h3 className='text-2xl font-bold my-2'>Mes informations partagées</h3>
               {
-                information && information.length > 0 ? information.map((data: any, index: any) => {
+                information && information.length > 0 ? information.map((data: any) => {
                   const isChecked = checkedData.includes(data)
                   return (
                     <div className="flex items-center gap-2">
                       <Checkbox
-                        key={index}
+                        key={data.id}
                         checked={checkedData.includes(data)}
                         onChange={() => handleChecked(data)}
                       />
@@ -262,7 +254,7 @@ const Shares = () => {
                         </p>
                       </Label>
 
-                      <BtnDeleteShare shareId={lastShareId} disabled={!isChecked} />
+                      <BtnDeleteShare users={arrayUsers} dataId={data.id} shareId={lastShareId} disabled={!isChecked} />
                     </div>
                   )
                 }) : <p>Pas d'informations partagées</p>

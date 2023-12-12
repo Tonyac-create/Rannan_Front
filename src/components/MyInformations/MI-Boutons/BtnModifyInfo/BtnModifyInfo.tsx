@@ -14,17 +14,16 @@ const BtnModifyInfo = (props: any) => {
     // Modal qui s'ouvre quand on valide la modification
     const [modalValidModify, setModalValidModify] = useState(false)
 
-    const { id, type, name, value } = props
+    const { id, type, name, value, onClick } = props
     const action = "Modifier"
-    // console.log("btnmodify id :", id);
 
     //Formulaire requete PUT
     const updateInformation = async (newData: any) => {
-        //Requete PUT depuis service
         const updatingData = await updateData(id._id, newData)
         if (updatingData) {
             setModalValidModify(true)
             pro.setOpenModal('hidden')
+            onClick()
         }
     }
 
@@ -48,7 +47,7 @@ const BtnModifyInfo = (props: any) => {
                         action={action}
                         actionData={updateInformation}
                         id={id}
-                        type={type} 
+                        type={type}
                         name={name}
                         value={value} />
                 </Modal.Body>

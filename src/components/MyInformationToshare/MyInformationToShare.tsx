@@ -10,13 +10,13 @@ function MyInformationToShare({ targetId, seeList, newUserId }: any) {
 
     //Récupérer et afficher la liste des datas
     const [informations, setInformations] = useState([]);
-    console.log("informations", informations);
+    // console.log("informations", informations);
     
     useEffect(() => {
         const displayAllInformations = async () => {
             //Récupérer service API getallinformations
             const datas: any = await getUserDatas()
-            console.log("🚀 ~ file: MyInformationToShare.tsx:19 ~ displayAllInformations ~ datas:", datas)
+            // console.log("🚀 ~ file: MyInformationToShare.tsx:19 ~ displayAllInformations ~ datas:", datas)
             // if(datas.status === true ) { 
                 const arrayDatas = datas.data
                 setInformations(arrayDatas);
@@ -59,8 +59,6 @@ function MyInformationToShare({ targetId, seeList, newUserId }: any) {
             }
         }
     }
-
-    // const [testModal, setTestModal] = useState(true)
 
     return (
         <div className="flex max-w-md flex-col gap-4 ml-3">

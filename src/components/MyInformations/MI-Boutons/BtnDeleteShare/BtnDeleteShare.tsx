@@ -1,18 +1,22 @@
 import { Button, Modal } from 'flowbite-react'
 import { useState } from 'react'
-import { removeShare } from '../../../../services/api/data'
+import { removeDataInShare } from '../../../../services/api/data'
 import ModalInfo from '../../ModalInfo'
 
-function BtnDeleteShare({ shareId, disabled }: any) {
+function BtnDeleteShare({ shareId, disabled, dataId, users }: any) {
     const [openModalDeleteShare, setOpenModalDeleteShare] = useState(false)
-
+    
     // Modal qui s'ouvre quand on valide la création
     const [modalValidDelete, setModalValidDelete] = useState(false)
     const [modalErrorDelete, setModalErrorDelete] = useState(false)
-
-
+    // console.log("id data:", dataId);
+    // console.log("id user :", localStorage.getItem("user.id"));
+    // console.log("arrayUsers :", users);
+    
+    
     const deleteShare = async () => {
-        const shareToRemove: any = await removeShare(shareId)
+        
+        const shareToRemove: any = await removeDataInShare(shareId)
         console.log("🚀 ~ file: BtnDeleteShare.tsx:16 ~ deleteShare ~ shareToRemove:", shareToRemove.data.status)
         if (shareToRemove.data.status === 404 && shareToRemove.status === 200) {
             console.log("🚀 ~ file: BtnDeleteShare.tsx:18 ~ deleteShare ~ shareToRemove.status:", shareToRemove.status)
