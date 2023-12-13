@@ -47,7 +47,6 @@ const MyInformationData = (props: any) => {
                     <Label htmlFor="value" value="Contenu" />
                 </div>
                 <Textarea id="value" placeholder="Description de l'information" onChange={(event) => handleChange(event)} name="value" defaultValue={value} />
-
             </div>
 
             <div className="w-full">

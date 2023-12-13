@@ -161,6 +161,8 @@ const Shares = () => {
     }
   }
 
+  const [isAddButtonClicked, setAddButtonClicked] = useState(false)
+
   return (
     <>
 
@@ -204,9 +206,13 @@ const Shares = () => {
                   </Button>
                 </Button.Group>
                 <div className="w-full">
-                  {seeList === 'user' ? arrayUsers.map((element: any) => (
+                  {
+                  seeList === 'user' ? arrayUsers.map((element: any) => (
                     <ListGroup key={element.id}>
-                      <ListGroup.Item onClick={() => displayInformation(element.id)}>
+                      <ListGroup.Item onClick={() =>{
+                         displayInformation(element.id)
+                         setAddButtonClicked(true)
+                         }}>
                         {element.name}
                       </ListGroup.Item>
                     </ListGroup>
@@ -264,7 +270,10 @@ const Shares = () => {
               <Button
                 className='mt-2 w-6/12'
                 onClick={() => pro.setOpenModal('form-elements')}
-                disabled={arrayUsers.length === 0 && arrayGroup.length === 0}
+                disabled={
+                  // arrayUsers.length === 0 && arrayGroup.length === 0
+                  !isAddButtonClicked
+                }
               >
                 Ajouter un partage
               </Button>
