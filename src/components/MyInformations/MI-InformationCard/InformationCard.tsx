@@ -4,7 +4,7 @@ import BtnDeleteInfo from '../MI-Boutons/BtnDeleteInfo/BtnDeleteInfo';
 
 const InformationCard = (props: any) => {
   const { id, refreshData } = props
-  console.log("🚀 ~ file: InformationCard.tsx:7 ~ InformationCard ~ id:", id)
+  // console.log("🚀 ~ file: InformationCard.tsx:7 ~ InformationCard ~ id:", id)
 
   const handleRefreshData = () => { refreshData() }
 

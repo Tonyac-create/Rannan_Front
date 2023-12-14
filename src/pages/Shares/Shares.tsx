@@ -169,7 +169,7 @@ const Shares = () => {
       <Layout2>
         <section className="flex justify-center p-8">
 
-          <h2 className="text-3xl font-medium">Mes Partages</h2>
+          <h2 className="text-3xl font-medium">Mes Partages <br /> <span className='text-xl font-medium'>Cliquez sur un utilisateur pour partager</span> </h2>
         </section>
 
         {arrayUsers && (
