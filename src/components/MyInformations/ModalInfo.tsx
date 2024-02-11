@@ -12,7 +12,10 @@ function ModalInfo({ modalValidModify, setModalValidModify, textInfo }: any) {
                         {textInfo}
                     </h3>
                     <div className="flex justify-center gap-4">
-                        <Button onClick={() => setModalValidModify(false)}>
+                        <Button onClick={() => {
+                            setModalValidModify(false)
+                        }
+                        }>
                             Ok
                         </Button>
                     </div>

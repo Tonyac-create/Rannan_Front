@@ -32,9 +32,9 @@ function App() {
 				<Route path="/mail/return/reset/:token" element={<ReturnReset />} />
 				<Route path='/about' element={<About/>} />
 				<Route path='/legal' element={<Legal/>} />
+				<Route path="/home" element={<Home />} />
 
 				<Route element={<PrivateRoute />}>
-					<Route path="/home" element={<Home />} />
 					<Route path="/groups" element={<Groups />} />
 					<Route path="user/:userId/group/detail/:role/:groupId" element={<GroupDetail />} />
 					<Route path="/contacts" element={<Contacts />} />

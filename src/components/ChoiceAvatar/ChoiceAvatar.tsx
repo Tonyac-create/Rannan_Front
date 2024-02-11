@@ -4,12 +4,14 @@ import { updateUser } from '../../services/api/users';
 import { useNavigate } from 'react-router-dom';
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
 
-function ChoiceAvatar() {
+export default function ChoiceAvatar() {
+
     const navigate = useNavigate()
     const userAvatar = localStorage.getItem("user.avatar")
     const [ choosenAvatar, setChoosenAvatar ] = useState(userAvatar)
     const [ password, setPassword ] = useState("")
     const [ seeModal, setSeeModal ] = useState({status: 0, text: ""})
+
 
     const handleChooseavatar = (avatar_id: number) => {
         setChoosenAvatar(avatar_id.toString())
@@ -111,5 +113,3 @@ function ChoiceAvatar() {
         </>
     )
 }
-
-export default ChoiceAvatar

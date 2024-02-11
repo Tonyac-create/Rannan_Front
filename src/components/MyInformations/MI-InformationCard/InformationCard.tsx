@@ -11,8 +11,9 @@ const InformationCard = (props: any) => {
   const renderValue = () => {
     // Vérifier si le type est une URL
     if (id.type === 'url') {
+      const url = id.value.startsWith('http://') || id.value.startsWith('https://') ? id.value : `http://${id.value}`;
       return (
-        <a href={id.value} target="_blank" rel="noopener noreferrer">
+        <a href={url} target="_blank" rel="noopener noreferrer">
           {id.value}
         </a>
       );
@@ -26,12 +27,13 @@ const InformationCard = (props: any) => {
 
       <h5 className="scroll-m-20 text-xl font-semibold tracking-tight ">{id.name}</h5>
       {renderValue()}
-      {/* <h4 className="scroll-m-20 text-l font-semibold tracking-tight ">{id.value}</h4> */}
+      
 
       <Button.Group className='flex justify-center gap-2'>
         <>
           <BtnModifyInfo
             id={id}
+            type={id.type}
             name={id.name}
             value={id.value}
             onClick={handleRefreshData}
@@ -47,3 +49,7 @@ const InformationCard = (props: any) => {
 }
 
 export default InformationCard
+
+
+
+{/* <h4 className="scroll-m-20 text-l font-semibold tracking-tight ">{id.value}</h4> */}

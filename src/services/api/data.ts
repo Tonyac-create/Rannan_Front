@@ -47,7 +47,7 @@ export async function removeData(id: string | undefined) {  //supression d'une d
     }
 }
 
-export async function createData(body: any) {  //créer une data
+export async function createData(body: {}) {  //créer une data
     try {
         const response = await api.post('/api/data', body)
         return response
@@ -75,7 +75,7 @@ export async function getListUsersGroups(target: any) { // Récupération de lis
     }
 }
 
-export async function getShares(target_id: number, target: string) { // Récupérer une liste des datas partagé avec l’utilisateur ou le groupe lié
+export async function getShares(target_id: string | number, target: string) { // Récupérer une liste des datas partagé avec l’utilisateur ou le groupe lié
     try {
         const response = await api.post('/api/datas/target', { target_id, target })
         return response
@@ -109,7 +109,7 @@ export async function createShare(
     }
 }
 
-export async function removeShare(id: number) {  // Supprimer un partage id= share.id
+export async function removeShare(id: string) {  // Supprimer un partage id= share.id
     try {
         const response = await api.delete(`/api/share/${id}`);
         return response
@@ -119,9 +119,9 @@ export async function removeShare(id: number) {  // Supprimer un partage id= sha
     }
 }
 
-export async function removeDataInShare(id: number) {  // Supprimer un partage id= share.id
+export async function removeDataInShare(share_id: string, data_id: string) {  
     try {
-        const response = await api.delete(`/api/datainshare/${id}`);
+        const response = await api.delete(`/api/datainshare/${share_id}/${data_id}`);
         return response
     }
     catch (error) {
@@ -139,7 +139,7 @@ export async function getAllShares() {  // Récuperer tous les partages
     }
 }
 
-export async function getShareById(id: number) {
+export async function getShareById(id: string) {
     try {
         const response = await api.get(`/api/share/${id}`)
         return response

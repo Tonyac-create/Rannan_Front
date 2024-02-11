@@ -4,15 +4,14 @@ import { Button, Textarea, Label, Select, TextInput } from 'flowbite-react';
 
 const MyInformationData = (props: any) => {
 
-    const { action, title, actionData, type, name, value } = props
+    const { action, title, actionData, type, name, value, setOpenModal } = props
 
-    const [newData, setNewData] = useState({ type: 'text', name: name, value: value })
+    const [newData, setNewData] = useState({ type: "text", name: name, value: value })
 
     const handleChange = (event: any) => {
 
         // Récupération de la valeur du champ name et value
         const { name, value } = event.target
-
         setNewData({ ...newData, [name]: value })
     }
 
@@ -28,14 +27,22 @@ const MyInformationData = (props: any) => {
                 <div className="mb-2 block">
                     <Label htmlFor="name" value="Nom" />
                 </div>
-                <TextInput id="name" placeholder="Nom de l'information" onChange={(event) => handleChange(event)} name="name" defaultValue={name} />
-
+                <TextInput
+                    id="name"
+                    placeholder="Nom de l'information"
+                    onChange={(event) => handleChange(event)}
+                    name="name"
+                    defaultValue={name} />
             </div>
             <div>
                 <div className='mb-2 block'>
                     <Label htmlFor='type' value='Type:' />
                 </div>
-                <Select id='type' onChange={(event) => handleChange(event)} name="type" defaultValue={type}>
+                <Select
+                    id='type'
+                    onChange={(event) => handleChange(event)}
+                    name="type" >
+                    <option value="">Sélectionner un type</option>
                     <option value='text'>Texte</option>
                     <option value='number'>Numéro</option>
                     <option value='mail'>Email</option>
@@ -46,11 +53,17 @@ const MyInformationData = (props: any) => {
                 <div className="mb-2 block">
                     <Label htmlFor="value" value="Contenu" />
                 </div>
-                <Textarea id="value" placeholder="Description de l'information" onChange={(event) => handleChange(event)} name="value" defaultValue={value} />
+                <Textarea
+                    id="value"
+                    placeholder="Description de l'information"
+                    onChange={(event) => handleChange(event)}
+                    name="value"
+                    defaultValue={value} />
             </div>
 
-            <div className="w-full">
+            <div className="flex w-full">
                 <Button type='submit'>{action}</Button>
+                <Button color='failure' className='ml-2' onClick={() => setOpenModal(undefined)}>Annuler</Button>
             </div>
         </form>
     )

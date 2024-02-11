@@ -8,18 +8,16 @@ import ModalInfo from '../../ModalInfo';
 const BtnCreateInfo = ({ refreshData }: any) => {
 
     const [openModal, setOpenModal] = useState<string | undefined>()
-    const props = { openModal, setOpenModal }
     const action = "Créer"
 
     // Modal qui s'ouvre quand on valide la création
     const [modalValidModify, setModalValidModify] = useState(false)
 
+    // Appel API pour la création d'une data
     const createNewData = async (newData: any) => {
         const dataCreated = await createData(newData)
-        console.log("🚀 ~ file: BtnCreateInfo.tsx:22 ~ createNewData ~ dataCreated:", dataCreated)
         if (dataCreated) {
             setModalValidModify(true)
-            props.setOpenModal('hidden')
             refreshData()
         }
     }
@@ -32,16 +30,16 @@ const BtnCreateInfo = ({ refreshData }: any) => {
                 textInfo="Information créée avec succès"
             />
             {/* Bouton créer dans la modal ouvrante */}
-            <Button onClick={() => props.setOpenModal('form-elements')} >{action}</Button>
+            <Button onClick={() => setOpenModal('form-elements')} >{action}</Button>
 
-            <Modal show={props.openModal === 'form-elements'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
+            <Modal show={openModal === 'form-elements'} size="md" popup onClose={() => setOpenModal(undefined)}>
                 <Modal.Header />
                 <Modal.Body>
                     <MyInformationData
                         title="Formulaire de création de données"
                         action={action}
-                        actionData={createNewData} />
-
+                        actionData={createNewData}
+                        setOpenModal={setOpenModal} />
                 </Modal.Body>
             </Modal>
         </>

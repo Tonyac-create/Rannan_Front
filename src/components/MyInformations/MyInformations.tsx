@@ -19,14 +19,6 @@ const MyInformations = () => {
 
     // Au chargement de la page, appel au back pour récupérer la liste des datas du user connecté
     useEffect(() => {
-        const displayAllInformations = async () => {
-
-            //Récupérer service API getallinformations
-            const datas: any = await getUserDatas()
-            const arrayDatas = datas.data
-            setInformations(arrayDatas)
-        }
-
         displayAllInformations();
     }, [displayAllInformations]);
 

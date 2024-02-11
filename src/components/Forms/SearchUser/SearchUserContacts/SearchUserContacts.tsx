@@ -65,7 +65,6 @@ export const SearchUserContacts = (props: any) => {
             ))}
             </div>
             <div>
-              //! probléme de typage
               <Modal show={openConfirmModal} size="md" onClose={confirmAccept} popup className={requestIsSent === true ? "modal" : "hidden"}> 
                 <Modal.Header />
                 <Modal.Body>
@@ -77,7 +76,6 @@ export const SearchUserContacts = (props: any) => {
                   </div>
                 </Modal.Body>
               </Modal>
-              //! probléme de typage
               <Modal show={openConfirmModal} size="md" onClose={confirmAccept} popup className={requestIsSent === false ? "modal" : "hidden"}> 
                 <Modal.Header />
                 <Modal.Body>

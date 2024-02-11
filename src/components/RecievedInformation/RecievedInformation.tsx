@@ -6,23 +6,24 @@ import { getOneDataById } from '../../services/api/data';
 const RecievedInformation = ({ informationsReceived }: any) => {
 
   const [openModal, setOpenModal] = useState<string | undefined>();
-  const props = { openModal, setOpenModal }
 
   const [ nameData, setNameData ] = useState("")
   const [ valueData, setValueData ] = useState("")
 
-  // Appel API pour récupérer une data et afficher dans la modal
+  // TODO => Appel API pour récupérer les informations partagées entre le user contact et user connecté
+
+  // Appel API pour récupérer une data et afficher le détail dans la modale
   const handleLinkClick = (id: any) => {
     const getData = async () => {
       const data: any = await getOneDataById(id)
-      console.log("🚀 ~ file: RecievedInformation.tsx:18 ~ getData ~ data:", data.name)
-      setNameData(data.name)
-      setValueData(data.value)
+      console.log("🚀 ~ file: RecievedInformation.tsx:18 ~ getData ~ data:", data.data)
+      setNameData(data.data.name)
+      setValueData(data.data.value)
     }
     getData()
 
     // Mise à jour de l'état de la modal
-    props.setOpenModal('dismissible');
+    setOpenModal('dismissible');
   };
 
 
@@ -50,7 +51,7 @@ const RecievedInformation = ({ informationsReceived }: any) => {
                 Détails
               </a>
               {openModal && (
-                <Modal dismissible show={props.openModal === 'dismissible'} onClose={() => props.setOpenModal(undefined)}>
+                <Modal dismissible show={openModal === 'dismissible'} onClose={() => setOpenModal(undefined)}>
                   <InfoModal name={nameData} value={valueData}/>
                 </Modal>
               )}

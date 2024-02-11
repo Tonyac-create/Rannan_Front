@@ -7,7 +7,6 @@ import ModalInfo from '../../ModalInfo';
 
 const BtnDeleteInfo = (props: any) => {
     const [openModal, setOpenModal] = useState<string | undefined>()
-    const prop = { openModal, setOpenModal }
 
     const { id, onClick } = props
 
@@ -20,7 +19,7 @@ const BtnDeleteInfo = (props: any) => {
         
         if (dataDelete) {
             setModalValidDelete(true)
-            prop.setOpenModal('hidden')
+            setOpenModal('hidden')
             onClick()
         }
     }
@@ -32,11 +31,11 @@ const BtnDeleteInfo = (props: any) => {
                 setModalValidModify={setModalValidDelete}
                 textInfo="Information supprimée"
             />
-            <Button color='failure' onClick={() => prop.setOpenModal('default')}>
+            <Button color='failure' onClick={() => setOpenModal('default')}>
                 <span className='sm:hidden'><HiTrash className="h-6 w-6" /></span>
                 <span className='hidden sm:block'>Supprimer</span>
             </Button>
-            <Modal show={prop.openModal === 'default'} size="md" popup onClose={() => prop.setOpenModal(undefined)}>
+            <Modal show={openModal === 'default'} size="md" popup onClose={() => setOpenModal(undefined)}>
                 <Modal.Header>Êtes vous sur de vouloir supprimer cette donnée?</Modal.Header>
                 <Modal.Body>
                     <div className="space-y-6">
@@ -46,8 +45,8 @@ const BtnDeleteInfo = (props: any) => {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button color="success" onClick={deleteData}>Supprimer</Button>
-                    <Button color="failure" onClick={() => prop.setOpenModal(undefined)}>Annuler</Button>
+                    <Button color="success" onClick={() => setOpenModal(undefined)}>Annuler</Button>
+                    <Button color="failure" onClick={deleteData}>Supprimer</Button>
                 </Modal.Footer>
             </Modal>
         </>

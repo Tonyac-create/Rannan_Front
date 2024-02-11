@@ -112,7 +112,6 @@ const ContactsInvitation = () => {
                   )
                 })
             }
-            //! probléme de typage
             <Modal show={openModal} size="md" onClose={confirmRefusal} popup> 
               <Modal.Header />
               <Modal.Body>
@@ -124,7 +123,6 @@ const ContactsInvitation = () => {
                 </div>
               </Modal.Body>
             </Modal>
-            //! probléme de typage
             <Modal show={openAcceptModal} size="md" onClose={confirmAccept} popup> 
               <Modal.Header />
               <Modal.Body>

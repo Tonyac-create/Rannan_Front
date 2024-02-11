@@ -33,14 +33,14 @@ const Profile = () => {
     const idProfile = Number(id)
     const displayDatas = async () => {
       const datas: any = await getShares(idProfile, "user")
-      const arrayDatas = datas.data.data
+      const arrayDatas = datas.data
       setInformationsShare(arrayDatas)
     }
-    
+
     // Appel API pour infos partagées appartenant au userProfil
     const displayDatasReceived = async () => {
       const datas: any = await getSharesBetweenUsers(idProfile)
-      const arrayDatas = datas.data.data
+      const arrayDatas = datas.data
       setInformationsReceived(arrayDatas)
     }
 
@@ -57,11 +57,11 @@ const Profile = () => {
         <div className="profile flex flex-col sm:flex-row p-4 sm:align-baseline gap-2">
           <div className="sm:w-1/3 flex flex-col items-center gap-3 rounded-md p-4 shadow-xl">
             <AvatarCard cardFor={"profile"} userProfile={user} />
-            <ProfileRelation userName={user.nickname}/>
+            <ProfileRelation userName={user.nickname} />
           </div>
 
           <div className="profile informationSection flex flex-col sm:flex-row sm:w-2/3">
-            <SharedInformation informationsShare={informationsShare} />
+            <SharedInformation informationsShare={informationsShare} setInformationsShare={setInformationsShare} />
             <RecievedInformation informationsReceived={informationsReceived} />
           </div>
         </div>
