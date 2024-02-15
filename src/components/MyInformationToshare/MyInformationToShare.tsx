@@ -41,6 +41,7 @@ function MyInformationToShare({ targetId, seeList, newUserId, setOpenModal }: an
 
     // Créer un partage de donnée
     const shareData = async (data_id: string) => {
+        console.log("🚀 ~ shareData ~ data_id:", data_id)
         if (newUserId) {
             // Appel API createShare()
             const dataToShared: any = await createShare(newUserId, data_id, seeList)
@@ -51,7 +52,6 @@ function MyInformationToShare({ targetId, seeList, newUserId, setOpenModal }: an
             }
         } else {
             const dataToShared: any = await createShare(targetId, data_id, seeList)
-            // console.log("🚀 ~ file: MyInformationToShare.tsx:45 ~ shareData ~ dataToShared:", dataToShared)
 
             if (dataToShared) {
                 setModalValidModify(true)

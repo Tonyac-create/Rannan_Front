@@ -194,7 +194,10 @@ const Shares = () => {
                         ) : (
                           arrayGroup.map((element: any) => (
                             <ListGroup key={element.id}>
-                              <ListGroup.Item onClick={() => displayInformation(element.id)}>
+                              <ListGroup.Item onClick={() => {
+                                displayInformation(element.id)
+                                setAddButtonClicked(true)
+                              }}>
                                 {element.name}
                               </ListGroup.Item>
                             </ListGroup>
