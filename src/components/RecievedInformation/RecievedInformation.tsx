@@ -16,7 +16,6 @@ const RecievedInformation = ({ informationsReceived }: any) => {
   const handleLinkClick = (id: any) => {
     const getData = async () => {
       const data: any = await getOneDataById(id)
-      console.log("🚀 ~ file: RecievedInformation.tsx:18 ~ getData ~ data:", data.data)
       setNameData(data.data.name)
       setValueData(data.data.value)
     }

@@ -2,20 +2,22 @@ import UserList from "../UserList/UserList"
 import { Button, ListGroup, Modal } from "flowbite-react"
 import { useEffect, useState } from "react"
 import { getGroupDetail, removeMemberGroup } from "../../services/api/groups"
+import { getOneDataById, getShares } from "../../services/api/data"
 
 
 const GroupDetail = (props: any) => {
   const { role, selectedGroup, setDel, seeSetting, seeDelete } = props
   const user_id = localStorage.getItem("user.id")
   const [ memberList, setMemberList ] = useState<[{id: number, nickname: string}]|null>(null)
-  const [ dataList, setDataList ] = useState<[{id: number, name: string, value: any}]|null>(null)
+  const [ dataList, setDataList ] = useState<[{_id: number, name: string, value: any}]|null>(null)
   const [openModal, setOpenModal] = useState(false)
 
 useEffect(() => {
-  const fetchData = async () => {
+  const fetchData = async () => {   
     const response = await getGroupDetail(selectedGroup.id)
+    console.log("🚀 ~ fetchData ~ response:", response)
     setMemberList(response.memberList)
-    setDataList(response.dataList)
+    setDataList(response.data.dataList)
   }
   fetchData()
 }, [selectedGroup])
@@ -70,7 +72,7 @@ const handleDelete = (event: any) => {
               </ListGroup.Item>
               {dataList && dataList.map((data) => {
                 return (
-                  <ListGroup.Item key={data.id}>
+                  <ListGroup.Item key={data._id}>
                     <span>{data.name} / {data.value}</span>
                   </ListGroup.Item>
                 )

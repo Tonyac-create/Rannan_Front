@@ -14,27 +14,25 @@ const Shares = () => {
   const [openModal, setOpenModal] = useState<string | undefined>()
 
   // Header de la liste des users et groups boutons cliquables pour avoir soit users soit groups
-  // Un appel au chargement de la page pour avoir les users avec qui on partage
-
   const [seeList, setSeeList] = useState("user")
 
   const handleSeeList = async (role: string) => {
     setSeeList(role)
-    const displayUsers: any = await getListUsersGroups("user")
-    if (role === "user") {
-      // Récupére les datas partagées avec le premier user de la liste
-      firstUserList = displayUsers.data[0] // Objet = {id: number, nickname=string}
-      const idUser = firstUserList.id
-      // Appel API pour récupérer les datas du 1er user du tableau
-      const displayDatas: any = await getShares(idUser, "user")
-      const arrayDatas = displayDatas.data.data
-      setInformation(arrayDatas)
-    }
+    // const displayUsers: any = await getListUsersGroups("user")
+    // if (role === "user") {
+    //   // Récupére les datas partagées avec le premier user de la liste
+    //   firstUserList = displayUsers.data[0]
+    //   const idUser = firstUserList.id
+    //   // Appel API pour récupérer les datas du 1er user du tableau
+    //   const displayDatas: any = await getShares(idUser, "user")
+    //   const arrayDatas = displayDatas.data.data
+    //   setInformation(arrayDatas)
+    // }
   }
-
 
   // Récupérer et afficher les noms des groups
   const [arrayGroup, setArrayGroup] = useState([] as any)
+
   const listNameGroup = async () => {
     // Va chercher les groupes avec partage
     const displayGroup: any = await getListUsersGroups("group")
@@ -60,7 +58,7 @@ const Shares = () => {
   // Récupérer et afficher les noms des users
   const [arrayUsers, setArrayUsers] = useState([] as any)
 
-  // Afficher les informations liés au user
+  // Afficher les informations partagées liés au user
   const [information, setInformation] = useState([] as any)
 
   let firstUserList: any
@@ -89,14 +87,13 @@ const Shares = () => {
         setInformation(arrayDatas)
       }
     }
-
     displayUserWithShare()
   }, [])
 
 
   // id récupérer d'un user déjà existant dans la liste
   const [targetId, setTargetId] = useState(null)
-  const [userTest, setUserTest] = useState("")
+  const [_userTest, setUserTest] = useState("")
   // id récupérer quand il ya un ajout d'un new user dans la liste
   const [newUserIdList, setNewUserIdList] = useState("")
 
@@ -123,10 +120,6 @@ const Shares = () => {
     setInformation(arrayDatas)
   }
 
-  // // Prend le dernier élément du tableau
-  // const shareId = await result[result.length - 1].share_id
-  // setLastShareId(shareId)
-
   // Sélection d'une data
   const [checkedData, setCheckedData] = useState<any[]>([])
 
@@ -136,40 +129,6 @@ const Shares = () => {
     } else {
       setCheckedData([...checkedData, data])
     }
-
-    // Récupération et conversion de l'id user connecté
-    const idUserConnected = localStorage.getItem('user.id')
-    const parseIdUserconnected = Number(idUserConnected)
-
-    const share = await getShares(userTest, "user")
-
-    // // Récupère toute les shares
-    // const allShares: any = await getAllShares()
-    // // console.log("🚀 ~ displayInformation ~ allShares:", allShares.data)
-
-    // // // Map pour récupèrer les ids et shareids
-    // const shareBetweenUsers = allShares.data.map((share: any) => {
-    //   // console.log("🚀 ~ file: Shares.tsx:133 ~ displayInformation ~ share:", share)
-    //   return ({ target_id: share.target_id, owner_id: share.owner_id, share_id: share._id })
-    // })
-    // // console.log("🚀 ~ file: Shares.tsx:133 ~ displayInformation ~ shareBetweenUsers:", shareBetweenUsers)
-    // console.log("userTest", userTest);
-    // // Filtre pour récupérer les shares entre les deux ids
-    // const result = shareBetweenUsers.filter((ids: any) => {
-    //   // console.log("🚀 ~ file: Shares.tsx:137 ~ displayInformation ~ ids:", ids)
-    //   return userTest === ids.target_id && parseIdUserconnected === ids.owner_id
-    // })
-    // // console.log("🚀 ~ file: Shares.tsx:136 ~ displayInformation ~ result:", result)
-    // const mapObjets = new Map()
-    // result.forEach((objet: any) => {
-    //   mapObjets.set(objet.owner_id, objet.share_id);
-    // });
-
-    // const shareId = mapObjets.get(parseIdUserconnected)
-    // // console.log("Valeur de share_id :", shareId)
-
-    // const share: any = await getShareById(shareId)
-    // // console.log("🚀 ~ handleChecked ~ share:", share._id)
 
   }
 

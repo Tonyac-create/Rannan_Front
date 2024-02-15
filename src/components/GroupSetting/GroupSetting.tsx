@@ -14,14 +14,15 @@ const GroupSetting = (props: any) => {
   const [ seeSearch, setSeeSearch ] = useState(false)
   
   // Récupére les données de db.json (a changer pour l'appel API du BACK)
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
         // Appel des informations necessaires
           const response = await getGroupDetailForSetting(selectedGroup.id)
+          console.log("🚀 ~ fetchData ~ response:", response)
         // Scinde les listes récupéré
-          setMemberList(response.memberList)
-          setContactList(response.contactList)
+          setMemberList(response.data.memberList)
+          setContactList(response.data.contactList)
         } catch (error) {
           console.log("Error :", error)
         }

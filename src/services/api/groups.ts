@@ -41,7 +41,7 @@ export async function getCreatorGroupList(){
     }
 }
 
-export async function getGroupDetail(id: string){
+export async function getGroupDetail(id: number | string){
     try{
         const received = await api.get(`/api/group/${id}`);
         const response = received.data
@@ -63,7 +63,7 @@ export async function removeGroup(id: string){
     }
 }
 
-export async function getGroupDetailForSetting(id: string){
+export async function getGroupDetailForSetting(id: number){
     try{
         const received = await api.get(`/api/group/${id}/setting`);
         const response = received.data
