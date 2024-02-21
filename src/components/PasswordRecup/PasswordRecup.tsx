@@ -5,14 +5,11 @@ import { resetPassword } from '../../services/api/users';
 function PasswordRecup() {
 
     const [openModal, setOpenModal] = useState<string | undefined>();
-    const props = { openModal, setOpenModal };
     const [ email, setEmail ] = useState("")
 
     const handleSubmit = async (event: any) => {
         event.preventDefault()
-        if ( email === "" ) {
-            return setOpenModal("error")
-        }
+        
         const response = await resetPassword(email)
         if (!response.status) {
             return setOpenModal("notFound")
@@ -44,7 +41,7 @@ function PasswordRecup() {
                     Envoyer ma demande
                 </Button>
             </form>
-            <Modal show={props.openModal === 'default'} onClose={() => props.setOpenModal(undefined)}>
+            <Modal show={openModal === 'default'} onClose={() => setOpenModal(undefined)}>
                 <Modal.Header>Email envoyé</Modal.Header>
                 <Modal.Body className="space-y-6">
                     <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
@@ -53,23 +50,14 @@ function PasswordRecup() {
                     <Button href={"/login"}>retour a l'accueil</Button>
                 </Modal.Body>
             </Modal>
-            <Modal show={props.openModal === 'error'} onClose={() => props.setOpenModal(undefined)}>
-                <Modal.Header>Email envoyé</Modal.Header>
-                <Modal.Body className="space-y-6">
-                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                        Veuillez entrer un email svp.
-                    </p>
-                    <Button href={"#"} onClick={() => props.setOpenModal(undefined)}>fermer</Button>
-                </Modal.Body>
-            </Modal>
-            <Modal show={props.openModal === 'notFound'} onClose={() => props.setOpenModal(undefined)}>
-                <Modal.Header>Email envoyé</Modal.Header>
+            <Modal show={openModal === 'notFound'} onClose={() => setOpenModal(undefined)}>
+                <Modal.Header>Erreur email</Modal.Header>
                 <Modal.Body className="space-y-6">
                     <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                         L'email renseigné n'est pas lié a un compte.
                     </p>
                     <div className='flex gap-4'>
-                        <Button href={"#"} onClick={() => props.setOpenModal(undefined)}>fermer</Button>
+                        <Button href={"#"} onClick={() => setOpenModal(undefined)}>fermer</Button>
                         <Button href={"/login"}>retour a l'accueil</Button>
                     </div>
                 </Modal.Body>

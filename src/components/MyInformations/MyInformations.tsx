@@ -17,7 +17,7 @@ const MyInformations = () => {
         setInformations(arrayDatas);
     }, []);
 
-    // Au chargement de la page, appel au back pour récupérer la liste des datas du user connecté
+    // Au chargement de la page, appel au back pour récupérer la liste des datas du user connecté 
     useEffect(() => {
         displayAllInformations();
     }, [displayAllInformations]);
@@ -27,9 +27,10 @@ const MyInformations = () => {
             <div className='myInformations__box rounded-md p-2 shadow-xl flex flex-col gap-4'>
                 <h3 className="scroll-m-20 border-b pb-2 text-xl font-semibold tracking-tight transition-colors first:mt-0 sm:text-2xl">Vos informations :</h3>
                 {
-                    informations.length > 0 ? informations.map((data: any) => {
+                    informations.length > 0 ? informations.map((data: any, index: number) => {
                         return (
                             <InformationCard
+                                key={index}
                                 id={data}
                                 name={data.value}
                                 value={data.name}

@@ -87,7 +87,7 @@ const ContactsInvitation = () => {
           <div className='sentRequestsList flex flex-col gap-2'>
             { sentReq === undefined || sentReq === null || sentIs0 === true
               ?
-              <p>Pas de requêtes envoyées à afficher.</p>
+              <p>Pas de requêtes envoyées.</p>
               :
               sentReq.map((validation: any) => {
                 return(
@@ -104,7 +104,7 @@ const ContactsInvitation = () => {
           <div className='recievedRequestsList flex flex-col gap-2'>
             { recievedReq === undefined || recievedReq === null || recievedIs0 === true
               ?
-              <p>Pas de requêtes reçues à afficher.</p>
+              <p>Pas de requêtes reçues.</p>
               :
                 recievedReq.map((validation: any) => {
                   return(

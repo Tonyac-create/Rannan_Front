@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import ContactCard from './ContactCard/ContactCard';
 import ModalAddContact from './CL-ModalAddContact/ModalAddContact';
 import { getAllContacts } from '../../services/api/contacts';
+import { Contact, ContactList } from '../../interfaces/interfaceContact';
 
 const ContactsList = () => {
     //Récupérer la liste des contacts
@@ -12,11 +13,13 @@ const ContactsList = () => {
     
     useEffect(() => {
         const displayAllContacts = async() => {
-            const response: any = await getAllContacts();
+            const a: unknown = await getAllContacts();
+            const response: Contact = a as Contact
             if ( response.status === true ) { //! AJOUT pour enlever l'erreur lors d'absence de données.
-                const contactList = await response.data;
-                const contactList1 = await contactList.allUserOne;
-                const contactList2 = await contactList.allUserTwo;
+                const b: unknown = response.data;
+                const contactList: ContactList = b as ContactList
+                const contactList1 = contactList.allUserOne;
+                const contactList2 = contactList.allUserTwo;
                 setContacts1(contactList1);
                 setContacts2(contactList2);
             }

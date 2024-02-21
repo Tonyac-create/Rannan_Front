@@ -3,7 +3,7 @@ const api = useApi();
 
 export async function userConnected(){
     try{
-        const received = await api.get('/api');
+        const received = await api.get('/api')
         const response = received.data
         return response
     }
@@ -14,7 +14,7 @@ export async function userConnected(){
 
 export async function resetPassword(body: any){
     try{
-        const received = await api.post('/user/reset', {email: body});
+        const received = await api.post('/user/reset', {email: body})
         const response = received.data
         return response
     }

@@ -74,7 +74,7 @@ const Login = () => {
             <div className="text-center">
               <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
               <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                Une erreur est survenu lors du traitement de votre demande, veuillez rafraichir la page.
+                Une erreur est survenu lors du traitement de votre demande, veuillez vous reconnectez.
               </h3>
             </div>
           }

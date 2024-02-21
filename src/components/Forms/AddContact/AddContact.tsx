@@ -1,9 +1,10 @@
 import SearchUser from '../SearchUser/SearchUser'
 
-const AddContact = () => {
+const AddContact = (props: any) => {
+  const {setOpenModal} = props
   return (
     <div>
-      <SearchUser />
+      <SearchUser setOpenModal={setOpenModal}/>
     </div>
   )
 }

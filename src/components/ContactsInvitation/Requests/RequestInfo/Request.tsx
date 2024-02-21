@@ -7,25 +7,30 @@ import { deleteValidation } from '../../../../services/api/contacts';
 const RequestInfo = (props: { id: string; nickname: string; }) => {
   const { id, nickname } = props;
   const [openModal, setOpenModal] = useState(false);
-  const [ targetId, setTargetId ] = useState();
+  const [ targetId, setTargetId ] = useState('');
+  const [isDeleted, setIsDeleted] = useState(false)
 
-  const openDeleteModal = (e: Event) => {
-    const target = (((((e.currentTarget).parentNode).parentNode).parentNode).parentNode).parentNode; //! typage+".parentNode" n'existe pas dans EventTarget
-    const target_id = target.id;
-    console.log(target_id);
-    setTargetId(target_id);
-    setOpenModal(true)
+  const openDeleteModal = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const target = (e.currentTarget as HTMLElement).closest('.alert')
+    if (target) {
+      const target_id = target.id
+      setTargetId(target_id);
+      setOpenModal(true);
+  } else {
+      console.error('Target not found');
+  }
   }
 
   const handleDelete = async(e: Event) => {
     e.preventDefault();
-    await deleteValidation(targetId);
-    setOpenModal(false);
-    window.location.reload();
+    await deleteValidation(targetId)
+    setIsDeleted(true)
+    setOpenModal(false)
   }
 
   return (
-    <Alert color="warning" withBorderAccent id={id}>
+    !isDeleted && 
+    <Alert className='alert' color="warning" withBorderAccent id={id}>
         <p className='flex flex-row justify-evenly content-center gap-3'>
             <span className='flex flex-row gap-1'>
                 <span>User:</span>
@@ -36,9 +41,13 @@ const RequestInfo = (props: { id: string; nickname: string; }) => {
                 <span>En attente</span>
             </span>
             <span className='flex flex-row gap-1'>
-              <Button color="failure" size="xs" onClick={() => openDeleteModal}>Supprimer</Button>
+              <Button color="failure" size="xs" onClick={(e) => openDeleteModal(e)}>Supprimer</Button>
               <Modal show={openModal} size="md" onClose={() => setOpenModal(false)} popup>
-                <DeleteModal  deleteRequest={handleDelete} closeModal={() => setOpenModal(false)}/>
+                <DeleteModal  deleteRequest={handleDelete} closeModal={() => {
+                  setOpenModal(false)
+                  
+                  }
+                  }/>
               </Modal>
             </span>    
         </p>

@@ -17,6 +17,7 @@ const BtnCreateInfo = ({ refreshData }: any) => {
     const createNewData = async (newData: any) => {
         const dataCreated = await createData(newData)
         if (dataCreated) {
+            setOpenModal(undefined)
             setModalValidModify(true)
             refreshData()
         }

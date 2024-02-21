@@ -7,7 +7,7 @@ import { SearchUserList } from './SearchUserList/SearchUserList';
 import { userSearch } from '../../../services/api/users';
 import { SearchUserContacts } from './SearchUserContacts/SearchUserContacts';
 
-const SearchUser = ({ arrayUsers, setArrayUsers }: any) => {
+const SearchUser = ({ arrayUsers, setArrayUsers, setOpenModal }: any) => {
     const [ isContactPage, setIsContactPage ] = useState(false);
     const [ isHomePage, setIsHomePage ] = useState(false);
     const [ inputText, setInputText ] = useState<string>("");
@@ -81,7 +81,7 @@ const SearchUser = ({ arrayUsers, setArrayUsers }: any) => {
             :
             <div>
               { isContactPage === true || isHomePage === true ?
-                <SearchUserContacts usersFound={usersResponse} />
+                <SearchUserContacts usersFound={usersResponse} setOpenModal={setOpenModal}/>
                 :
                 <SearchUserList usersFound={usersResponse} arrayUsers={arrayUsers} setArrayUsers={setArrayUsers}/>
               }
