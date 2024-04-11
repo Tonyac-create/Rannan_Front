@@ -1,9 +1,9 @@
 import { Button, Checkbox, Label } from 'flowbite-react'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { createShare, getUserDatas } from '../../services/api/data';
 import ModalInfo from '../MyInformations/ModalInfo';
 
-function MyInformationToShare({ targetId, seeList, newUserId, setOpenModal }: any) {
+function MyInformationToShare({ targetId, seeList, newUserId, setOpenModal, displayUserWithShare }: any) {
 
     // Modal qui s'ouvre quand on valide la création
     const [modalValidModify, setModalValidModify] = useState(false)
@@ -22,7 +22,6 @@ function MyInformationToShare({ targetId, seeList, newUserId, setOpenModal }: an
             setInformations(arrayDatas);
             // }
         }
-
         displayAllInformations();
     }, [])
 
@@ -41,18 +40,17 @@ function MyInformationToShare({ targetId, seeList, newUserId, setOpenModal }: an
 
     // Créer un partage de donnée
     const shareData = async (data_id: string) => {
-        console.log("🚀 ~ shareData ~ data_id:", data_id)
         if (newUserId) {
             // Appel API createShare()
             const dataToShared: any = await createShare(newUserId, data_id, seeList)
             // console.log("🚀 ~ file: MyInformationToShare.tsx:43 ~ shareData ~ dataToShared:", dataToShared)
             if (dataToShared) {
                 setModalValidModify(true)
+                displayUserWithShare()
                 setShareId(dataToShared.data._id)
             }
         } else {
             const dataToShared: any = await createShare(targetId, data_id, seeList)
-
             if (dataToShared) {
                 setModalValidModify(true)
                 setShareId(dataToShared.data._id)

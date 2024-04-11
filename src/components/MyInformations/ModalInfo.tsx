@@ -2,7 +2,7 @@ import { Button, Modal } from 'flowbite-react'
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
 
 
-function ModalInfo({ modalValidModify, setModalValidModify, textInfo }: any) {
+function ModalInfo({ modalValidModify, setModalValidModify, textInfo, setOpenModal }: any) {
     return (
         <Modal show={modalValidModify} onClose={() => setModalValidModify(false)} size="md">
             <Modal.Body>
@@ -14,6 +14,7 @@ function ModalInfo({ modalValidModify, setModalValidModify, textInfo }: any) {
                     <div className="flex justify-center gap-4">
                         <Button onClick={() => {
                             setModalValidModify(false)
+                            setOpenModal(undefined)
                         }
                         }>
                             Ok

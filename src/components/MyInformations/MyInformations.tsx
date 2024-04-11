@@ -5,19 +5,17 @@ import { getUserDatas } from '../../services/api/data';
 
 const MyInformations = () => {
 
-    //Récupérer et afficher la liste des datas
     const [informations, setInformations] = useState([]);
 
     const displayAllInformations = useCallback(async () => {
-
-        //Récupérer service API getallinformations
+        //appel API pour récupérer les datas du user connecté
         const datas: any = await getUserDatas()
         const arrayDatas = datas.data
-
         setInformations(arrayDatas);
     }, []);
 
-    // Au chargement de la page, appel au back pour récupérer la liste des datas du user connecté 
+    // Au chargement de la page, appel de la fonction
+    // Quand user crée une data, MAJ de la liste des datas affichées
     useEffect(() => {
         displayAllInformations();
     }, [displayAllInformations]);

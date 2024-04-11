@@ -22,7 +22,7 @@ const GroupDetail = (props: any) => {
       setDataList(response.data.dataList)
     }
     fetchData()
-  }, [selectedGroup])
+  }, [selectedGroup, dataList])
 
   const handleLeave = async () => {
     await removeMemberGroup(selectedGroup.id, { user_id })
@@ -57,7 +57,22 @@ const GroupDetail = (props: any) => {
             <div className="flex flex-col items-center lg:flex-row lg:justify-around w-full md:w-1/2 gap-1 space-x-1">
               <Button size="xs" className="whitespace-pre" onClick={(event) => handleDelete(event)}>Supprimer le groupe</Button>
               <Button size="xs" className="whitespace-pre" onClick={(event) => handleSetting(event)}>Modifier le groupe</Button>
-              <Button size="xs" className="whitespace-pre" href={`/shares`}>Modifier mes partages</Button>
+              <Button
+                size="xs"
+                className="whitespace-pre"
+                onClick={() => setOpenModalShare(true)}
+              >
+                Ajouter un partage</Button>
+              <Modal show={openModalShare === true} size="md" popup onClose={() => setOpenModalShare(false)}>
+                <Modal.Header />
+                <Modal.Body>
+                  <MyInformationToShare
+                    targetId={selectedGroup.id}
+                    seeList={"group"}
+                    setOpenModalShare={setOpenModalShare}
+                  />
+                </Modal.Body>
+              </Modal>
             </div>
           )}
           {role === "member" && (
@@ -86,7 +101,7 @@ const GroupDetail = (props: any) => {
             {memberList && <UserList listFor="Members" list={memberList} />}
 
             <ListGroup className="w-full">
-              <ListGroup.Item active href="/list-group">
+              <ListGroup.Item active>
                 <p>Informations Partagés</p>
               </ListGroup.Item>
               {dataList && dataList.map((data) => {

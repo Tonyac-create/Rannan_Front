@@ -1,7 +1,7 @@
 import { Button, Label, Checkbox, Modal } from 'flowbite-react';
 import { ListGroup } from 'flowbite-react';
 import Layout2 from '../../components/Layouts/Layout2';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import MyInformationToShare from '../../components/MyInformationToshare/MyInformationToShare';
 import { getListUsersGroups, getShares } from '../../services/api/data';
 import BtnDeleteShare from '../../components/MyInformations/MI-Boutons/BtnDeleteShare/BtnDeleteShare';
@@ -18,22 +18,19 @@ const Shares = () => {
 
   const handleSeeList = async (role: string) => {
     setSeeList(role)
-    // const displayUsers: any = await getListUsersGroups("user")
-    // if (role === "user") {
-    //   // Récupére les datas partagées avec le premier user de la liste
-    //   firstUserList = displayUsers.data[0]
-    //   const idUser = firstUserList.id
-    //   // Appel API pour récupérer les datas du 1er user du tableau
-    //   const displayDatas: any = await getShares(idUser, "user")
-    //   const arrayDatas = displayDatas.data.data
-    //   setInformation(arrayDatas)
-    // }
+    console.log("information : ", information);
+    
+    console.log("🚀 ~ handleSeeList ~ role:", role)
+    if (role === "user") {
+      setInformation([])
+    }
   }
 
   // Récupérer et afficher les noms des groups
   const [arrayGroup, setArrayGroup] = useState([] as any)
 
   const listNameGroup = async () => {
+    setInformation([])
     // Va chercher les groupes avec partage
     const displayGroup: any = await getListUsersGroups("group")
     // Récupère id et name de chaque groupe
@@ -66,29 +63,29 @@ const Shares = () => {
   const [shareId, setshareId] = useState("")
 
   // Au chargement ou rafraichissement de la page
-  useEffect(() => {
-    const displayUserWithShare = async () => {
+  const displayUserWithShare = useCallback(async () => {
 
-      // Récupére la liste des users avec qui on a des partages
-      const displayUsers: any = await getListUsersGroups("user")
-      if (displayUsers.length > 0) {
-        let userNicknames: any[] = []
-        for (const userId of displayUsers) {
-          // Faire un appel API pour chaque userId
-          const apiResponse = await getProfile(userId)
-          userNicknames.push({ id: userId, name: apiResponse.data.nickname })
-        }
-        setArrayUsers(userNicknames);
-        // Appel API pour récupérer les datas du 1er user du tableau
-        firstUserList = displayUsers[0]
-        const displayDatas: any = await getShares(firstUserList, "user")
-        const arrayDatas = displayDatas.data
-        setshareId(arrayDatas[0].idShare)
-        setInformation(arrayDatas)
+    // Récupére la liste des users avec qui on a des partages
+    const displayUsers: any = await getListUsersGroups("user")
+    if (displayUsers.length > 0) {
+      let userNicknames: any[] = []
+      for (const userId of displayUsers) {
+        // Faire un appel API pour chaque userId
+        const apiResponse = await getProfile(userId)
+        userNicknames.push({ id: userId, name: apiResponse.data.nickname })
       }
+      setArrayUsers(userNicknames);
+      // Appel API pour récupérer les datas du 1er user du tableau
+      firstUserList = displayUsers[0]
+      const displayDatas: any = await getShares(firstUserList, "user")
+      const arrayDatas = displayDatas.data
+      setInformation(arrayDatas)
     }
-    displayUserWithShare()
   }, [])
+  useEffect(() => {
+
+    displayUserWithShare()
+  }, [displayUserWithShare])
 
 
   // id récupérer d'un user déjà existant dans la liste
@@ -117,6 +114,7 @@ const Shares = () => {
     // Récupére les datas partagées entre les deux users quand click sur le nom de l'utilisateur
     const displayDatas: any = await getShares(id, seeList)
     const arrayDatas = displayDatas.data
+    setshareId(arrayDatas[0].idShare)
     setInformation(arrayDatas)
   }
 
@@ -140,7 +138,7 @@ const Shares = () => {
       <Layout2>
         <section className="flex justify-center p-8">
 
-          <h2 className="text-3xl font-medium">Mes Partages <br /> <span className='text-xl font-medium'>Cliquez sur un utilisateur pour partager une information ou la supprimer le partage d'une information</span> </h2>
+          <h2 className="text-3xl font-medium">Mes Partages <br /> <span className='text-xl font-medium'>Cliquez sur un utilisateur pour partager une information ou supprimer le partage d'une information</span> </h2>
         </section>
 
         {arrayUsers && (
@@ -257,6 +255,7 @@ const Shares = () => {
                     seeList={seeList}
                     newUserId={newUserIdList}
                     setOpenModal={setOpenModal}
+                    displayUserWithShare={displayUserWithShare}
                   />
                 </Modal.Body>
               </Modal>

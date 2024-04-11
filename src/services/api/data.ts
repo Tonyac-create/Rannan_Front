@@ -52,8 +52,13 @@ export async function createData(body: {}) {  //créer une data
         const response = await api.post('/api/data', body)
         return response
     }
-    catch (error) {
-        return error
+    catch (error: any) {
+        console.log("🚀 ~ createData ~ error:", error)
+        if (error.response.status === 500) {
+            console.error('Erreur lors de la création de la data : une erreur interne du serveur est survenue.');
+        } else {
+            console.error('Erreur inattendue lors de la création de la data.');
+        }
     }
 }
 
@@ -87,7 +92,7 @@ export async function getShares(target_id: string | number, target: string) { //
 
 export async function getSharesBetweenUsers(userId_profile: number) {
     try {
-        const response = await api.post('/api/datas/profile', {userId_profile});
+        const response = await api.post('/api/datas/profile', { userId_profile });
         return response
     }
     catch (error) {
@@ -101,7 +106,7 @@ export async function createShare(
     target: string
 ) { // Création d'un partage
     try {
-        const response = await api.post('/api/shares', {target_id, data_id, target});
+        const response = await api.post('/api/shares', { target_id, data_id, target });
         return response
     }
     catch (error) {
@@ -119,7 +124,7 @@ export async function removeShare(id: string) {  // Supprimer un partage id= sha
     }
 }
 
-export async function removeDataInShare(share_id: string, data_id: string) {  
+export async function removeDataInShare(share_id: string, data_id: string) {
     try {
         const response = await api.delete(`/api/datainshare/${share_id}/${data_id}`);
         return response
@@ -148,12 +153,12 @@ export async function getShareById(id: string) {
     }
 }
 
-export async function removeShareByUsers(id: number){
-    try{
+export async function removeShareByUsers(id: number) {
+    try {
         const response = await api.delete(`/api/share/user/${id}`)
         return response
     }
-    catch(error){
+    catch (error) {
         return error
     }
 }

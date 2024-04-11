@@ -4,20 +4,21 @@ import { removeDataInShare } from '../../../../services/api/data'
 import ModalInfo from '../../ModalInfo'
 
 function BtnDeleteShare({ idToShare, disabled, dataId }: any) {
+    console.log("🚀 ~ BtnDeleteShare ~ idToShare:", idToShare)
     const [openModalDeleteShare, setOpenModalDeleteShare] = useState(false)
 
     // Modal qui s'ouvre quand on valide la création
-    const [modalValidDelete, setModalValidDelete] = useState(false)
+    const [_modalValidModify, setModalValidModify] = useState(false)
     const [modalErrorDelete, setModalErrorDelete] = useState(false)
-
+    
     const deleteShare = async () => {
-        setOpenModalDeleteShare(false)
-        await removeDataInShare(idToShare, dataId)
-
+        const dataDelete = await removeDataInShare(idToShare, dataId)
+        console.log("🚀 ~ deleteShare ~ dataDelete:", dataDelete)
+        setModalValidModify(true)
         // if (shareToRemove.data.status === 404 && shareToRemove.status === 200) {
         //     setModalErrorDelete(true)
         // } else if (shareToRemove) {
-        //     setModalValidModify(true)
+        // setModalValidDelete(true)
         // }
     }
 
@@ -49,7 +50,7 @@ function BtnDeleteShare({ idToShare, disabled, dataId }: any) {
                     </Modal>
 
                     <ModalInfo
-                        setModalValidDelete={setModalValidDelete}
+                        setModalValidModify={setModalValidModify}
                         textInfo="Partage supprimée avec succès"
                     />
                     <ModalInfo

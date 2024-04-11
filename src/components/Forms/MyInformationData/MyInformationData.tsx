@@ -4,17 +4,17 @@ import { Button, Textarea, Label, Select, TextInput } from 'flowbite-react';
 
 const MyInformationData = (props: any) => {
 
-    const { action, title, actionData, type, name, value, setOpenModal } = props
-
+    const { action, title, actionData, name, value, setOpenModal } = props
     const [newData, setNewData] = useState({ type: "text", name: name, value: value })
 
+    // Fonction pour les champs
     const handleChange = (event: any) => {
-
         // Récupération de la valeur du champ name et value
         const { name, value } = event.target
         setNewData({ ...newData, [name]: value })
     }
-
+    
+    // soumission du formulaire pour la création de la data
     const handleSubmit = async (event: any) => {
         event.preventDefault()
         actionData(newData)
@@ -25,9 +25,10 @@ const MyInformationData = (props: any) => {
             <h3 className="text-xl font-medium text-gray-900 dark:text-white">{action} une donnée</h3>
             <div>
                 <div className="mb-2 block">
-                    <Label htmlFor="name" value="Nom" />
+                    <Label htmlFor="name" value="Nom *" />
                 </div>
                 <TextInput
+                    required
                     id="name"
                     placeholder="Nom de l'information"
                     onChange={(event) => handleChange(event)}
@@ -51,9 +52,10 @@ const MyInformationData = (props: any) => {
             </div>
             <div>
                 <div className="mb-2 block">
-                    <Label htmlFor="value" value="Contenu" />
+                    <Label htmlFor="value" value="Contenu *" />
                 </div>
                 <Textarea
+                    required
                     id="value"
                     placeholder="Description de l'information"
                     onChange={(event) => handleChange(event)}
